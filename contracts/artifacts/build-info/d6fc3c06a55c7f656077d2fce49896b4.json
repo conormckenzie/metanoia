@@ -1,0 +1,399 @@
+{
+	"id": "d6fc3c06a55c7f656077d2fce49896b4",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.1",
+	"solcLongVersion": "0.8.1+commit.df193b15",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"contracts/Founding Settlers list.sol": {
+				"content": "//SPDX-License-Identifier: MIT\r\n\r\n/* RELEASE NOTES:\r\n    This contract is is only to be used for the initial Metanoia Settler's NFT mint\r\n     - it is a cheaper and simpler alternative to using Chainlink. This is fine \r\n     for the initial Metanoia Settler's NFT mint since that contract is a\r\n     one-time use contract.   \r\n\r\n    This contract is a data-only file.\r\n*/\r\n\r\npragma solidity 0.8.1;\r\n\r\ncontract FoundingSettlersList {\r\n\r\n    struct addressList {\r\n        uint size;\r\n        mapping(uint => address) addressList;\r\n    }\r\n    \r\n\r\n    // This variable will be populated using a script that converts a list into the\r\n    // proper format\r\n\r\n    // Format:\r\n    // foundingSettlersList[/*INSERT ADDRESS 1 HERE*/] = 1;\r\n    // foundingSettlersList[/*INSERT ADDRESS 2 HERE*/] = 1;\r\n    // ...\r\n    // foundingSettlersList[/*INSERT ADDRESS ... HERE*/] = 1;\r\n}"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"contracts": {
+			"contracts/Founding Settlers list.sol": {
+				"FoundingSettlersList": {
+					"abi": [],
+					"devdoc": {
+						"kind": "dev",
+						"methods": {},
+						"version": 1
+					},
+					"evm": {
+						"assembly": "    /* \"contracts/Founding Settlers list.sol\":401:867  contract FoundingSettlersList {\r... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"contracts/Founding Settlers list.sol\":401:867  contract FoundingSettlersList {\r... */\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa2646970667358221220956ee3b430b16497aa08d5629863e479722672f0279048f038da8c175d18e94c64736f6c63430008010033\n}\n",
+						"bytecode": {
+							"generatedSources": [],
+							"linkReferences": {},
+							"object": "6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220956ee3b430b16497aa08d5629863e479722672f0279048f038da8c175d18e94c64736f6c63430008010033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x1D PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 SWAP6 PUSH15 0xE3B430B16497AA08D5629863E47972 0x26 PUSH19 0xF0279048F038DA8C175D18E94C64736F6C6343 STOP ADDMOD ADD STOP CALLER ",
+							"sourceMap": "401:466:0:-:0;;;;;;;;;;;;;;;;;;;"
+						},
+						"deployedBytecode": {
+							"generatedSources": [],
+							"immutableReferences": {},
+							"linkReferences": {},
+							"object": "6080604052600080fdfea2646970667358221220956ee3b430b16497aa08d5629863e479722672f0279048f038da8c175d18e94c64736f6c63430008010033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 SWAP6 PUSH15 0xE3B430B16497AA08D5629863E47972 0x26 PUSH19 0xF0279048F038DA8C175D18E94C64736F6C6343 STOP ADDMOD ADD STOP CALLER ",
+							"sourceMap": "401:466:0:-:0;;;;;"
+						},
+						"gasEstimates": {
+							"creation": {
+								"codeDepositCost": "12600",
+								"executionCost": "66",
+								"totalCost": "12666"
+							}
+						},
+						"legacyAssembly": {
+							".code": [
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH",
+									"source": 0,
+									"value": "80"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH",
+									"source": 0,
+									"value": "40"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "MSTORE",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "CALLVALUE",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "ISZERO",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH [tag]",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "JUMPI",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "REVERT",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "tag",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "JUMPDEST",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "POP",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH #[$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH [$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "CODECOPY",
+									"source": 0
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 401,
+									"end": 867,
+									"name": "RETURN",
+									"source": 0
+								}
+							],
+							".data": {
+								"0": {
+									".auxdata": "a2646970667358221220956ee3b430b16497aa08d5629863e479722672f0279048f038da8c175d18e94c64736f6c63430008010033",
+									".code": [
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "PUSH",
+											"source": 0,
+											"value": "80"
+										},
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "MSTORE",
+											"source": 0
+										},
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 401,
+											"end": 867,
+											"name": "REVERT",
+											"source": 0
+										}
+									]
+								}
+							}
+						},
+						"methodIdentifiers": {}
+					},
+					"metadata": "{\"compiler\":{\"version\":\"0.8.1+commit.df193b15\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Founding Settlers list.sol\":\"FoundingSettlersList\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Founding Settlers list.sol\":{\"keccak256\":\"0x575da03fcfb9ec12810b93ef53a208628517fdd9361c3d79ab9122a9af379993\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://db1d6a2c4cbdab4dfbcb61ca6f5e9d23c840d5a6a256c4761d972986ae9ee47f\",\"dweb:/ipfs/Qma6fQxym6BbfawDcgkuz47mZ2fvJwkr2AGiibqoNTA3m8\"]}},\"version\":1}",
+					"userdoc": {
+						"kind": "user",
+						"methods": {},
+						"version": 1
+					}
+				}
+			}
+		},
+		"sources": {
+			"contracts/Founding Settlers list.sol": {
+				"ast": {
+					"absolutePath": "contracts/Founding Settlers list.sol",
+					"exportedSymbols": {
+						"FoundingSettlersList": [
+							9
+						]
+					},
+					"id": 10,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"0.8",
+								".1"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "375:22:0"
+						},
+						{
+							"abstract": false,
+							"baseContracts": [],
+							"contractDependencies": [],
+							"contractKind": "contract",
+							"fullyImplemented": true,
+							"id": 9,
+							"linearizedBaseContracts": [
+								9
+							],
+							"name": "FoundingSettlersList",
+							"nodeType": "ContractDefinition",
+							"nodes": [
+								{
+									"canonicalName": "FoundingSettlersList.addressList",
+									"id": 8,
+									"members": [
+										{
+											"constant": false,
+											"id": 3,
+											"mutability": "mutable",
+											"name": "size",
+											"nodeType": "VariableDeclaration",
+											"scope": 8,
+											"src": "470:9:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											},
+											"typeName": {
+												"id": 2,
+												"name": "uint",
+												"nodeType": "ElementaryTypeName",
+												"src": "470:4:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 7,
+											"mutability": "mutable",
+											"name": "addressList",
+											"nodeType": "VariableDeclaration",
+											"scope": 8,
+											"src": "490:36:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
+												"typeString": "mapping(uint256 => address)"
+											},
+											"typeName": {
+												"id": 6,
+												"keyType": {
+													"id": 4,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "498:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"nodeType": "Mapping",
+												"src": "490:24:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
+													"typeString": "mapping(uint256 => address)"
+												},
+												"valueType": {
+													"id": 5,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "506:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												}
+											},
+											"visibility": "internal"
+										}
+									],
+									"name": "addressList",
+									"nodeType": "StructDefinition",
+									"scope": 9,
+									"src": "440:94:0",
+									"visibility": "public"
+								}
+							],
+							"scope": 10,
+							"src": "401:466:0"
+						}
+					],
+					"src": "375:492:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

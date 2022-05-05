@@ -1,0 +1,77 @@
+{
+	"compiler": {
+		"version": "0.8.1+commit.df193b15"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "declareStringVar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "value",
+						"type": "string"
+					}
+				],
+				"name": "setStringVarValue",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/DynamicVars.sol": "dynamicUniqueVarSet"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/DynamicVars.sol": {
+			"keccak256": "0x7918bfbe613d10213738b36e9aab305ab1cca3622516a09d9ae14373f3d9dc3d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1950d7577d1ca6381291a55a59ea528017994598f5178138508c55142229363c",
+				"dweb:/ipfs/Qmf8XL4RJBhqmprTxeAsQjHzLoYjwXJfogGV63wn2wwh5L"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,102 @@
+/*
+ *Submitted for verification at polygonscan.com on 2022-04-13
+*/
+
+// SPDX-License-Identifier: MIT
+
+/*
+
+███╗░░░███╗███████╗████████╗░█████╗░███╗░░██╗░█████╗░██╗░█████╗░
+████╗░████║██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔══██╗██║██╔══██╗
+██╔████╔██║█████╗░░░░░██║░░░███████║██╔██╗██║██║░░██║██║███████║
+██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║╚████║██║░░██║██║██╔══██║
+██║░╚═╝░██║███████╗░░░██║░░░██║░░██║██║░╚███║╚█████╔╝██║██║░░██║
+╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝
+
+    Metanoia is an ecosystem of products that aims to bring 
+    real world utility into the web3 space. 
+
+    Learn more about Metanoia in our whitepaper:
+    https://docs.metanoia.country/
+
+    Join our community!
+    https://discord.gg/YgUus2kddQ
+
+
+    This is the contract responsible for the minting and
+    storage of the Founding Citizen NFTs.
+
+*/
+
+
+import "./ERC1155MultiURI_B.sol";
+
+pragma solidity 0.8.1;
+
+contract FoundingNftMintStorage is 
+ERC1155MultiURI_UserUpgradeable_ModeratedUris {
+    address public extrasHolder = address(this);
+    
+    uint public constant initialSupply = 10;
+    // uint public constant initialSupply = 10000;
+    uint public constant maxSupply = initialSupply;
+
+    uint public totalSupply;
+    uint public nextUnusedToken = 1;
+
+    string public name;
+    string public symbol;
+
+    /*  
+    *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
+    */
+    modifier isNewMint(uint _tokenID, uint _newSupply) {
+        require(!exists(_tokenID), 
+            "You have tried to call a mint function on an existing token while providing a new metadata URI. Please call the correponding function without URI as a parameter." 
+        );
+        if (_tokenID >= nextUnusedToken) {
+            nextUnusedToken = _tokenID + 1;
+        }
+        totalSupply += _newSupply;
+        _;
+    }
+
+    constructor() ERC1155("URI not applicable: Using ERC1155MultiURI") {
+
+        name = "Metanoia Founding Citizens NFT";
+        symbol = "MFS NFT";
+
+    }
+
+    function getNextUnusedToken() external view returns(uint) {
+        return nextUnusedToken;
+    }
+
+    function getMaxSupply() external pure returns(uint) {
+        return maxSupply;
+    }
+
+    /*  
+    *  @dev Pre-loads the URI for each token's metadata.
+    *       Note: This can only be called on NFTs that have not been minted yet
+    */
+    function preLoadURIs(uint[] memory ids, string[] memory uris) external onlyOwner {
+        for (uint i = 0; i < ids.length; ++i) {
+            uint id = ids[i];
+            string memory uri = uris[i];
+            require(!exists(id), "Cannot change URI for existing token");
+            _setURI(id, uri);
+        }
+    }
+
+    /*  
+    *  @dev Mints the next unminted NFT in the collection.
+    */
+    function mintNextNftToAddress(address to) external onlyOwner isNewMint(nextUnusedToken, 1) {
+        require(nextUnusedToken <= maxSupply, string(abi.encodePacked(
+            "Cannot mint more than <maxSupply> (", maxSupply, ") tokens")));
+        _mintWithURI(to, nextUnusedToken, 1, "", uri(nextUnusedToken));
+        nextUnusedToken++;
+    }
+
+}
