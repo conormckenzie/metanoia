@@ -4,6 +4,12 @@ pragma solidity ^0.8.0;
 
 import "./ERC1155MultiURI_A.sol";
 
+import "@openzeppelin/contracts@4.4.2/access/IAccessControl.sol";
+import "@openzeppelin/contracts@4.4.2/utils/Strings.sol";
+import "@openzeppelin/contracts@4.4.2/utils/Strings.sol";
+
+import {AccessControl} from "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
+
 /**
  * @dev Extension of ERC1155MultiURI that adds support for changing the metadata 
  *      associated with a token id, only for ids which correspond to unique NFTs,
@@ -31,13 +37,15 @@ import "./ERC1155MultiURI_A.sol";
  * These functions both call _mint(address, uint256, uint256, bytes memory)
  * to mint tokens.
  */
-contract ModeratedUris is Ownable {
+contract ModeratedUris is AccessControl {
 
-    
+    bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
+    bytes32 public constant URI_ADDER_ROLE = keccak256("URI_ADDER_ROLE");
+    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
     
     //replace with role to manage this.
     bool private canRevokeUriApproval;
-    function makeApprovedUriListsAppendOnly() public onlyOwner {
+    function makeApprovedUriListsAppendOnly() public onlyRole(DEFAULT_ADMIN_ROLE) {
         canRevokeUriApproval = false;
     }
 
@@ -331,32 +339,59 @@ contract ModeratedUris is Ownable {
 
     // does nothing if (0, uri) pair is already approved
     function approveMetadatForId(uint id, string memory metadata_uri) 
-    public onlyOwner {
+    public {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(URI_ADDER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         _setIdUriPairApproval(id, metadata_uri, true);
     }
 
     // does nothing if (0, uri) pair is already approved
     function approveMetadatForAll(string memory metadata_uri) 
-    public onlyOwner {
+    public {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(URI_ADDER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         _setIdUriPairApproval(0, metadata_uri, true);
     }
 
     // does nothing if (id, uri) pair is already unapproved
     function unapproveMetadatForId(uint id, string memory metadata_uri) 
-    public onlyOwner {
+    public {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         _setIdUriPairApproval(id, metadata_uri, false);
     }
 
     // does nothing if uri is already unapproved for all ids (including 0)
     function unapproveMetadataForAll(string memory metadata_uri) 
-    public onlyOwner {
+    public {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         _unapproveUriForAllIds(metadata_uri, true);
     }
 
     // does nothing if all uris for id are already unapproved
     // does not apply to globally approved uri
     function unapproveAllMetadataForId(uint id) 
-    public onlyOwner {
+    public {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         _unapproveAllUrisForId(id);
     }
 }
@@ -407,3 +442,9 @@ ERC1155MultiURI_UserUpgradeable, ModeratedUris {
         _mint(to, id, amount, data);
     }
 }
+
+    /*  
+     * @dev Override required by Solidity compiler due to use of multiple
+     * OpenZeppelin contracts that inherit from the "Context" contract
+     */
+

@@ -357,7 +357,7 @@
 			}
 		],
 		"devdoc": {
-			"details": "Extension of ERC1155Supply that adds support for arbitrary metadata       URIs per token id.      THIS IS NOT AN OPENZEPPELIN CONTRACT. It was created by Conor McKenzie. Useful for scenarios where multiple types of tokens are to be created with metadata stored using a content-addressing naming scheme, such as when stored on IPFS or Arweave.   Note: ERC1155Supply is needed to check if a token already exists, to prevent modification of metadata for an existing token and enforce the provision of metadata for new tokens.   Caution: The following ERC1155 components have not been overwritten to   maintain the integrity of OpenZeppelin's original ERC1155 contracts, but they  should not be used:    * string private _uri      function _setURI(string memory)    * function _mint(address, uint256, uint256, bytes memory) Note: _mint(address to, uint256 id, uint256 amount, bytes memory data)  from OpenZeppelin's ERC1155 contract is replaced with:  _mintWithoutURI(address to, uint256 id, uint256 amount, bytes memory data), _mintWithURI(address to, uint256 id, uint256 amount, bytes memory data,       string memory newuri) for minting existing tokens and new tokens, respectively.  These functions both call _mint(address, uint256, uint256, bytes memory) to mint tokens.",
+			"details": "Extension of ERC1155Supply that adds support for arbitrary metadata       URIs per token id.      THIS IS NOT AN OPENZEPPELIN CONTRACT. It was created by Conor McKenzie.      The OpenZeppelin contract which accomplishes a similar purpose is      OpenZeppelin's ERC1155URIStorage contract. Useful for scenarios where multiple types of tokens are to be created with metadata stored using a content-addressing naming scheme, such as when stored on IPFS or Arweave.   Note: ERC1155Supply is needed to check if a token already exists, to prevent modification of metadata for an existing token and enforce the provision of metadata for new tokens.   Caution: The following ERC1155 components have not been overwritten to   maintain the integrity of OpenZeppelin's original ERC1155 contracts, but they  should not be used:    * string private _uri      function _setURI(string memory)    * function _mint(address, uint256, uint256, bytes memory) Note: _mint(address to, uint256 id, uint256 amount, bytes memory data)  from OpenZeppelin's ERC1155 contract is replaced with:  _mintWithoutURI(address to, uint256 id, uint256 amount, bytes memory data), _mintWithURI(address to, uint256 id, uint256 amount, bytes memory data,       string memory newuri) for minting existing tokens and new tokens, respectively.  These functions both call _mint(address, uint256, uint256, bytes memory) to mint tokens.",
 			"kind": "dev",
 			"methods": {
 				"balanceOf(address,uint256)": {
@@ -417,12 +417,84 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/ERC1155MultiURI.sol": {
-			"keccak256": "0xee818a962c9642f3bbfcafa57e0b14da65008bcf176ae046f2eaa281262a9be9",
+		"@openzeppelin/contracts/token/ERC1155/ERC1155.sol": {
+			"keccak256": "0x74216d303b87202736b6d571fc3e9b530aa98ff017a41516170f1c555e518669",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3221157950703c04706ae2dc4e27e50ceb92e6ce53cc88014b4f23781dd139b1",
-				"dweb:/ipfs/QmRhhZJdhxpAQ1PqHivTUT4ZeNb8sGycXqUZYWMWGEsLUr"
+				"bzz-raw://c0228d82cef8911972f4cbf7e33dfb9ceebb813d15771335949e06fc0f4a3f1b",
+				"dweb:/ipfs/QmYCgp6PABoEe9iDmZTeUc31wp7ekraVavgKF1vVSnd438"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/IERC1155.sol": {
+			"keccak256": "0x8e93de94c9062ebc94fb7e2e3929b0781ac6a2b7772e2f7a59045861c93e5be9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f920a631bf986c610fe573d3c70a2bb6f224f86f4a8550016470c7ee476c9ab5",
+				"dweb:/ipfs/QmYzsyVMfnaREKHcHv5RPS8Xg5r1Q38E2SDsGBTnXeFWzb"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol": {
+			"keccak256": "0xeb373f1fdc7b755c6a750123a9b9e3a8a02c1470042fd6505d875000a80bde0b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0e28648f994abf1d6bc345644a361cc0b7efa544f8bc0c8ec26011fed85a91ec",
+				"dweb:/ipfs/QmVVE7AiRjKaQYYji7TkjmTeVzGpNmms5eoxqTCfvvpj6D"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol": {
+			"keccak256": "0xe3deb5f3b0c9d12944f62ab680f041bbf1910d9d3ac6b545b4b8e399643c538d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e1f5bc920c2f9859b02dce02d7d0211608398287c643d42ad048555c9b204dc8",
+				"dweb:/ipfs/QmSu2MFkCSPNG6pRsXxMai7Do7EDqLwpnnHVDB7q2wHJnr"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
+			"keccak256": "0xa66d18b9a85458d28fc3304717964502ae36f7f8a2ff35bc83f6f85d74b03574",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e46c80ea068989111d6103e5521223f9ef337e93de76deed8b03f75c6f7b2797",
+				"dweb:/ipfs/QmNoSE6knNfFncdDDLTb3fGR6oSQty1srG96Vsx3E9wQdw"
+			]
+		},
+		"@openzeppelin/contracts/utils/Address.sol": {
+			"keccak256": "0x2ccf9d2313a313d41a791505f2b5abfdc62191b5d4334f7f7a82691c088a1c87",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b3a57d0854b2fdce6ebff933a48dca2445643d1eccfc27f00292e937f26c6a58",
+				"dweb:/ipfs/QmW45rZooS9TqR4YXUbjRbtf2Bpb5ouSarBvfW1LdGprvV"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fb0048dee081f6fffa5f74afc3fb328483c2a30504e94a0ddd2a5114d731ec4d",
+				"dweb:/ipfs/QmZptt1nmYoA5SgjwnSgWqgUSDgm4q52Yos3xhnMv3MV43"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
+				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
+			]
+		},
+		"contracts/ERC1155MultiURI.sol": {
+			"keccak256": "0xde2012c0a2efd4f73fce640ba63e3911bde0a108351b7d1395e26d48b37f37e0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7de81ddca9f81e4199305be0fc8ab92169b03df8e08579590f94ddf5a52771b2",
+				"dweb:/ipfs/QmejznCrgxebVgKGgUk9DMjxhtDJVq3fHwL3NZpKgFT9DT"
 			]
 		}
 	},

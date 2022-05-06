@@ -28,11 +28,15 @@
 */
 
 
-import "@openzeppelin/contracts@4.4.2/access/Ownable.sol";
+import "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
 
 pragma solidity 0.8.1;
 
-contract PrivilegedListStorage is Ownable {
+contract PrivilegedListStorage is AccessControl {
+
+    bytes32 public constant ADDRESS_MANAGER_ROLE = keccak256("ADDRESS_MANAGER_ROLE");
+    bytes32 public constant COUPON_MANAGER_ROLE = keccak256("COUPON_MANAGER_ROLE");
+    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
 
     struct Coupon {
         uint discountRate;
@@ -83,7 +87,14 @@ contract PrivilegedListStorage is Ownable {
         return false;
     }
 
-    function addAddress(address address_) public onlyOwner {
+    function addAddress(address address_) public {
+        require(
+            hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Approved Role: Address Manager, Coupon Manager, Coupon User, or Admin"
+        );
         addressList.length++;
         addressList.addresses[addressList.length] = address_; //<addressList.addresses> is 1-indexed not 0-indexed
         addressList.ids[address_] = addressList.length;
@@ -94,7 +105,12 @@ contract PrivilegedListStorage is Ownable {
     *       <addressList.addresses> into its spot. 
     *       Updates <addressList.ids> accordingly.  
     */
-    function removeAddress(address address_) public onlyOwner {
+    function removeAddress(address address_) public {
+        require(
+            hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Address Manager or Admin"
+        );
         
         uint _toRemove1 = idOf(address_);
         address _toRemove2 = address_;
@@ -111,7 +127,12 @@ contract PrivilegedListStorage is Ownable {
         addressList.length--;
     }
 
-    function addCoupon(address address_, uint discountRate, uint numberOfUses) public onlyOwner {
+    function addCoupon(address address_, uint discountRate, uint numberOfUses) public {
+        require(
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager or Admin"
+        );
         if (!addressExists(address_)) {
             addAddress(address_);
         }
@@ -126,7 +147,13 @@ contract PrivilegedListStorage is Ownable {
                 .numberOfUses = numberOfUses;
     }
 
-    function removeCoupon(address address_, uint id) public onlyOwner {
+    function removeCoupon(address address_, uint id) public {
+        require(
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
         addressList.couponLists[idOf(address_)].coupons[id] = 
             addressList.couponLists[idOf(address_)].coupons[couponListLength(address_)];
         delete addressList.couponLists[idOf(address_)].coupons[couponListLength(address_)];
@@ -145,7 +172,13 @@ contract PrivilegedListStorage is Ownable {
         }
     }
 
-    function reduceCouponUses(address address_, uint discountRate, uint numberOfUses) public onlyOwner { 
+    function reduceCouponUses(address address_, uint discountRate, uint numberOfUses) public {
+        require(
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
         for (uint i = 0; i < couponListLength(address_); i++) {
             if (addressList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate) 
             {
@@ -155,7 +188,13 @@ contract PrivilegedListStorage is Ownable {
         }
     }
 
-    function useCoupon(address address_, uint discountRate) public onlyOwner {
+    function useCoupon(address address_, uint discountRate) public {
+        require(
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
         reduceCouponUses(address_, discountRate, 1);
     }
 

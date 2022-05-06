@@ -37,7 +37,7 @@ contract FoundingNftMintStorage is
 ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     address public extrasHolder = address(this);
     
-    uint public constant initialSupply = 10;
+    uint public constant initialSupply = 10; //for testing - REMVOVE THIS LINE in production code
     // uint public constant initialSupply = 10000;
     uint public constant maxSupply = initialSupply;
 
@@ -51,8 +51,12 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
     */
     modifier isNewMint(uint _tokenID, uint _newSupply) {
-        require(!exists(_tokenID), 
-            "You have tried to call a mint function on an existing token while providing a new metadata URI. Please call the correponding function without URI as a parameter." 
+        require(
+            !exists(_tokenID), 
+            string(abi.encode(
+                "You have tried to call a mint function on an existing token while providing a new metadata URI.", 
+                "Please call the correponding function without URI as a parameter." 
+            ))
         );
         if (_tokenID >= nextUnusedToken) {
             nextUnusedToken = _tokenID + 1;
@@ -93,8 +97,12 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     *  @dev Mints the next unminted NFT in the collection.
     */
     function mintNextNftToAddress(address to) external onlyOwner isNewMint(nextUnusedToken, 1) {
-        require(nextUnusedToken <= maxSupply, string(abi.encodePacked(
-            "Cannot mint more than <maxSupply> (", maxSupply, ") tokens")));
+        require(
+            nextUnusedToken <= maxSupply, 
+            string(abi.encodePacked(
+                "Cannot mint more than <maxSupply> (", maxSupply, ") tokens"
+            ))
+        );
         _mintWithURI(to, nextUnusedToken, 1, "", uri(nextUnusedToken));
         nextUnusedToken++;
     }
