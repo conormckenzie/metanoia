@@ -1,5 +1,5 @@
 /*
- *Submitted for verification at polygonscan.com on 2022-04-13
+ *Submitted for verification at polygonscan.com on 2022-xx-xx (YYYY-MM-DD)
 */
 
 // SPDX-License-Identifier: MIT
@@ -27,14 +27,15 @@
 */
 
 
-import "@openzeppelin/contracts@4.4.2/access/Ownable.sol";
+import "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
 import "@openzeppelin/contracts@4.4.2/interfaces/IERC20.sol";
 
 pragma solidity 0.8.1;
 
-contract UsdcEscrowStorage is Ownable {
+contract UsdcEscrowStorage is AccessControl {
     
-    
+    bytes32 public constant USDC_MANAGER_ROLE = keccak256("USDC_MANAGER_ROLE");
+
     address constant usdcTokenAddress = 0xe11A86849d99F524cAC3E7A0Ec1241828e332C62; 
     IERC20 usdcToken = IERC20(usdcTokenAddress);
     mapping (address => uint) public usdcBalances;
@@ -57,22 +58,45 @@ contract UsdcEscrowStorage is Ownable {
         return usdcBalances[address_];
     }
 
-    function transferUsdcBalance(address from, address to, uint amount) public onlyOwner {
+    function transferUsdcBalance(address from, address to, uint amount) public {
+        require(
+            hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not USDC Manager or Admin"
+        );
         decreaseUsdcBalance(from, amount);
         increaseUsdcBalance(to, amount);
     }
 
-    function increaseUsdcBalance(address address_, uint amount) public onlyOwner {
+    function increaseUsdcBalance(address address_, uint amount) public {
+        require(
+            hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not USDC Manager or Admin"
+        );
         require(amount > 0, "must update the USDC balance with a (positive or negative) non-zero amount");
         usdcBalances[address_] += amount;
     }
 
-    function decreaseUsdcBalance(address address_, uint amount) public onlyOwner {
+    function decreaseUsdcBalance(address address_, uint amount) public {
+        require(
+            hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not USDC Manager or Admin"
+        );
         require(amount > 0, "must update the USDC balance with a (positive or negative) non-zero amount");
         require(amount <= usdcBalances[address_], string(abi.encodePacked(
             "cannot decrease USDC balance of ", address_, 
             " by more than the existing balance ", usdcBalances[address_])));
         usdcBalances[address_] -= amount;
+    }
+
+    receive() external payable {
+        revert("This contract only accepts USDC");
+    }
+
+    fallback() external payable {
+        revert("Fallback triggered - please interact with this contract via it's available functions");
     }
 
 }

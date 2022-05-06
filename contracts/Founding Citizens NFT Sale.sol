@@ -119,8 +119,16 @@ contract FoundingNFTSale is AccessControl {
         }
     }
 
-    function setStorageContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
+    function setERC1155StorageContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
         ERC1155storageContract = IMintStorage(storageAddress);
+    }
+
+    function setPrivilegedBuyersListContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        privilgedBuyerList = IPrivilegedListStorage(storageAddress);
+    }
+
+    function setUsdcEscrowContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        usdcEscrowStorageContract = IUsdcStorage(storageAddress);
     }
 
     function mintNextNftToAddress(address to) internal {
