@@ -502,7 +502,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"metanoia/contracts/Founding Citizens NFT Sale Privileged Buyers List Storage.sol": "PrivilegedListStorage"
+			"contracts/Founding Citizens NFT Sale Privileged Buyers List Storage.sol": "PrivilegedListStorage"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -564,12 +564,12 @@
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
 			]
 		},
-		"metanoia/contracts/Founding Citizens NFT Sale Privileged Buyers List Storage.sol": {
-			"keccak256": "0xb7df847f5edcac7fd6362b6116e7079e91781388c6de1bd74847cc8bad1b7c06",
+		"contracts/Founding Citizens NFT Sale Privileged Buyers List Storage.sol": {
+			"keccak256": "0x8a52050fbd73bdc5d86ff35b3b0843f5d2e3e80e6772f14aed7039377b250670",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://887bfb5b45b8796d457d8f012e185fc27dbc6e80f442f756e87ff4371722239e",
-				"dweb:/ipfs/Qmcghkwe6srCHAuGX9bZZHUkyiRbWE8sMF96MCowSErWAi"
+				"bzz-raw://3962677ca2e2e74bd038d547b428800713b2b67077413b419344a5a3624c8ab1",
+				"dweb:/ipfs/Qmc7WJzRfPJ61s9rPZ2PCrYja13XHwNCpheDPiBGL265o9"
 			]
 		}
 	},

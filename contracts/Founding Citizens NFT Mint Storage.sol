@@ -1,5 +1,5 @@
 /*
- *Submitted for verification at polygonscan.com on 2022-04-13
+ *Submitted for verification at polygonscan.com on 2022-xx-xx (YYYY-MM-DD)
 */
 
 // SPDX-License-Identifier: MIT
@@ -36,6 +36,8 @@ pragma solidity 0.8.1;
 contract FoundingNftMintStorage is 
 ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     address public extrasHolder = address(this);
+
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     
     uint public constant initialSupply = 10; //for testing - REMVOVE THIS LINE in production code
     // uint public constant initialSupply = 10000;
@@ -84,7 +86,12 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     *  @dev Pre-loads the URI for each token's metadata.
     *       Note: This can only be called on NFTs that have not been minted yet
     */
-    function preLoadURIs(uint[] memory ids, string[] memory uris) external onlyOwner {
+    function preLoadURIs(uint[] memory ids, string[] memory uris) external {
+        require(
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         for (uint i = 0; i < ids.length; ++i) {
             uint id = ids[i];
             string memory uri = uris[i];
@@ -96,7 +103,12 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     /*  
     *  @dev Mints the next unminted NFT in the collection.
     */
-    function mintNextNftToAddress(address to) external onlyOwner isNewMint(nextUnusedToken, 1) {
+    function mintNextNftToAddress(address to) external isNewMint(nextUnusedToken, 1) {
+        require(
+            hasRole(MINTER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
         require(
             nextUnusedToken <= maxSupply, 
             string(abi.encodePacked(

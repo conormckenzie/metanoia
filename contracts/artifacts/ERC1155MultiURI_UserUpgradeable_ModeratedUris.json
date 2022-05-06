@@ -47,6 +47,10 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+			"COUPON_USER_ROLE()": "263d336c",
+			"DEFAULT_ADMIN_ROLE()": "a217fddf",
+			"URI_ADDER_ROLE()": "b5a92ce5",
+			"URI_MANAGER_ROLE()": "682d07d9",
 			"approveMetadatForAll(string)": "33e06e7c",
 			"approveMetadatForId(uint256,string)": "e85eaaff",
 			"balanceOf(address,uint256)": "00fdd58e",
@@ -56,20 +60,22 @@
 			"getAllApprovedIdsForMetadata(string)": "68f9dbe1",
 			"getAllApprovedMetadatasForId(uint256,bool)": "cebdbea7",
 			"getAllGloballyApprovedMetadata()": "3a2aa22b",
+			"getRoleAdmin(bytes32)": "248a9ca3",
+			"grantRole(bytes32,address)": "2f2ff15d",
+			"hasRole(bytes32,address)": "91d14854",
 			"isApprovedForAll(address,address)": "e985e9c5",
 			"isMetadataApprovedForAll(string)": "3d88cf3d",
 			"isMetadataApprovedForId(uint256,string)": "c53dfdac",
 			"isPermanentlyUnique(uint256)": "535435fe",
 			"makeApprovedUriListsAppendOnly()": "dd1e1656",
-			"owner()": "8da5cb5b",
-			"renounceOwnership()": "715018a6",
+			"renounceRole(bytes32,address)": "36568abe",
+			"revokeRole(bytes32,address)": "d547741f",
 			"safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": "2eb2c2d6",
 			"safeTransferFrom(address,address,uint256,uint256,bytes)": "f242432a",
 			"safeUpdateURI(string,address,uint256)": "51486f73",
 			"setApprovalForAll(address,bool)": "a22cb465",
 			"supportsInterface(bytes4)": "01ffc9a7",
 			"totalSupply(uint256)": "bd85b039",
-			"transferOwnership(address)": "f2fde38b",
 			"unapproveAllMetadataForId(uint256)": "6d3cc82d",
 			"unapproveMetadatForId(uint256,string)": "15fda194",
 			"unapproveMetadataForAll(string)": "29cb0531",
@@ -107,18 +113,74 @@
 			"inputs": [
 				{
 					"indexed": true,
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "previousAdminRole",
+					"type": "bytes32"
+				},
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "newAdminRole",
+					"type": "bytes32"
+				}
+			],
+			"name": "RoleAdminChanged",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"indexed": true,
 					"internalType": "address",
-					"name": "previousOwner",
+					"name": "account",
 					"type": "address"
 				},
 				{
 					"indexed": true,
 					"internalType": "address",
-					"name": "newOwner",
+					"name": "sender",
 					"type": "address"
 				}
 			],
-			"name": "OwnershipTransferred",
+			"name": "RoleGranted",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "sender",
+					"type": "address"
+				}
+			],
+			"name": "RoleRevoked",
 			"type": "event"
 		},
 		{
@@ -213,6 +275,58 @@
 			],
 			"name": "URI",
 			"type": "event"
+		},
+		{
+			"inputs": [],
+			"name": "COUPON_USER_ROLE",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "DEFAULT_ADMIN_ROLE",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "URI_ADDER_ROLE",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "URI_MANAGER_ROLE",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
 		},
 		{
 			"inputs": [
@@ -390,6 +504,67 @@
 		{
 			"inputs": [
 				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				}
+			],
+			"name": "getRoleAdmin",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "grantRole",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "hasRole",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
 					"internalType": "address",
 					"name": "account",
 					"type": "address"
@@ -481,21 +656,37 @@
 			"type": "function"
 		},
 		{
-			"inputs": [],
-			"name": "owner",
-			"outputs": [
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
 				{
 					"internalType": "address",
-					"name": "",
+					"name": "account",
 					"type": "address"
 				}
 			],
-			"stateMutability": "view",
+			"name": "renounceRole",
+			"outputs": [],
+			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
-			"inputs": [],
-			"name": "renounceOwnership",
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "revokeRole",
 			"outputs": [],
 			"stateMutability": "nonpayable",
 			"type": "function"
@@ -643,19 +834,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "newOwner",
-					"type": "address"
-				}
-			],
-			"name": "transferOwnership",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{

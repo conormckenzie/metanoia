@@ -147,11 +147,11 @@
 			]
 		},
 		"contracts/Founding Citizens NFT Sale.sol": {
-			"keccak256": "0x2bed22a3f670fc1a9ac9254e8624929f850caa10120d1b18995abd32331f054b",
+			"keccak256": "0xefe1e769965746f60d5acef1207be6de65aa879572d100b41cb0e3330af1ad89",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f9ff75c4d38b7abac1d0feeaace084a7d3688848317dcffad7ae804d143ec976",
-				"dweb:/ipfs/QmP88tWj5g4FW6TDcFiey1GFq3XCQx1kTXk3tdEzFWuFcD"
+				"bzz-raw://1f701f20a285899b032c19b4fabee87c371bc219db98b4736b3506182c6fa1a2",
+				"dweb:/ipfs/QmbNSfy4Ykcex4aS5NrKF3WaPUrpNXkKgXdNSjr86xfprD"
 			]
 		}
 	},

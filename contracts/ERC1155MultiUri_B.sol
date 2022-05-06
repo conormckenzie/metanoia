@@ -6,7 +6,6 @@ import "./ERC1155MultiURI_A.sol";
 
 import "@openzeppelin/contracts@4.4.2/access/IAccessControl.sol";
 import "@openzeppelin/contracts@4.4.2/utils/Strings.sol";
-import "@openzeppelin/contracts@4.4.2/utils/Strings.sol";
 
 import {AccessControl} from "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
 
@@ -441,10 +440,18 @@ ERC1155MultiURI_UserUpgradeable, ModeratedUris {
         _setURI(id, newuri);
         _mint(to, id, amount, data);
     }
+    /*  
+     * @dev Override required by Solidity compiler
+     */
+     // not sure if this is correct or not
+    function supportsInterface(bytes4 interfaceId) 
+    public view virtual override(ERC1155, AccessControl) returns (bool) {
+        return
+            interfaceId == type(IERC1155).interfaceId ||
+            interfaceId == type(IERC1155MetadataURI).interfaceId ||
+            interfaceId == type(IAccessControl).interfaceId || 
+            super.supportsInterface(interfaceId);
+    }
 }
 
-    /*  
-     * @dev Override required by Solidity compiler due to use of multiple
-     * OpenZeppelin contracts that inherit from the "Context" contract
-     */
 
