@@ -205,19 +205,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "COUPON_USER_ROLE",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "DEFAULT_ADMIN_ROLE",
 				"outputs": [
 					{
@@ -244,7 +231,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "URI_ADDER_ROLE",
+				"name": "URI_LOADER_ROLE",
 				"outputs": [
 					{
 						"internalType": "bytes32",
@@ -253,50 +240,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "URI_MANAGER_ROLE",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "approveMetadatForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "approveMetadatForId",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -393,62 +336,6 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "getAllApprovedIdsForMetadata",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "includeGloballyApproved",
-						"type": "bool"
-					}
-				],
-				"name": "getAllApprovedMetadatasForId",
-				"outputs": [
-					{
-						"internalType": "string[]",
-						"name": "",
-						"type": "string[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getAllGloballyApprovedMetadata",
-				"outputs": [
-					{
-						"internalType": "string[]",
-						"name": "",
-						"type": "string[]"
 					}
 				],
 				"stateMutability": "view",
@@ -581,49 +468,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "isMetadataApprovedForAll",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "isMetadataApprovedForId",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
@@ -638,13 +482,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "makeApprovedUriListsAppendOnly",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -932,50 +769,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "unapproveAllMetadataForId",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "unapproveMetadatForId",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "metadata_uri",
-						"type": "string"
-					}
-				],
-				"name": "unapproveMetadataForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
 				"name": "uri",
 				"outputs": [
 					{
@@ -1168,19 +961,27 @@
 			]
 		},
 		"contracts/ERC1155MultiURI_B.sol": {
-			"keccak256": "0xa2847eaf594b96900a77d097b45b0b54468e39de7e28311c066b60e423ae5d74",
+			"keccak256": "0x6833865e734ceee4981bd181574c0b3f98bf1230e9f613938a71d20ff173cf2c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8d4ec701845275feefb2a42cbe399aefb8f6724506180e645f5c44b4c5f49cd5",
-				"dweb:/ipfs/QmW7FaWobK3TPAp9nakxqpie2p9mJP5rdZJmeqw6TuW1fG"
+				"bzz-raw://3714a60f207392f0d7b1f3864b6226686b88915238f895c9501ec23ad0c62060",
+				"dweb:/ipfs/QmW9dhnoyum4chR1X3M3RxXSdmLmGAoZNJ43iv3bZtjpX9"
 			]
 		},
 		"contracts/Founding Citizens NFT Mint Storage.sol": {
-			"keccak256": "0xdf5b8ee7705cc7259451540fb1812c6ca894efac3dbe0943f113da2c88ac12cc",
+			"keccak256": "0xaad55584a155d1c4983dab0e7d1d6842b367d03f18972b363d1b82ad55a8a45d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6e3a912b0bc0d8368c65582bcbf85332db1cf6efd7675d521f3d620f076d0186",
-				"dweb:/ipfs/QmVmn996MqyDKirP5sEeTSdVf9ctbbDCKcmF1v8xPJW9bf"
+				"bzz-raw://a0bf23807916ea4b228f4cd08669d02beb8cf92b0374bb07aba8a5bf9b65b24b",
+				"dweb:/ipfs/QmNhiMdpA9uJLkXdGFxSXHRm4EtUyfH5Z4xeFheZJMv648"
+			]
+		},
+		"contracts/Moderated Uris.sol": {
+			"keccak256": "0x5a79b784b37248886a5874d10ea157aecd67f44e021f1936f5729ee777d54538",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://adf596454360bd5feee6ae9136c0b41800b6ebc4f609879295767c56fafec180",
+				"dweb:/ipfs/QmWGaeB1Qyhg1q56DqNUg19CfvQzh5NxgzXTAxFQrMyjDB"
 			]
 		}
 	},

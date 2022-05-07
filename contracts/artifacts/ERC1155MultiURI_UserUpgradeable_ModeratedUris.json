@@ -47,27 +47,16 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"COUPON_USER_ROLE()": "263d336c",
 			"DEFAULT_ADMIN_ROLE()": "a217fddf",
-			"URI_ADDER_ROLE()": "b5a92ce5",
-			"URI_MANAGER_ROLE()": "682d07d9",
-			"approveMetadatForAll(string)": "33e06e7c",
-			"approveMetadatForId(uint256,string)": "e85eaaff",
 			"balanceOf(address,uint256)": "00fdd58e",
 			"balanceOfBatch(address[],uint256[])": "4e1273f4",
 			"cannotMintMore(uint256)": "2e8e9836",
 			"exists(uint256)": "4f558e79",
-			"getAllApprovedIdsForMetadata(string)": "68f9dbe1",
-			"getAllApprovedMetadatasForId(uint256,bool)": "cebdbea7",
-			"getAllGloballyApprovedMetadata()": "3a2aa22b",
 			"getRoleAdmin(bytes32)": "248a9ca3",
 			"grantRole(bytes32,address)": "2f2ff15d",
 			"hasRole(bytes32,address)": "91d14854",
 			"isApprovedForAll(address,address)": "e985e9c5",
-			"isMetadataApprovedForAll(string)": "3d88cf3d",
-			"isMetadataApprovedForId(uint256,string)": "c53dfdac",
 			"isPermanentlyUnique(uint256)": "535435fe",
-			"makeApprovedUriListsAppendOnly()": "dd1e1656",
 			"renounceRole(bytes32,address)": "36568abe",
 			"revokeRole(bytes32,address)": "d547741f",
 			"safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": "2eb2c2d6",
@@ -76,9 +65,6 @@
 			"setApprovalForAll(address,bool)": "a22cb465",
 			"supportsInterface(bytes4)": "01ffc9a7",
 			"totalSupply(uint256)": "bd85b039",
-			"unapproveAllMetadataForId(uint256)": "6d3cc82d",
-			"unapproveMetadatForId(uint256,string)": "15fda194",
-			"unapproveMetadataForAll(string)": "29cb0531",
 			"uri(uint256)": "0e89341c"
 		}
 	},
@@ -278,19 +264,6 @@
 		},
 		{
 			"inputs": [],
-			"name": "COUPON_USER_ROLE",
-			"outputs": [
-				{
-					"internalType": "bytes32",
-					"name": "",
-					"type": "bytes32"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
 			"name": "DEFAULT_ADMIN_ROLE",
 			"outputs": [
 				{
@@ -300,63 +273,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "URI_ADDER_ROLE",
-			"outputs": [
-				{
-					"internalType": "bytes32",
-					"name": "",
-					"type": "bytes32"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "URI_MANAGER_ROLE",
-			"outputs": [
-				{
-					"internalType": "bytes32",
-					"name": "",
-					"type": "bytes32"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "approveMetadatForAll",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "id",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "approveMetadatForId",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
@@ -440,62 +356,6 @@
 					"internalType": "bool",
 					"name": "",
 					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "getAllApprovedIdsForMetadata",
-			"outputs": [
-				{
-					"internalType": "uint256[]",
-					"name": "",
-					"type": "uint256[]"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "id",
-					"type": "uint256"
-				},
-				{
-					"internalType": "bool",
-					"name": "includeGloballyApproved",
-					"type": "bool"
-				}
-			],
-			"name": "getAllApprovedMetadatasForId",
-			"outputs": [
-				{
-					"internalType": "string[]",
-					"name": "",
-					"type": "string[]"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "getAllGloballyApprovedMetadata",
-			"outputs": [
-				{
-					"internalType": "string[]",
-					"name": "",
-					"type": "string[]"
 				}
 			],
 			"stateMutability": "view",
@@ -589,49 +449,6 @@
 		{
 			"inputs": [
 				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "isMetadataApprovedForAll",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "id",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "isMetadataApprovedForId",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
 					"internalType": "uint256",
 					"name": "id",
 					"type": "uint256"
@@ -646,13 +463,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "makeApprovedUriListsAppendOnly",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
@@ -834,50 +644,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "id",
-					"type": "uint256"
-				}
-			],
-			"name": "unapproveAllMetadataForId",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "id",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "unapproveMetadatForId",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "string",
-					"name": "metadata_uri",
-					"type": "string"
-				}
-			],
-			"name": "unapproveMetadataForAll",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{

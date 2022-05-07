@@ -38,6 +38,7 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     address public extrasHolder = address(this);
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant URI_LOADER_ROLE = keccak256("URI_LOADER_ROLE");
     
     uint public constant initialSupply = 10; //for testing - REMVOVE THIS LINE in production code
     // uint public constant initialSupply = 10000;
@@ -53,13 +54,11 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
     */
     modifier isNewMint(uint _tokenID, uint _newSupply) {
-        require(
-            !exists(_tokenID), 
-            string(abi.encode(
-                "You have tried to call a mint function on an existing token while providing a new metadata URI.", 
-                "Please call the correponding function without URI as a parameter." 
-            ))
-        );
+        require(!exists(_tokenID), "FoundingNFTMintStorage: ERR 1"); 
+            // string(abi.encode(
+            //     "You have tried to call a mint function on an existing token while providing a new metadata URI.", 
+            //     "Please call the correponding function without URI as a parameter." 
+            // ))
         if (_tokenID >= nextUnusedToken) {
             nextUnusedToken = _tokenID + 1;
         }
@@ -88,7 +87,7 @@ ERC1155MultiURI_UserUpgradeable_ModeratedUris {
     */
     function preLoadURIs(uint[] memory ids, string[] memory uris) external {
         require(
-            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(URI_LOADER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not URI Manager or Admin"
         );
