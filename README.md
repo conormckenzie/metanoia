@@ -13,3 +13,8 @@ More information can be found in the following documents:
 This code repository is actively developed on, and contains smart contracts and related files for Metanoia before they are deployed to the Polygon network.
 
 THIS CODE IS NOT YET PRODUCTION READY, AND MAY HAVE SEVERE VULNERABILITIES OR ERRORS. IT HAS NOT YET BEEN AUDITED.
+
+Installation instructions using node:
+`npm install hardhat && npm install @openzeppelin/contracts`
+
+Recommended to have Node.js version 16+ for compatibility with Hardhat
