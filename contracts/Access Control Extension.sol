@@ -6,7 +6,7 @@
 
 pragma solidity 0.8.1;
 
-import "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 abstract contract AccessControlExtension is AccessControl {
     

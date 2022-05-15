@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.0;
 
 import "./ERC1155MultiURI.sol";
 
@@ -36,6 +36,7 @@ import "./ERC1155MultiURI.sol";
  * to mint tokens.
  */
 abstract contract ERC1155MultiURI_UserUpgradeable is ERC1155MultiURI {
+    
     modifier mintsTokens(uint id) {
         require (!cannotMintMore[id], "Token is non-mintable");
         _;

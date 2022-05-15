@@ -30,8 +30,8 @@
 pragma solidity 0.8.1;
 
 //import "./Access Control Extension.sol";
-import "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
-import "@openzeppelin/contracts@4.4.2/utils/math/Math.sol"; 
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/math/Math.sol"; 
 
 
 

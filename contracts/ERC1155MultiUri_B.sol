@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.0;
 
-import "./ERC1155MultiURI_A.sol";
+import "./ERC1155MultiUri_A.sol";
 import {ModeratedUris} from "./Moderated Uris.sol";
 
-import "@openzeppelin/contracts@4.4.2/access/IAccessControl.sol";
-import "@openzeppelin/contracts@4.4.2/utils/Strings.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-import {AccessControl} from "@openzeppelin/contracts@4.4.2/access/AccessControl.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 
 /**
  * @dev Extension of ERC1155MultiURI that adds support for changing the metadata 

@@ -16,7 +16,7 @@
     Metanoia is an ecosystem of products that aims to bring 
     real world utility into the web3 space. 
 
-    Learn more about Metanoia in our whitepaper:
+    Learn more about Metanoia in our whitepaper:            
     https://docs.metanoia.country/
 
     Join our community!
@@ -29,7 +29,7 @@
 */
 
 
-import "./ERC1155MultiURI_B.sol";
+import "./ERC1155MultiUri_B.sol";
 
 pragma solidity 0.8.1;
 
