@@ -2,3 +2,4 @@ remixd_command.txt
 .vscode/
 artifacts/
 cache/
+.env

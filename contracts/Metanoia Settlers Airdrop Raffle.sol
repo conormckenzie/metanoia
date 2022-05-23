@@ -28,13 +28,13 @@
 
 */
 
-import "./ERC1155MultiURI.sol";
+import "./ERC1155MultiUri.sol";
 
 import "./Founding Settlers list.sol";
 
 pragma solidity 0.8.1;
 
-contract SettlersAirDropRaffle is ERC1155MultiURI, FoundingSettlersList {
+contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     address public contractGovernor;
     address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
 

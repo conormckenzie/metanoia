@@ -29,12 +29,12 @@
 */
 
 
-import "./ERC1155MultiUri_B.sol";
+import "./ERC1155MultiUri_UserUpgradeable_ModeratedUris.sol";
 
 pragma solidity 0.8.1;
 
-contract FoundingNftMintStorage is 
-ERC1155MultiURI_UserUpgradeable_ModeratedUris {
+contract FoundingCitizensNftMintStorage is 
+ERC1155MultiUri_UserUpgradeable_ModeratedUris {
     address public extrasHolder = address(this);
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
