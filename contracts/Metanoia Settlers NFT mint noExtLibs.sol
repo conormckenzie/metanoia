@@ -1088,7 +1088,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
 pragma solidity 0.8.1;
 
-import "./Founding Settlers list.sol";
+import "./Founding Settlers List.sol";
 
 contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
     address public extrasHolder = address(this);

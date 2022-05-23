@@ -30,7 +30,7 @@
 
 import "./ERC1155MultiUri.sol";
 
-import "./Founding Settlers list.sol";
+import "./Founding Settlers List.sol";
 
 pragma solidity 0.8.1;
 

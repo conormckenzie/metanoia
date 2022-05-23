@@ -1,5 +1,6 @@
 remixd_command.txt
 .vscode/
 artifacts/
+contracts/artifacts/
 cache/
 .env
