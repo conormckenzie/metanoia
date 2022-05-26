@@ -1,6 +1,8 @@
 remixd_command.txt
+dummy*
+
+node_modules/
 .vscode/
 artifacts/
-contracts/artifacts/
 cache/
 .env

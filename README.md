@@ -15,6 +15,9 @@ This code repository is actively developed on, and contains smart contracts and 
 THIS CODE IS NOT YET PRODUCTION READY, AND MAY HAVE SEVERE VULNERABILITIES OR ERRORS. IT HAS NOT YET BEEN AUDITED.
 
 Installation instructions using node:
-`npm install hardhat && npm install @openzeppelin/contracts`
+`yarn install`
+
+Or using npm:
+`npm install`
 
 Recommended to have Node.js version 16+ for compatibility with Hardhat

@@ -3,15 +3,16 @@ require('dotenv').config(); //from mulitple tutorials
 require("@nomiclabs/hardhat-ethers"); //from Polygon tutorial
 require("@nomiclabs/hardhat-etherscan"); //from Polygon tutorial
 
-require("@nomiclabs/hardhat-waffle"); //from other tutorial
+require('hardhat-ethernal'); //potential blockchain explorer
+
+//require("@nomiclabs/hardhat-waffle"); //from other tutorial
 
 require('hardhat-deploy'); //from OpenZeppelin tutorial
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- 
- 	
+
 module.exports = {
   solidity: "0.8.1",
   defaultNetwork: 'hardhat',
@@ -28,7 +29,17 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY]
     },
   },
+  ethernal: {
+    disableSync: false, // If set to true, plugin will not sync blocks & txs
+    disableTrace: false, // If set to true, plugin won't trace transaction
+    workspace: process.env.CURRENT_HARDHAT_NETWORK, // Set the workspace to use, will default to the default workspace (latest one used in the dashboard). It is also possible to set it through the ETHERNAL_WORKSPACE env variable
+    uploadAst: true, // If set to true, plugin will upload AST, and you'll be able to use the storage feature (longer sync time though)
+    disabled: false, // If set to true, the plugin will be disabled, nohting will be synced, ethernal.push won't do anything either
+    resetOnStart: false, // Pass a workspace name to reset it automatically when restarting the node, note that if the workspace doesn't exist it won't error
+    email: process.env.ETHERNAL_EMAIL,
+    password: process.env.ETHERNAL_PASSWORD,
+  },
   namedAccounts: {
     account0: 0,
-  }
+  },
 };
