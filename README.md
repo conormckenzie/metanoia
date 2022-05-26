@@ -17,7 +17,5 @@ THIS CODE IS NOT YET PRODUCTION READY, AND MAY HAVE SEVERE VULNERABILITIES OR ER
 Installation instructions using node:
 `yarn install`
 
-Or using npm:
-`npm install`
-
-Recommended to have Node.js version 16+ for compatibility with Hardhat
+Recommended to have the latest LTS Node version for compatibility with Hardhat (currently v16). 
+Developed using Node.js version 16.15.0
