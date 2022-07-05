@@ -9,6 +9,8 @@ require('hardhat-ethernal'); //potential blockchain explorer
 
 require('hardhat-deploy'); //from OpenZeppelin tutorial
 
+require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -24,7 +26,7 @@ module.exports = {
       accounts:{mnemonic: "test test test test test test test test test test test junk"},
       chainId: 1337
     },
-    matic: {
+    matic_testnet: {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY]
     },
@@ -41,5 +43,16 @@ module.exports = {
   },
   namedAccounts: {
     account0: 0,
+  },
+  paths: {
+    sources: "./contracts",
+    //tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
+  },
+  etherscan: {
+    apiKey: {
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY,
+    },
   },
 };

@@ -1,8 +1,13 @@
 remixd_command.txt
 dummy*
+Coding*Utilities.sol
+Access*Control*Extension.sol
 
 node_modules/
 .vscode/
 artifacts/
 cache/
 .env
+
+deploy_testNfts.js
+verify_testNfts.js

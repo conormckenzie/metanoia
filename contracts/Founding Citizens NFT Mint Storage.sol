@@ -28,6 +28,7 @@
 
 */
 
+// TO-DO: update this contract to move metadata on-chain
 
 import "./ERC1155MultiUri_UserUpgradeable_ModeratedUris.sol";
 
