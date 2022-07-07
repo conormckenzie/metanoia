@@ -13,13 +13,17 @@ interface ITypedNftSender {
 contract ERC1155Redeemer is ERC1155Holder, Ownable {
 
     mapping (address => mapping (uint => uint)) public selfBalances;
-    mapping (address => bool) whitelist; //not implemented yet
+    mapping (address => bool) whitelist; //not implemented yet 
 
+    /* 
+    contractAddress refers to this contract,
+     */
     event ERC1155Received (
         uint indexed date,
         address indexed from,
         uint indexed nftId,
-        address contractAddress,
+        address contractAddress, 
+        address nftContractAddress,
         uint nftType
     );
 
@@ -54,7 +58,7 @@ contract ERC1155Redeemer is ERC1155Holder, Ownable {
         }
         uint nftType = ITypedNftSender(msg.sender).getNftType(nftId);
         selfBalances[msg.sender][nftId] += 1;
-        emit ERC1155Received(block.timestamp, from, nftId, address(this), nftType);
+        emit ERC1155Received(block.timestamp, from, nftId, address(this), msg.sender, nftType);
         return this.onERC1155Received.selector;
     }
 

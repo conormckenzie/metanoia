@@ -12,7 +12,7 @@ contract TestNfts is ERC1155MultiUri {
     address public extrasHolder = address(this);
     
     uint public constant initialSupply = 0;
-    uint public constant totalSupply = initialSupply;
+    uint public totalSupply = initialSupply;
     uint public nextTokenID = 1;
 
     string public name;
@@ -48,8 +48,9 @@ contract TestNfts is ERC1155MultiUri {
     }
 
     function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ {
-        nextTokenID++;
         require(nftType >= 1 && nftType <= 3, "NFT type must be between 1 and 3");
+        nextTokenID++;
+        totalSupply += amount;
         _mintWithAttributes(to, nextTokenID-1, amount, "", uriList[nftType], nftType);
     }
 
