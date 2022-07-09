@@ -64,7 +64,17 @@ contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
         }
     }
 
+    function addAddress(address toAdd) public onlyOwner {
+        _addAddress(toAdd);
+    }
+
+    function removeAddress(address toRemove) public onlyOwner {
+        _removeAddress(toRemove);
+    }
+
     function sendTicket(address to, uint ticketID) public onlyOwner {
         _safeTransferFrom(extrasHolder, to, ticketID, 1, "");
     }
+
+
 }
