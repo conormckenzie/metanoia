@@ -49,6 +49,7 @@ contract TestNfts is ERC1155MultiUri {
 
     function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ {
         require(nftType >= 1 && nftType <= 3, "NFT type must be between 1 and 3");
+        require(!(nftType == 3 && amount > 1),"An NFT of type 3 must be unique");
         nextTokenID++;
         totalSupply += amount;
         _mintWithAttributes(to, nextTokenID-1, amount, "", uriList[nftType], nftType);
@@ -64,7 +65,7 @@ contract TestNfts is ERC1155MultiUri {
     ) internal virtual {
         require (!exists(id), "Cannot change metadata of existing token");
         _mintWithURI(to, id, amount, data, newuri);
-        setAttributes(id, nftType, 3);// Attr(_name, _material, 0);
+        setAttributes(id, nftType, 3);
     }
 
     function setAttributes (uint id, uint nftType, uint redemptions) internal {

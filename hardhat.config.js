@@ -9,6 +9,8 @@ require('hardhat-ethernal'); //potential blockchain explorer
 
 require('hardhat-deploy'); //from OpenZeppelin tutorial
 
+require('@openzeppelin/hardhat-upgrades'); //from OpenZeppelin upgrades tutorial
+
 require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
 
 /**

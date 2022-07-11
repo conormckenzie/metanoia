@@ -67,11 +67,16 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
         _;
     }
 
+    //constructor need not be run - it's effect will be overwritten in the initialize function
     constructor() ERC1155("URI not applicable: Using ERC1155MultiURI") {
-
         name = "Metanoia Founding Citizens NFT";
         symbol = "MFS NFT";
+    }
 
+    function initialize() public {
+        _setURI("URI not applicable: Using ERC1155MultiURI");
+        name = "Metanoia Founding Citizens NFT";
+        symbol = "MFS NFT";
     }
 
     function getNextUnusedToken() external view returns(uint) {

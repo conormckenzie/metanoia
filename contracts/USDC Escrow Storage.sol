@@ -40,7 +40,10 @@ contract UsdcEscrowStorage is AccessControl {
     IERC20 usdcToken = IERC20(usdcTokenAddress);
     mapping (address => uint) public usdcBalances;
 
-    //IMPORTANT: Test that this catches all transfers to this address
+    function initialize() public pure {}
+
+    //IMPORTANT: Test that this catches all transfers to this address.
+    //Probably doesn't :/
     function receiveUSDC(uint amount) public {
         require(amount > 0, "amount transferred must be a positive value");
         //requires javascript code to get buyer to first approve the allowance
@@ -96,7 +99,7 @@ contract UsdcEscrowStorage is AccessControl {
     }
 
     fallback() external payable {
-        revert("Fallback triggered - please interact with this contract via it's available functions");
+        revert("Fallback triggered - please interact with this contract only via it's available functions");
     }
 
 }

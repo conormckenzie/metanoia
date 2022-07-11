@@ -53,6 +53,10 @@ contract ERC1155Redeemer is ERC1155Holder, Ownable {
                 ITypedNftSender(msg.sender).getNftType(nftId) >= 0, 
                 "Nft Minter contract provides invalid nftType"
             );
+            require(
+                ITypedNftSender(msg.sender).getNftType(nftId) != 3, 
+                "Cannot redeem NFT type 3 (infinite-use) via this contract."
+            );
         } catch {
             revert("Nft Minter contract does not provide getNftType external function");
         }
