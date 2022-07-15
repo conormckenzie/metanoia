@@ -2,7 +2,7 @@
 
 // edit to check verification and test. edit 1
 
-pragma solidity 0.8.1;
+pragma solidity ^0.8.0;
 
 import "./ERC1155MultiUri.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";

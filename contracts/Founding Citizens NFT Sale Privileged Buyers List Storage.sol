@@ -30,7 +30,7 @@
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 contract PrivilegedListStorage is AccessControl {
 

@@ -4,7 +4,7 @@
 
 
 
-pragma solidity 0.8.1;
+pragma solidity >=0.8.1;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 

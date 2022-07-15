@@ -13,7 +13,7 @@
     the initial Metanoia Settler's NFT mint.
 */
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 contract FoundingSettlersList {
 

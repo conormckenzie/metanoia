@@ -30,17 +30,28 @@
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 contract UsdcEscrowStorage is AccessControl {
     
     bytes32 public constant USDC_MANAGER_ROLE = keccak256("USDC_MANAGER_ROLE");
 
-    address constant usdcTokenAddress = 0xe11A86849d99F524cAC3E7A0Ec1241828e332C62; 
-    IERC20 usdcToken = IERC20(usdcTokenAddress);
+    address usdcTokenAddress; 
+    IERC20 usdcToken;
     mapping (address => uint) public usdcBalances;
 
-    function initialize() public pure {}
+    bool initialized;
+
+    modifier onlyOnce {
+        require(!initialized, "contract has already been initialized");
+        initialized == true;
+        _;
+    }
+
+    function initialize() public onlyOnce {
+        usdcTokenAddress = 0xe11A86849d99F524cAC3E7A0Ec1241828e332C62;
+        usdcToken = IERC20(usdcTokenAddress);
+    }
 
     //IMPORTANT: Test that this catches all transfers to this address.
     //Probably doesn't :/

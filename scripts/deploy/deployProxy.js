@@ -1,3 +1,6 @@
+// NOTE: This script does not verify the contract - select "Verify" 
+// afterwards using the implementation contract address. 
+
 const hre = require("hardhat");
 require("dotenv").config({ path: ".env" });
 require("@nomiclabs/hardhat-etherscan");
@@ -12,18 +15,12 @@ function sleep(ms) {
 
 async function main() {
     const contractName = prompt('Name of contract to deploy: ');
-    const contract = await hre.ethers.getContractFactory(contractName);
+    const Contract = await hre.ethers.getContractFactory(contractName);
     const time = 40
-    const c = await upgrades.deployProxy(contract, [], { initializer: 'initialize' });
+    const c = await upgrades.deployProxy(Contract, [], { initializer: 'initialize' });
     // const c = await contract.deploy();
     await c.deployed();
-    console.log("Deployed contract ", contractName , " to:", c.address);
-    console.log(`waiting for ${time} seconds`);
-    await sleep(1000*time);
-    await hre.run("verify:verify", {
-        address: c.address,
-        constructorArguments: [],
-    });
+    console.log("Deployed contract prxoy for ", contractName , " to:", c.address);
 }
 
 main().then(() => process.exit(0)).catch(error => {

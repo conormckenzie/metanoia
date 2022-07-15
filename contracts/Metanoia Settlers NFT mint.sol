@@ -28,7 +28,7 @@
 
 */
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 import "./Founding Settlers List.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";

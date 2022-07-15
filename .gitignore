@@ -8,6 +8,7 @@ node_modules/
 artifacts/
 cache/
 .env
+.openzeppelin
 
 deploy_testNfts.js
 verify_testNfts.js

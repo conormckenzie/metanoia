@@ -32,7 +32,7 @@
 
 import "./ERC1155MultiUri_UserUpgradeable_ModeratedUris.sol";
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 contract FoundingCitizensNftMintStorage is 
 ERC1155MultiUri_UserUpgradeable_ModeratedUris {

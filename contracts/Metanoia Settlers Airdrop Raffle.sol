@@ -32,7 +32,7 @@ import "./ERC1155MultiUri.sol";
 
 import "./Founding Settlers List.sol";
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.4;
 
 contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     address public contractGovernor;

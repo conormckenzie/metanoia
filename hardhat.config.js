@@ -18,7 +18,7 @@ require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
  */
 
 module.exports = {
-  solidity: "0.8.1",
+  solidity: "0.8.4",
   defaultNetwork: 'hardhat',
   networks: {
     // localhost: {
