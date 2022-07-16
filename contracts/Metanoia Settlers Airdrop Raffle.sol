@@ -1,7 +1,3 @@
-/*
- *Submitted for verification at polygonscan.com on 2022-04-13
-*/
-
 // SPDX-License-Identifier: MIT
 
 /*
@@ -29,14 +25,20 @@
 */
 
 import "./ERC1155MultiUri.sol";
-
 import "./Founding Settlers List.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;
 
-contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
-    address public contractGovernor;
+interface IFoundingSettlersList {
+    function getMFS_length() external view returns(uint length);
+    function getMFS_list(uint ID) external view returns(address FoundingSettlerAddress);
+    function getMFS_listInv(address FoundingSettlerAddress) external view returns(uint addressID);
+}
+
+contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
+    IFoundingSettlersList public MFSList;
 
     string public name;
     string public symbol;
@@ -53,12 +55,6 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     mapping (uint => uint) _pseudoRandomNumbers;
     bool _randomsAreFresh;
     uint _internalSeed; //prevents a user-given seed from producing identical pseudorandoms in subsequent runs. 
-
-    modifier onlyGovernor() {
-        require(_msgSender() == contractGovernor, 
-            "Permission denied. Only the contract governor can perform that action.");
-            _;
-    }
 
     /*  
     *  @dev Handles checks and effects for minting an existing token. Use for functions that mint existing tokens.
@@ -92,9 +88,6 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
         
         name = "Metanoia Founding Settlers Collection";
         symbol = "MFS Collection";
-        
-        contractGovernor = _msgSender();
-        _initList();
     }
 
     /*
@@ -149,30 +142,16 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     }
 
     /*
-    *  @dev See file "./Founding Settlers list.sol" 
-    */
-    function addAddress(address toAdd) public onlyGovernor {
-        _addAddress(toAdd);
-    }
-
-    /*
-    *  @dev See file "./Founding Settlers list.sol" 
-    */
-    function removeAddress(address toRemove) public onlyGovernor {
-        _removeAddress(toRemove);
-    }
-
-    /*
     *  @dev See file "./ERC1155MultiURI.sol"
     */
-    function sendItems(address to, uint tokenID, uint amount) public onlyGovernor {
+    function sendItems(address to, uint tokenID, uint amount) public onlyOwner {
         _safeTransferFrom(extrasHolder, to, tokenID, amount, "");
     }
 
     /*
     *  @dev See file "./ERC1155MultiURI.sol"
     */
-    function sendItem(address to, uint tokenID) public onlyGovernor {
+    function sendItem(address to, uint tokenID) public onlyOwner {
         sendItems(to, tokenID, 1);
     }
 
@@ -181,29 +160,29 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     */
     function _mintByAirdrop(uint tokenID, uint amountPerRecipient, string memory newuri) 
     internal {
-        for (uint _i = 1; _i <= addresses.length; _i++) {
+        for (uint _i = 1; _i <= MFSList.getMFS_length(); _i++) {
             if(exists(tokenID)) {
-                _mintWithoutURI(addresses.list[_i], tokenID, amountPerRecipient, "");
+                _mintWithoutURI(MFSList.getMFS_list(_i), tokenID, amountPerRecipient, "");
             }
             else {
-                _mintWithURI(addresses.list[_i], tokenID, amountPerRecipient, "", newuri);
+                _mintWithURI(MFSList.getMFS_list(_i), tokenID, amountPerRecipient, "", newuri);
             }
         }
     }
 
     /*
-    *  @dev Mints an existing token to all addresses in the Founding Settler's List.
+    *  @dev Mints an existing token to all addresses() in the Founding Settler's List.
     */
     function mintByAirdrop(uint tokenID, uint amountPerRecipient) 
-    public onlyGovernor isExistingMint(tokenID, addresses.length * amountPerRecipient) {
+    public onlyOwner isExistingMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
         _mintByAirdrop(tokenID, amountPerRecipient, "");
     }
 
     /*
-    *  @dev Mints a new token to all addresses in the Founding Settler's List.
+    *  @dev Mints a new token to all addresses() in the Founding Settler's List.
     */
     function mintNewByAirdrop(uint tokenID, uint amountPerRecipient, string memory newuri) 
-    public onlyGovernor isNewMint(tokenID, addresses.length * amountPerRecipient) {
+    public onlyOwner isNewMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
         _mintByAirdrop(tokenID, amountPerRecipient, newuri);
     }
 
@@ -213,40 +192,40 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     function _mintByRaffle(
         uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed, string memory newuri
     ) internal { 
-        _getDistinctPseudoRandomNumbers(randomSeed, numberOfWinners, addresses.length);
+        _getDistinctPseudoRandomNumbers(randomSeed, numberOfWinners, MFSList.getMFS_length());
         require(_randomsAreFresh, "randoms are stale. Please get new random numbers");
         for (uint _i = 0; _i < numberOfWinners; _i++) {
             if(exists(tokenID)) {
-                _mintWithoutURI(addresses.list[_pseudoRandomNumbers[_i]], tokenID, amountPerWinner, "");
+                _mintWithoutURI(MFSList.getMFS_list(_pseudoRandomNumbers[_i]), tokenID, amountPerWinner, "");
             }
             else {
-                _mintWithURI(addresses.list[_pseudoRandomNumbers[_i]], tokenID, amountPerWinner, "", newuri);
+                _mintWithURI(MFSList.getMFS_list(_pseudoRandomNumbers[_i]), tokenID, amountPerWinner, "", newuri);
             }
         }
         _resetRandomNumbers(numberOfWinners);
     }
 
     /*
-    *  @dev Mints an existing token to a random set of addresses in the Founding Settler's List.
+    *  @dev Mints an existing token to a random set of addresses() in the Founding Settler's List.
     */
     function mintByRaffle(uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed) 
-    public onlyGovernor isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
+    public onlyOwner isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
         _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, "");
     }
 
     /*
-    *  @dev Mints a new token to a random set of addresses in the Founding Settler's List.
+    *  @dev Mints a new token to a random set of addresses() in the Founding Settler's List.
     */
     function mintNewByRaffle(
         uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed, string memory newuri
-    ) public onlyGovernor isNewMint(tokenID, amountPerWinner * numberOfWinners) { 
+    ) public onlyOwner isNewMint(tokenID, amountPerWinner * numberOfWinners) { 
         _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, newuri);
     }
 
     /*
     *  @dev Mints an existing token to the <extrasHolder> holding address.
     */
-    function mintToExtrasHolder(uint tokenID, uint amount) public onlyGovernor isExistingMint(tokenID, amount) {
+    function mintToExtrasHolder(uint tokenID, uint amount) public onlyOwner isExistingMint(tokenID, amount) {
         _mintWithoutURI(extrasHolder, tokenID, amount, "");
     }
 
@@ -255,7 +234,7 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, FoundingSettlersList {
     */
     function mintNewToExtrasHolder(
         uint tokenID, uint amount, string memory newuri
-    ) public onlyGovernor isNewMint(tokenID, amount) {
+    ) public onlyOwner isNewMint(tokenID, amount) {
         _mintWithURI(extrasHolder, tokenID, amount, "", newuri);
     }
 }

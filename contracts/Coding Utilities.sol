@@ -7,8 +7,24 @@
 
 pragma solidity ^0.8.0;
 
+/// @title A simulator for trees
+/// @author Larry A. Gardner
+/// @notice You can use this contract for only the most basic simulation
+/// @dev All function calls are currently implemented without side effects
+/// @custom:experimental This is an experimental contract.
+
+// for above, see https://docs.soliditylang.org/en/v0.8.10/natspec-format.html
+
 contract Utils {
 
+/// @title A simulator for trees
+/// @author Larry A. Gardner
+/// @notice You can use this contract for only the most basic simulation
+/// @dev All function calls are currently implemented without side effects
+/// @param rings The number of rings from dendrochronological sample
+/// @return Documents the return variables of a contract’s function
+/// @inheritdoc Copies all missing tags from the base function (must be followed by the contract name)
+/// @custom:experimental This is an experimental contract.
 
 // address public contractGovernor;
 
