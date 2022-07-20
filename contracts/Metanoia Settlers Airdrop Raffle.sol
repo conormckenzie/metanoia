@@ -25,17 +25,23 @@
 */
 
 import "./ERC1155MultiUri.sol";
-import "./Founding Settlers List.sol";
+import "./IFoundingSettlersList.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;
 
-interface IFoundingSettlersList {
-    function getMFS_length() external view returns(uint length);
-    function getMFS_list(uint ID) external view returns(address FoundingSettlerAddress);
-    function getMFS_listInv(address FoundingSettlerAddress) external view returns(uint addressID);
-}
-
+/// @title  Founding Settlers Airdrops & Raffles
+/// @author Conor McKenzie
+/** @notice This contract mints ERC-1155 tokens via airdrop or raffle to addresses in the Founding Settlers List.  
+ *          
+ *          You can use this contract to transfer your any tokens you own to another address or do any other action 
+ *          with the tokens that is supported by the ERC-1155 standard.
+ */
+/** @dev    All non-view non-pure public functions in this contract other than those from Metanoia's ERC-1155-MultiURI 
+ *          contract (which this contract inherits from) are restricted to be accessible only by the owner.
+ *
+ *          The Founding Settlers List may exceed 100 addresses after minting, by use of the `addAddress` function. 
+ */
 contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
     IFoundingSettlersList public MFSList;
@@ -88,6 +94,8 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
         
         name = "Metanoia Founding Settlers Collection";
         symbol = "MFS Collection";
+
+        //MFSList = 0x...;
     }
 
     /*
@@ -208,8 +216,12 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     /*
     *  @dev Mints an existing token to a random set of addresses() in the Founding Settler's List.
     */
-    function mintByRaffle(uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed) 
-    public onlyOwner isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
+    function mintByRaffle(
+        uint tokenID, 
+        uint amountPerWinner, 
+        uint numberOfWinners, 
+        uint randomSeed
+    ) public onlyOwner isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
         _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, "");
     }
 

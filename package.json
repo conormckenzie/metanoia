@@ -5,7 +5,8 @@
     "@openzeppelin/hardhat-upgrades": "^1.19.0",
     "hardhat": "^2.9.5",
     "hardhat-deploy": "^0.11.9",
-    "hardhat-ethernal": "^1.0.0"
+    "hardhat-ethernal": "^1.0.0",
+    "solidity-coverage": "^0.7.21"
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",

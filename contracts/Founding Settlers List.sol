@@ -63,10 +63,15 @@ contract FoundingSettlersList {
     /// @dev `addresses` is the list of addresses. 
     AddressList public addresses;
 
-    /// @dev    Adds an address to list, binding it to the lowest available ID.
+    /** @dev    Adds an address to list, binding it to the lowest available ID.
+     *          Cannot add to the list the zero address or add address that is already in the list.
+     */
     /// @param  _address The address to add to the list
     function _addAddress(address _address) internal {
         
+        require(addresses.listInv[_address] == 0, "Cannot add address that is already in the list");
+        require(_address != address(0), "Cannot add the zero address to the list"); 
+
         /// @dev    `addresses.list` is 1-indexed not 0-indexed
         addresses.list[addresses.length+1] = _address; 
         addresses.listInv[_address] = addresses.length+1;
@@ -81,6 +86,9 @@ contract FoundingSettlersList {
     /// @param  _address The address to remove from the list
     function _removeAddress(address _address) internal {
         
+        require(addresses.listInv[_address] != 0, "Cannot remove address that is already not in the list");
+        require(_address != address(0), "Cannot remove the zero address from the list"); 
+
         uint removedID = addresses.listInv[_address];
         address removedAddress = _address;
 

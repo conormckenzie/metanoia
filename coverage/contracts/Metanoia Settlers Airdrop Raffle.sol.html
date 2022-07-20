@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Metanoia Settlers Airdrop Raffle.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Metanoia Settlers Airdrop Raffle.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/48</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/51</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+&nbsp;
+/*
+&nbsp;
+███╗░░░███╗███████╗████████╗░█████╗░███╗░░██╗░█████╗░██╗░█████╗░
+████╗░████║██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔══██╗██║██╔══██╗
+██╔████╔██║█████╗░░░░░██║░░░███████║██╔██╗██║██║░░██║██║███████║
+██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║╚████║██║░░██║██║██╔══██║
+██║░╚═╝░██║███████╗░░░██║░░░██║░░██║██║░╚███║╚█████╔╝██║██║░░██║
+╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝
+&nbsp;
+    Metanoia is an ecosystem of products that aims to bring 
+    real world utility into the web3 space. 
+&nbsp;
+    Learn more about Metanoia in our whitepaper:
+    https://docs.metanoia.country/
+&nbsp;
+    Join our community!
+    https://discord.gg/YgUus2kddQ
+&nbsp;
+&nbsp;
+    This is the contract that hosts airdrops and raffles for 
+    Metanoia's Founding Settlers.
+&nbsp;
+*/
+&nbsp;
+import "./ERC1155MultiUri.sol";
+import "./IFoundingSettlersList.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+&nbsp;
+pragma solidity 0.8.4;
+&nbsp;
+/// @title  Founding Settlers Airdrops &amp; Raffles
+/// @author Conor McKenzie
+/** @notice This contract mints ERC-1155 tokens via airdrop or raffle to addresses in the Founding Settlers List.  
+ *          
+ *          You can use this contract to transfer your any tokens you own to another address or do any other action 
+ *          with the tokens that is supported by the ERC-1155 standard.
+ */
+/** @dev    All non-view non-pure public functions in this contract other than those from Metanoia's ERC-1155-MultiURI 
+ *          contract (which this contract inherits from) are restricted to be accessible only by the owner.
+ *
+ *          The Founding Settlers List may exceed 100 addresses after minting, by use of the `addAddress` function. 
+ */
+contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
+    address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
+    IFoundingSettlersList public MFSList;
+&nbsp;
+    string public name;
+    string public symbol;
+    
+    /*  
+    *  @dev totalSupply accumulates the total supply of ALL tokens from this contract, not each token individually.
+    *       Individual token supplies can be retreived by calling the "totalSupply(&lt;tokenID&gt;)" getter.
+    */
+    uint public totalSupply;
+&nbsp;
+    uint public nextUnusedToken;
+&nbsp;
+&nbsp;
+    mapping (uint =&gt; uint) _pseudoRandomNumbers;
+    bool _randomsAreFresh;
+    uint _internalSeed; //prevents a user-given seed from producing identical pseudorandoms in subsequent runs. 
+&nbsp;
+    /*  
+    *  @dev Handles checks and effects for minting an existing token. Use for functions that mint existing tokens.
+    */
+<span class="fstat-no" title="function not covered" >    modifier isExistingMint(uint _tokenID, uint _newSupply) {</span>
+<span class="cstat-no" title="statement not covered" >        require(exists(_tokenID), </span>
+            "You have tried to call a mint function on a new token without providing a metadata URI for the token. Please call the correponding function that accepts a URI as a parameter." 
+        );
+<span class="cstat-no" title="statement not covered" >        if (_tokenID &gt;= nextUnusedToken) {</span>
+<span class="cstat-no" title="statement not covered" >            nextUnusedToken = _tokenID + 1</span>;
+        }
+<span class="cstat-no" title="statement not covered" >        totalSupply += _newSupply</span>;
+        _;
+    }
+&nbsp;
+    /*  
+    *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
+    */
+<span class="fstat-no" title="function not covered" >    modifier isNewMint(uint _tokenID, uint _newSupply) {</span>
+<span class="cstat-no" title="statement not covered" >        require(!exists(_tokenID), </span>
+            "You have tried to call a mint function on an existing token while providing a new metadata URI. Please call the correponding function without URI as a parameter." 
+        );
+<span class="cstat-no" title="statement not covered" >        if (_tokenID &gt;= nextUnusedToken) {</span>
+<span class="cstat-no" title="statement not covered" >            nextUnusedToken = _tokenID + 1</span>;
+        }
+<span class="cstat-no" title="statement not covered" >        totalSupply += _newSupply</span>;
+        _;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    constructor() ERC1155("URI not applicable: Using ERC1155MultiURI") {</span>
+        
+<span class="cstat-no" title="statement not covered" >        name = "Metanoia Founding Settlers Collection"</span>;
+<span class="cstat-no" title="statement not covered" >        symbol = "MFS Collection"</span>;
+&nbsp;
+        //MFSList = 0x...;
+    }
+&nbsp;
+    /*
+    *  @dev Gets one or more distinct pseudorandom numbers _in the range [1,_max] based on a seed provided by the 
+    *           function caller. 
+    *       WARNING: This is not suitable for use as a truly random number generator - it is only suitable as a  
+    *           method to morph a seed generated outside the blockchain to a number or set of numbers usable
+    *           on the blockchain.  
+    *       CAUTION: The seed chosen should be large to reduce the seed's prior predictability and prevent small 
+    *           obvious candidate seeds such as 0,1,10,22,100,123,etc. being used.
+    *       NOTE: This uses the Knuth algorithm to select distinct pseudorandom numbers.  
+    *           Ref: https://stackoverflow.com/questions/1608181/unique-random-number-generation-_in-an-integer-array
+    */
+<span class="fstat-no" title="function not covered" >    function _getDistinctPseudoRandomNumbers(uint _seed, uint _quantity, uint _max) internal {</span>
+<span class="cstat-no" title="statement not covered" >        require(_quantity &lt; _max, </span>
+            "Cannot return more pseudorandoms than exist in the range. Please ensure _quantity &lt; _max.");
+<span class="cstat-no" title="statement not covered" >        uint N = _max;</span>
+<span class="cstat-no" title="statement not covered" >        uint M = _quantity;</span>
+<span class="cstat-no" title="statement not covered" >        uint _in;</span>
+<span class="cstat-no" title="statement not covered" >        uint _im = 0;</span>
+<span class="cstat-no" title="statement not covered" >        for (_in = 0; _in &lt; N &amp;&amp; _im &lt; M; _in++) {</span>
+<span class="cstat-no" title="statement not covered" >            uint _rn = N - _in;</span>
+<span class="cstat-no" title="statement not covered" >            uint _rm = M - _im;</span>
+<span class="cstat-no" title="statement not covered" >            if (_rand(_seed, _in) % _rn &lt; _rm) {</span>
+<span class="cstat-no" title="statement not covered" >                _pseudoRandomNumbers[_im++] = _in + 1</span>;
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        require(_im == M, "error in Knuth algorithm implementation")</span>;
+<span class="cstat-no" title="statement not covered" >        assert(_im == M)</span>;
+<span class="cstat-no" title="statement not covered" >        _randomsAreFresh = true</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Morphs &lt;_seed&gt;, &lt;_i&gt;, and &lt;_internalSeed&gt; into a new value that cannot be influenced by miners.
+    */
+<span class="fstat-no" title="function not covered" >    function _rand(uint _seed, uint _i) internal returns(uint) {</span>
+<span class="cstat-no" title="statement not covered" >        require(_seed &gt;= 100000, "seed number must be at least 6 digits long")</span>;
+<span class="cstat-no" title="statement not covered" >        uint _random = uint(</span>
+            keccak256(abi.encodePacked(_i, _seed, _internalSeed)));
+<span class="cstat-no" title="statement not covered" >        _internalSeed = _random</span>;
+<span class="cstat-no" title="statement not covered" >        return _random;</span>
+    }
+&nbsp;
+    /*
+    *  @dev Clears &lt;_pseudoRandomNumbers&gt; so that they are not accidentally used more than once.
+    */
+<span class="fstat-no" title="function not covered" >    function _resetRandomNumbers(uint _quantity) internal {</span>
+<span class="cstat-no" title="statement not covered" >        for (uint _i = 0; _i &lt; _quantity; _i++) {</span>
+            delete _pseudoRandomNumbers[_i];
+        }
+<span class="cstat-no" title="statement not covered" >        _randomsAreFresh = false</span>;
+    }
+&nbsp;
+    /*
+    *  @dev See file "./ERC1155MultiURI.sol"
+    */
+<span class="fstat-no" title="function not covered" >    function sendItems(address to, uint tokenID, uint amount) public onlyOwner {</span>
+<span class="cstat-no" title="statement not covered" >        _safeTransferFrom(extrasHolder, to, tokenID, amount, "")</span>;
+    }
+&nbsp;
+    /*
+    *  @dev See file "./ERC1155MultiURI.sol"
+    */
+<span class="fstat-no" title="function not covered" >    function sendItem(address to, uint tokenID) public onlyOwner {</span>
+<span class="cstat-no" title="statement not covered" >        sendItems(to, tokenID, 1)</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Helper function for minting by airdrop with or without URI
+    */
+<span class="fstat-no" title="function not covered" >    function _mintByAirdrop(uint tokenID, uint amountPerRecipient, string memory newuri) </span>
+    internal {
+<span class="cstat-no" title="statement not covered" >        for (uint _i = 1; _i &lt;= MFSList.getMFS_length(); _i++) {</span>
+<span class="cstat-no" title="statement not covered" >            if(exists(tokenID)) {</span>
+<span class="cstat-no" title="statement not covered" >                _mintWithoutURI(MFSList.getMFS_list(_i), tokenID, amountPerRecipient, "")</span>;
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                _mintWithURI(MFSList.getMFS_list(_i), tokenID, amountPerRecipient, "", newuri)</span>;
+            }
+        }
+    }
+&nbsp;
+    /*
+    *  @dev Mints an existing token to all addresses() in the Founding Settler's List.
+    */
+<span class="fstat-no" title="function not covered" >    function mintByAirdrop(uint tokenID, uint amountPerRecipient) </span>
+    public onlyOwner isExistingMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
+<span class="cstat-no" title="statement not covered" >        _mintByAirdrop(tokenID, amountPerRecipient, "")</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Mints a new token to all addresses() in the Founding Settler's List.
+    */
+<span class="fstat-no" title="function not covered" >    function mintNewByAirdrop(uint tokenID, uint amountPerRecipient, string memory newuri) </span>
+    public onlyOwner isNewMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
+<span class="cstat-no" title="statement not covered" >        _mintByAirdrop(tokenID, amountPerRecipient, newuri)</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Helper function for minting by raffle with or without URI
+    */
+<span class="fstat-no" title="function not covered" >    function _mintByRaffle(</span>
+        uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed, string memory newuri
+    ) internal { 
+<span class="cstat-no" title="statement not covered" >        _getDistinctPseudoRandomNumbers(randomSeed, numberOfWinners, MFSList.getMFS_length())</span>;
+<span class="cstat-no" title="statement not covered" >        require(_randomsAreFresh, "randoms are stale. Please get new random numbers")</span>;
+<span class="cstat-no" title="statement not covered" >        for (uint _i = 0; _i &lt; numberOfWinners; _i++) {</span>
+<span class="cstat-no" title="statement not covered" >            if(exists(tokenID)) {</span>
+<span class="cstat-no" title="statement not covered" >                _mintWithoutURI(MFSList.getMFS_list(_pseudoRandomNumbers[_i]), tokenID, amountPerWinner, "")</span>;
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                _mintWithURI(MFSList.getMFS_list(_pseudoRandomNumbers[_i]), tokenID, amountPerWinner, "", newuri)</span>;
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        _resetRandomNumbers(numberOfWinners)</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Mints an existing token to a random set of addresses() in the Founding Settler's List.
+    */
+<span class="fstat-no" title="function not covered" >    function mintByRaffle(</span>
+        uint tokenID, 
+        uint amountPerWinner, 
+        uint numberOfWinners, 
+        uint randomSeed
+    ) public onlyOwner isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
+<span class="cstat-no" title="statement not covered" >        _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, "")</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Mints a new token to a random set of addresses() in the Founding Settler's List.
+    */
+<span class="fstat-no" title="function not covered" >    function mintNewByRaffle(</span>
+        uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed, string memory newuri
+    ) public onlyOwner isNewMint(tokenID, amountPerWinner * numberOfWinners) { 
+<span class="cstat-no" title="statement not covered" >        _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, newuri)</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Mints an existing token to the &lt;extrasHolder&gt; holding address.
+    */
+<span class="fstat-no" title="function not covered" >    function mintToExtrasHolder(uint tokenID, uint amount) public onlyOwner isExistingMint(tokenID, amount) {</span>
+<span class="cstat-no" title="statement not covered" >        _mintWithoutURI(extrasHolder, tokenID, amount, "")</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Mints a new token to the &lt;extrasHolder&gt; holding address.
+    */
+<span class="fstat-no" title="function not covered" >    function mintNewToExtrasHolder(</span>
+        uint tokenID, uint amount, string memory newuri
+    ) public onlyOwner isNewMint(tokenID, amount) {
+<span class="cstat-no" title="statement not covered" >        _mintWithURI(extrasHolder, tokenID, amount, "", newuri)</span>;
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

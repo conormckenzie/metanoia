@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Moderated Uris.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Moderated Uris.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/76</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/78</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+&nbsp;
+pragma solidity ^0.8.0;
+&nbsp;
+import "@openzeppelin/contracts/access/AccessControl.sol";
+&nbsp;
+contract ModeratedUris is AccessControl {
+&nbsp;
+    bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
+    bytes32 public constant URI_ADDER_ROLE = keccak256("URI_ADDER_ROLE");
+    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
+    
+    //replace with role to manage this.
+    bool private canRevokeUriApproval;
+<span class="fstat-no" title="function not covered" >    function makeApprovedUriListsAppendOnly() public onlyRole(DEFAULT_ADMIN_ROLE) {</span>
+<span class="cstat-no" title="statement not covered" >        canRevokeUriApproval = false</span>;
+    }
+&nbsp;
+    struct Entry {
+        uint _entryID;
+&nbsp;
+        uint id;
+        //id = 0 means it applies to all ids
+        string uri;
+        bool approved;
+    }
+&nbsp;
+    struct State {
+        /* 
+         * @dev Stores the URIs that are approved for any NFT in the collection  
+         *      to link to.
+         *
+         * Syntax:      gloabl[string]
+         * Description: stores whether a given string is a globally approved URI.           
+         */
+        //mapping(string =&gt; bool) globalApproved;
+&nbsp;
+        Entry[] entries; // (append/modify)-only
+        
+        /*  
+         * @dev Stores the entry of the index for each (URI, ID) pair.
+         *
+         * Syntax:      indexWithIdUri[keccak256(abi.encodePacked(id, uri))]
+         * Usage: Returns a bool whether a given URI string is approved for a 
+         *              given token id.
+         */
+        mapping(bytes32 =&gt; uint) indexWithIdUri;
+        // bytes 32 = keccak256(abi.encodePacked(id, uri)) is the hash of the 
+        // tuple (uint id, string uri)
+&nbsp;
+        mapping(string =&gt; uint[]) indexesWithUri;
+&nbsp;
+        mapping(uint =&gt; uint[]) indexesWithId;
+    }
+    State private _state;
+&nbsp;
+    // LEVEL 0 functions: CRU(D) - encapsulate _state.entries
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function __entryExists(uint i) </span>
+    private pure returns(bool) {
+<span class="cstat-no" title="statement not covered" >        return i != 0;</span>
+    }
+&nbsp;
+    //create
+    // warning: does not check if an existing entry with matching id and 
+    // uri exists, as that is the domain of the next level
+<span class="fstat-no" title="function not covered" >    function __makeEntry(uint _id, string memory _uri, bool _approved) </span>
+    private returns(uint) {
+        // entries[0] should always have id:0, uri:"", and approved:false
+<span class="cstat-no" title="statement not covered" >        if (_state.entries.length == 0) {</span>
+<span class="cstat-no" title="statement not covered" >            _state.entries[0] = Entry({</span>
+                _entryID: 0,
+                id: 0,
+                uri: "",
+                approved: false
+            });
+        }
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            keccak256(bytes(_uri)) != keccak256(bytes("")),
+            "ModeratedUris: ERR 1" 
+            // "Cannot make entry with empty URI"
+        );
+<span class="cstat-no" title="statement not covered" >        _state.entries.push(</span>
+            Entry({
+                _entryID: _state.entries.length,
+                id: _id,
+                uri: _uri,
+                approved: _approved
+            })
+        );
+<span class="cstat-no" title="statement not covered" >        return _state.entries.length-1;</span> //returns the entryID of the new entry
+    }
+&nbsp;
+    //update
+<span class="fstat-no" title="function not covered" >    function __updateEntry(uint i, bool _approved)</span>
+    private {
+<span class="cstat-no" title="statement not covered" >        require(i != 0, "ModeratedUris: ERR 2")</span>;
+        // "Cannot edit _state.entries[0]"
+<span class="cstat-no" title="statement not covered" >        _state.entries[i].approved = _approved</span>;
+    }
+&nbsp;
+    //retrieve - should be used in combination with L0:(exists) when it is not
+    // okay to skip entries that don't exist
+<span class="fstat-no" title="function not covered" >    function __getEntry(uint i, bool checked) </span>
+    private view returns(Entry memory) {
+<span class="cstat-no" title="statement not covered" >        if (checked) {</span>
+<span class="cstat-no" title="statement not covered" >            require(i != 0, "ModeratedUris: ERR 3")</span>;
+            // "Cannot retrieve _state.entries[0]"
+        }
+<span class="cstat-no" title="statement not covered" >        return _state.entries[i];</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function __entryIsGlobal(uint i, bool checked)</span>
+    private view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        return __getEntry(i, checked).id == 0;</span>
+    }
+&nbsp;
+    // LEVEL 1 functions: link _state variables to encapsulate entryId member
+    
+    //(exists)
+<span class="fstat-no" title="function not covered" >    function _entryExists(uint id, string memory uri)</span>
+    private view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        uint i = _state.indexWithIdUri[keccak256(abi.encodePacked(id, uri))];</span>
+<span class="cstat-no" title="statement not covered" >        return __entryExists(i);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _entryIsGlobal(uint id, string memory uri, bool checked)</span>
+    private view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        uint i = _state.indexWithIdUri[keccak256(abi.encodePacked(id, uri))];</span>
+<span class="cstat-no" title="statement not covered" >        return __entryIsGlobal(i, checked);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _getEntry(uint id, string memory uri, bool checked) </span>
+    private view returns(Entry memory) {
+<span class="cstat-no" title="statement not covered" >        uint i = _state.indexWithIdUri[keccak256(abi.encodePacked(id, uri))];</span>
+<span class="cstat-no" title="statement not covered" >        return __getEntry(i, checked);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _makeEntry(uint id, string memory uri, bool approved) </span>
+    private {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            !_entryExists(id, uri), 
+            "L1: _makeEntry: entry with matching id and uri already exists"
+        );
+<span class="cstat-no" title="statement not covered" >        uint i = __makeEntry(id, uri, approved);</span>
+<span class="cstat-no" title="statement not covered" >        _state.indexWithIdUri[keccak256(abi.encodePacked(id, uri))] = i</span>;
+<span class="cstat-no" title="statement not covered" >        _state.indexesWithId[id].push(i)</span>;
+<span class="cstat-no" title="statement not covered" >        _state.indexesWithUri[uri].push(i)</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _updateEntry(uint id, string memory uri, bool approved) </span>
+    private {
+<span class="cstat-no" title="statement not covered" >        uint i = _state.indexWithIdUri[keccak256(abi.encodePacked(id, uri))];</span>
+<span class="cstat-no" title="statement not covered" >        __updateEntry(i, approved)</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _isIdUriPairApproved(uint id, string memory uri)</span>
+    private view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        return _getEntry(id, uri, false).approved;</span>
+    }
+&nbsp;
+    // function _getAllUrisFromId(uint id, bool includeGloballyApproved) 
+    // private view returns(string[] memory) {
+    //     string[] memory results;
+    //     if (includeGloballyApproved) {
+    //         results = _getAllUrisFromId(0, false);
+    //     }
+    //     uint returnCount = results.length;
+    //     for (uint count = 0; count &lt; _state.indexesWithId[id].length; count++) {
+    //         uint i = _state.indexesWithId[id][count];
+    //         results[returnCount] = __getEntry(i, false).uri;
+    //     }
+    //     return results;
+    // }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _getAllApprovedUrisFromId(uint id, bool includeGloballyApproved) </span>
+    private view returns(string[] memory) {
+<span class="cstat-no" title="statement not covered" >        string[] memory results;</span>
+<span class="cstat-no" title="statement not covered" >        if (includeGloballyApproved) {</span>
+<span class="cstat-no" title="statement not covered" >            results = _getAllApprovedUrisFromId(0, false)</span>;
+        }
+<span class="cstat-no" title="statement not covered" >        uint returnCount = results.length;</span>
+<span class="cstat-no" title="statement not covered" >        for (uint count = 0; count &lt; _state.indexesWithId[id].length; count++) {</span>
+<span class="cstat-no" title="statement not covered" >            uint i = _state.indexesWithId[id][count];</span>
+<span class="cstat-no" title="statement not covered" >            Entry memory e = __getEntry(i, false);</span>
+<span class="cstat-no" title="statement not covered" >            if (e.approved) {</span>
+<span class="cstat-no" title="statement not covered" >                results[returnCount] = e.uri</span>;
+                returnCount++;
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return results;</span>
+    }
+&nbsp;
+    // function _getAllIdsFromUri(string memory uri, bool includeGloballyApproved) 
+    // private view returns(uint[] memory) {
+    //     uint[] memory results;
+    //     if (includeGloballyApproved &amp;&amp; _entryExists(0, uri)) {
+    //         results[0] = __getEntry(0, false).id;
+    //     }
+    //     uint returnCount = results.length;
+    //     for (uint count = 0; count &lt; _state.indexesWithUri[uri].length; count++)
+    //     {
+    //         uint i = _state.indexesWithUri[uri][count];
+    //         results[returnCount] = __getEntry(i, false).id;
+    //     }
+    //     return results;
+    // }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _getAllApprovedIdsFromUri(</span>
+        string memory uri, 
+        bool includeGloballyApproved
+    ) private view returns(uint[] memory) {
+<span class="cstat-no" title="statement not covered" >        uint[] memory results;</span>
+<span class="cstat-no" title="statement not covered" >        if (</span>
+            includeGloballyApproved &amp;&amp; 
+            _entryExists(0, uri) &amp;&amp;
+            _getEntry(0, uri, true).approved
+        ) {
+<span class="cstat-no" title="statement not covered" >            results[0] = 0</span>;
+        }
+<span class="cstat-no" title="statement not covered" >        uint returnCount = results.length;</span>
+<span class="cstat-no" title="statement not covered" >        for (uint count = 0; count &lt; _state.indexesWithUri[uri].length; count++) {</span>
+<span class="cstat-no" title="statement not covered" >            uint i = _state.indexesWithUri[uri][count];</span>
+<span class="cstat-no" title="statement not covered" >            Entry memory e = __getEntry(i, false);</span>
+<span class="cstat-no" title="statement not covered" >            if (e.approved) {</span>
+<span class="cstat-no" title="statement not covered" >                results[returnCount] = e.id</span>;
+                returnCount++;
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return results;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _unapproveUriForAllIds(</span>
+        string memory uri, 
+        bool includeGloballyApproved
+    ) private {
+<span class="cstat-no" title="statement not covered" >        for (uint count = 0; count &lt; _state.indexesWithUri[uri].length; count++) {</span>
+<span class="cstat-no" title="statement not covered" >            uint i = _state.indexesWithUri[uri][count];</span>
+<span class="cstat-no" title="statement not covered" >            if (includeGloballyApproved || !__entryIsGlobal(i, true)) {</span>
+<span class="cstat-no" title="statement not covered" >                __updateEntry(i, false)</span>;
+            } 
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _unapproveAllUrisForId(uint id) </span>
+    private {
+<span class="cstat-no" title="statement not covered" >        for (uint count = 0; count &lt; _state.indexesWithId[id].length; count++) {</span>
+<span class="cstat-no" title="statement not covered" >            uint i = _state.indexesWithId[id][count];</span>
+<span class="cstat-no" title="statement not covered" >            __updateEntry(i, false)</span>;
+        }
+    }
+&nbsp;
+    // LEVEL 2 functions: public-facing and helper functions
+&nbsp;
+    /*  
+     * @dev Approves a URI to be used globally (id = 0) or for a specific token 
+     *      ID.
+     */
+<span class="fstat-no" title="function not covered" >    function _setIdUriPairApproval(uint id, string memory uri, bool approved) </span>
+    private {
+<span class="cstat-no" title="statement not covered" >        if (!_entryExists(id, uri)) { </span>
+<span class="cstat-no" title="statement not covered" >            _makeEntry(id, uri, approved)</span>;
+        }
+        else { 
+<span class="cstat-no" title="statement not covered" >            _updateEntry(id, uri, approved)</span>;
+        }
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function isMetadataApprovedForId(uint id, string memory metadata_uri) </span>
+    public view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        if (!_entryExists(id, metadata_uri)) { </span>
+<span class="cstat-no" title="statement not covered" >            return _isIdUriPairApproved(0, metadata_uri);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return </span>
+                _isIdUriPairApproved(id, metadata_uri) || 
+                _isIdUriPairApproved(0, metadata_uri)
+            ;
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function isMetadataApprovedForAll(string memory metadata_uri)</span>
+    public view returns(bool) {
+<span class="cstat-no" title="statement not covered" >        return _isIdUriPairApproved(0, metadata_uri);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getAllGloballyApprovedMetadata() </span>
+    public view returns(string[] memory) {
+<span class="cstat-no" title="statement not covered" >        return _getAllApprovedUrisFromId(0, false);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getAllApprovedMetadatasForId(uint id, bool includeGloballyApproved) </span>
+    public view returns(string[] memory) {
+<span class="cstat-no" title="statement not covered" >        if (id == 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return _getAllApprovedUrisFromId(0, false);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return _getAllApprovedUrisFromId(id, includeGloballyApproved);</span>
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getAllApprovedIdsForMetadata(string memory metadata_uri) </span>
+    public view returns(uint[] memory) {
+<span class="cstat-no" title="statement not covered" >        return _getAllApprovedIdsFromUri(metadata_uri, true);</span>
+    }
+&nbsp;
+    // does nothing if (0, uri) pair is already approved
+<span class="fstat-no" title="function not covered" >    function approveMetadatForId(uint id, string memory metadata_uri) </span>
+    public {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(URI_ADDER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        _setIdUriPairApproval(id, metadata_uri, true)</span>;
+    }
+&nbsp;
+    // does nothing if (0, uri) pair is already approved
+<span class="fstat-no" title="function not covered" >    function approveMetadatForAll(string memory metadata_uri) </span>
+    public {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(URI_ADDER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        _setIdUriPairApproval(0, metadata_uri, true)</span>;
+    }
+&nbsp;
+    // does nothing if (id, uri) pair is already unapproved
+<span class="fstat-no" title="function not covered" >    function unapproveMetadatForId(uint id, string memory metadata_uri) </span>
+    public {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        _setIdUriPairApproval(id, metadata_uri, false)</span>;
+    }
+&nbsp;
+    // does nothing if uri is already unapproved for all ids (including 0)
+<span class="fstat-no" title="function not covered" >    function unapproveMetadataForAll(string memory metadata_uri) </span>
+    public {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        _unapproveUriForAllIds(metadata_uri, true)</span>;
+    }
+&nbsp;
+    // does nothing if all uris for id are already unapproved
+    // does not apply to globally approved uri
+<span class="fstat-no" title="function not covered" >    function unapproveAllMetadataForId(uint id) </span>
+    public {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(URI_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        _unapproveAllUrisForId(id)</span>;
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

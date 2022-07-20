@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Founding Citizens NFT Sale Privileged Buyers List Storage.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Founding Citizens NFT Sale Privileged Buyers List Storage.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/52</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ *Submitted for verification at polygonscan.com on 2022-xx-xx (YYYY-MM-DD)
+*/
+&nbsp;
+// SPDX-License-Identifier: MIT
+&nbsp;
+/*
+&nbsp;
+███╗░░░███╗███████╗████████╗░█████╗░███╗░░██╗░█████╗░██╗░█████╗░
+████╗░████║██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔══██╗██║██╔══██╗
+██╔████╔██║█████╗░░░░░██║░░░███████║██╔██╗██║██║░░██║██║███████║
+██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║╚████║██║░░██║██║██╔══██║
+██║░╚═╝░██║███████╗░░░██║░░░██║░░██║██║░╚███║╚█████╔╝██║██║░░██║
+╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝
+&nbsp;
+    Metanoia is an ecosystem of products that aims to bring 
+    real world utility into the web3 space. 
+&nbsp;
+    Learn more about Metanoia in our whitepaper:
+    https://docs.metanoia.country/
+&nbsp;
+    Join our community!
+    https://discord.gg/YgUus2kddQ
+&nbsp;
+&nbsp;
+    This is the contract which hosts the list of privileged
+    buyers for the Founding Citizen NFT Sale.
+*/
+&nbsp;
+&nbsp;
+import "@openzeppelin/contracts/access/AccessControl.sol";
+&nbsp;
+pragma solidity 0.8.4;
+&nbsp;
+contract PrivilegedListStorage is AccessControl {
+&nbsp;
+    bytes32 public constant ADDRESS_MANAGER_ROLE = keccak256("ADDRESS_MANAGER_ROLE");
+    bytes32 public constant COUPON_MANAGER_ROLE = keccak256("COUPON_MANAGER_ROLE");
+    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
+&nbsp;
+    struct Coupon {
+        uint discountRate;
+        uint numberOfUses;
+    }
+&nbsp;
+    struct idList {
+        uint ids;
+    }
+&nbsp;
+    struct CouponList { // each address in addressList has one couponList
+        uint length;
+        mapping(uint/*id*/ =&gt; Coupon) coupons; 
+    }
+&nbsp;
+    struct AddressList {
+        uint length;
+        mapping(uint/*id*/ =&gt; address) addresses; // &lt;addresses&gt; is enumerable, 1-indexed
+        mapping(address =&gt; uint/*id*/) ids; 
+        mapping(uint/*id*/ =&gt; CouponList) couponLists;
+        // &lt;ids&gt; tracks the same info as &lt;addresses&gt;, but is inverted (allows address to be used as a key)
+    }
+    AddressList public addressList;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function idOf(address address_) public view returns(uint) {</span>
+<span class="cstat-no" title="statement not covered" >        return addressList.ids[address_];</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function couponListLength(address address_) public view returns(uint) {</span>
+<span class="cstat-no" title="statement not covered" >        return addressList.couponLists[idOf(address_)].length;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addressExists(address address_) public view returns(bool) {</span>
+<span class="cstat-no" title="statement not covered" >        return (idOf(address_) == 0);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addressHasCoupon(address address_) public view returns(bool) {</span>
+<span class="cstat-no" title="statement not covered" >        return (addressList.couponLists[idOf(address_)].length == 0);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addressHasCoupon(address address_, uint discountRate) public view returns(bool) {</span>
+<span class="cstat-no" title="statement not covered" >        for (uint i = 0; i &lt; couponListLength(address_); i++) {</span>
+<span class="cstat-no" title="statement not covered" >            if (addressList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate) </span>
+            {
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addAddress(address address_) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Approved Role: Address Manager, Coupon Manager, Coupon User, or Admin"
+        );
+        addressList.length++;
+<span class="cstat-no" title="statement not covered" >        addressList.addresses[addressList.length] = address_</span>; //&lt;addressList.addresses&gt; is 1-indexed not 0-indexed
+<span class="cstat-no" title="statement not covered" >        addressList.ids[address_] = addressList.length</span>;
+    }
+&nbsp;
+    /*
+    *  @dev Removes &lt;address_&gt; from &lt;addressList&gt; and moves the last address in
+    *       &lt;addressList.addresses&gt; into its spot. 
+    *       Updates &lt;addressList.ids&gt; accordingly.  
+    */
+<span class="fstat-no" title="function not covered" >    function removeAddress(address address_) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Address Manager or Admin"
+        );
+        
+<span class="cstat-no" title="statement not covered" >        uint _toRemove1 = idOf(address_);</span>
+<span class="cstat-no" title="statement not covered" >        address _toRemove2 = address_;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint _toMove1 = addressList.length;</span>
+<span class="cstat-no" title="statement not covered" >        address _toMove2 = addressList.addresses[addressList.length];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        addressList.addresses[_toRemove1] = addressList.addresses[_toMove1]</span>;
+        delete addressList.addresses[_toMove1];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        addressList.ids[_toRemove2] = addressList.ids[_toMove2]</span>;
+        delete addressList.ids[_toMove2];
+        
+        addressList.length--;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addCoupon(address address_, uint discountRate, uint numberOfUses) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        if (!addressExists(address_)) {</span>
+<span class="cstat-no" title="statement not covered" >            addAddress(address_)</span>;
+        }
+        //currentCouponList = addressList.couponLists[idOf(address_)]
+        addressList.couponLists[idOf(address_)].length++;
+        //currentCoupon = addressList.couponLists[idOf(address_)].coupons[currentCouponList.length]
+<span class="cstat-no" title="statement not covered" >        addressList.couponLists[idOf(address_)]</span>
+            .coupons[couponListLength(address_)]
+                .discountRate = discountRate;
+<span class="cstat-no" title="statement not covered" >        addressList.couponLists[idOf(address_)].</span>
+            coupons[couponListLength(address_)]
+                .numberOfUses = numberOfUses;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function removeCoupon(address address_, uint id) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        addressList.couponLists[idOf(address_)].coupons[id] = </span>
+            addressList.couponLists[idOf(address_)].coupons[couponListLength(address_)];
+        delete addressList.couponLists[idOf(address_)].coupons[couponListLength(address_)];
+        addressList.couponLists[idOf(address_)].length--;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _reduceCouponUses(address address_, uint id, uint numberOfUses) internal {</span>
+<span class="cstat-no" title="statement not covered" >        bool condition = (addressList.couponLists[idOf(address_)].coupons[id].numberOfUses &gt;= numberOfUses);</span>
+<span class="cstat-no" title="statement not covered" >        string memory errorMsg = string(abi.encodePacked(</span>
+            "Cannot reduce coupon uses by more than the number of uses for this coupon: ", 
+            addressList.couponLists[idOf(address_)].coupons[id].numberOfUses));
+<span class="cstat-no" title="statement not covered" >        require(condition, errorMsg)</span>;
+<span class="cstat-no" title="statement not covered" >        addressList.couponLists[idOf(address_)].coupons[id].numberOfUses -= numberOfUses</span>;
+<span class="cstat-no" title="statement not covered" >        if (addressList.couponLists[idOf(address_)].coupons[id].numberOfUses &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >            removeCoupon(address_, id)</span>;
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function reduceCouponUses(address address_, uint discountRate, uint numberOfUses) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        for (uint i = 0; i &lt; couponListLength(address_); i++) {</span>
+<span class="cstat-no" title="statement not covered" >            if (addressList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate) </span>
+            {
+<span class="cstat-no" title="statement not covered" >                _reduceCouponUses(address_, i, numberOfUses)</span>;
+                break;
+            }
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function useCoupon(address address_, uint discountRate) public {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
+<span class="cstat-no" title="statement not covered" >        reduceCouponUses(address_, discountRate, 1)</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function _initList() internal {</span>
+<span class="cstat-no" title="statement not covered" >        addressList.length = 0</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979)</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77)</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7)</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4)</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8)</span>;
+<span class="cstat-no" title="statement not covered" >        addAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D)</span>;
+&nbsp;
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

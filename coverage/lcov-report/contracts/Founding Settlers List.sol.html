@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Founding Settlers List.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Founding Settlers List.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/23</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+&nbsp;
+/*
+&nbsp;
+███╗░░░███╗███████╗████████╗░█████╗░███╗░░██╗░█████╗░██╗░█████╗░
+████╗░████║██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔══██╗██║██╔══██╗
+██╔████╔██║█████╗░░░░░██║░░░███████║██╔██╗██║██║░░██║██║███████║
+██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║╚████║██║░░██║██║██╔══██║
+██║░╚═╝░██║███████╗░░░██║░░░██║░░██║██║░╚███║╚█████╔╝██║██║░░██║
+╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝
+&nbsp;
+    Metanoia is an ecosystem of products that aims to bring 
+    real world utility into the web3 space. 
+&nbsp;
+    Learn more about Metanoia in our whitepaper:
+    https://docs.metanoia.country/
+&nbsp;
+    Join our community!
+    https://discord.gg/YgUus2kddQ
+&nbsp;
+&nbsp;
+    This is a supporting contract for the Founding Settlers NFT 
+    mint, airdrop and raffle. It manages the list of founding
+    settlers.
+*/
+&nbsp;
+pragma solidity 0.8.4;
+&nbsp;
+/// @title  Founding Settlers List
+/// @author Conor McKenzie
+/** @dev    This contract is to be deployed ONLY as part of the Metanoia Founding Settler's NFT mint. 
+ *          It can be referenced in other smart contracts which need it through the interface of the Metanoia Founding 
+ *          Settler's NFT mint smart contract.
+ */
+contract FoundingSettlersList {
+&nbsp;
+    /** @dev    AddressList maintains a list of addresses, each address belonging to one of the founding settlers. 
+     *          These are stored in a linked-list hashmap hybrid that performs O(1) lookups, insertions and deletions.
+     *          Invariants:
+     *          (1) Each ID is a uint256
+     *          (2) Each address in the list is associated with a unique ID 
+     *          (3) Each ID other than ID 0 is associated with a unique address
+     *          (4) An address that is not in the list maps to ID 0
+     *          (5) All IDs from 1 to the length of the list map to an address that is not the zero address
+     *          (6) All IDs greater than the length of the list and ID 0 map to the zero address 
+     */
+    struct AddressList {
+&nbsp;
+        /** @dev    `length` equals the number of addresses currently in the list. 
+         *          Each address in the list has an ID from 1 to `addresses.length`. 
+         */
+        uint length;
+&nbsp;
+        /** @dev    `list` maps an address ID to the address itself.
+         *          `list` is 1-indexed, not 0-indexed. This is to allow unlisted addresses to map to ID 0.
+         */
+        mapping(uint =&gt; address) list;
+&nbsp;
+        /// @dev    `listInv` maps an address to that address's ID.
+        mapping(address =&gt; uint) listInv; 
+    }
+&nbsp;
+    /// @dev `addresses` is the list of addresses. 
+    AddressList public addresses;
+&nbsp;
+    /** @dev    Adds an address to list, binding it to the lowest available ID.
+     *          Cannot add to the list the zero address or add address that is already in the list.
+     */
+    /// @param  _address The address to add to the list
+<span class="fstat-no" title="function not covered" >    function _addAddress(address _address) internal {</span>
+        
+<span class="cstat-no" title="statement not covered" >        require(addresses.listInv[_address] == 0, "Cannot add address that is already in the list")</span>;
+<span class="cstat-no" title="statement not covered" >        require(_address != address(0), "Cannot add the zero address to the list")</span>; 
+&nbsp;
+        /// @dev    `addresses.list` is 1-indexed not 0-indexed
+<span class="cstat-no" title="statement not covered" >        addresses.list[addresses.length+1] = _address</span>; 
+<span class="cstat-no" title="statement not covered" >        addresses.listInv[_address] = addresses.length+1</span>;
+        addresses.length++;
+    }
+&nbsp;
+    /** @dev    Conceptually, this function removes an address from the list, unbinds the last address in the list from 
+     *          its ID, and rebinds that address to the ID previously bound to the removed address. 
+     *          The actual implementation is organized by performing all required operations on `list`, then performing
+     *          all required operations on `listInv`.
+     */
+    /// @param  _address The address to remove from the list
+<span class="fstat-no" title="function not covered" >    function _removeAddress(address _address) internal {</span>
+        
+<span class="cstat-no" title="statement not covered" >        require(addresses.listInv[_address] != 0, "Cannot remove address that is already not in the list")</span>;
+<span class="cstat-no" title="statement not covered" >        require(_address != address(0), "Cannot remove the zero address from the list")</span>; 
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint removedID = addresses.listInv[_address];</span>
+<span class="cstat-no" title="statement not covered" >        address removedAddress = _address;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint lastID = addresses.length;</span>
+<span class="cstat-no" title="statement not covered" >        address lastAddress = addresses.list[addresses.length];</span>
+&nbsp;
+        /** @dev    Modifies `list` so the ID of the removed address maps to the last address, and the ID of the last 
+         *          address maps to the zero address. 
+         */
+<span class="cstat-no" title="statement not covered" >        addresses.list[removedID] = addresses.list[lastID]</span>;
+        delete addresses.list[lastID];
+&nbsp;
+        /** @dev    Modifies `listInv` so the ID of the removed address no longer maps to the removed address but 
+         *          instead to the address that was previously last in the list. Then modifies `listInv` so that the
+         *          the ID of the former last address maps to the zero address. 
+         */
+<span class="cstat-no" title="statement not covered" >        addresses.listInv[removedAddress] = addresses.listInv[lastAddress]</span>;
+        delete addresses.listInv[lastAddress];
+        
+        /// @dev    Finally, decrements the length of the list.
+        addresses.length--;
+    }
+&nbsp;
+    /// @dev    Initializes the address list with a set pre-approved list of addresses. 
+<span class="fstat-no" title="function not covered" >    function _initList() internal {</span>
+<span class="cstat-no" title="statement not covered" >        addresses.length = 0</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979)</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77)</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7)</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4)</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8)</span>;
+<span class="cstat-no" title="statement not covered" >        _addAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D)</span>;
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

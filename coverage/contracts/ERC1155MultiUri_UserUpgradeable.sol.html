@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/ERC1155MultiUri_UserUpgradeable.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> ERC1155MultiUri_UserUpgradeable.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/14</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+&nbsp;
+pragma solidity ^0.8.0;
+&nbsp;
+import "./ERC1155MultiUri.sol";
+&nbsp;
+// ERC1155MultiURI_UserUpgradeable contract (created by Conor McKenzie)
+&nbsp;
+/**
+ * @dev Extension of ERC1155MultiURI that adds support for changing the metadata 
+ *      associated with a token id, only for ids which correspond to unique NFTs.
+ *      THIS IS NOT AN OPENZEPPELIN CONTRACT. It was created by Conor McKenzie.
+ *
+ * Useful for scenarios where multiple types of tokens are to be created with
+ * metadata stored using a content-addressing naming scheme, such as when
+ * stored on IPFS or Arweave, and where the option for holders to be able to 
+ * change or upgrade their NFT(s) is desired. 
+ *
+ * Caution: this contract does not perform any checks for what metadata URI is
+ * provided. If moderation of the content of NFT metadata is required, it must  
+ * be implemented separately, for example by use of an approved-URI list. 
+ * 
+ * Caution: The following ERC1155 components have not been overwritten to  
+ * maintain the integrity of OpenZeppelin's original ERC1155 contracts, but they 
+ * should not be used:
+ *      function _setURI(string memory)
+ *    * function _mint(address, uint256, uint256, bytes memory)
+ *
+ * Note: _mint(address to, uint256 id, uint256 amount, bytes memory data) 
+ * from OpenZeppelin's ERC1155 contract is replaced with: 
+ * _mintWithoutURI(address to, uint256 id, uint256 amount, bytes memory data),
+ * _mintWithURI(address to, uint256 id, uint256 amount, bytes memory data, 
+ *      string memory newuri)
+ * for minting existing tokens and new tokens, respectively. 
+ * These functions both call _mint(address, uint256, uint256, bytes memory)
+ * to mint tokens.
+ */
+abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
+    
+<span class="fstat-no" title="function not covered" >    modifier mintsTokens(uint id) {</span>
+<span class="cstat-no" title="statement not covered" >        require (!cannotMintMore[id], "Token is non-mintable")</span>;
+        _;
+    }
+    
+    /*  
+     * @dev Tracks whether a given token's supply cannot be increased,
+     *      i.e. the token is non-mintable.
+     */
+    mapping(uint =&gt; bool) public cannotMintMore;
+&nbsp;
+    /*  
+     * @dev Checks whether a token is a unique and non-mintable. 
+     */
+<span class="fstat-no" title="function not covered" >    function isPermanentlyUnique(uint id) public view returns(bool) {</span>
+<span class="cstat-no" title="statement not covered" >        return (totalSupply(id) == 1 &amp;&amp; cannotMintMore[id]);</span>
+    }
+&nbsp;
+    /*  
+     * @dev Sets a token to be non-mintable.
+     *
+     * CAUTION: This cannot be undone!
+     */
+<span class="fstat-no" title="function not covered" >    function _lockMinting(uint id) internal {</span>
+<span class="cstat-no" title="statement not covered" >        cannotMintMore[id] = true</span>;
+    }
+&nbsp;
+    /*  
+     * @dev Uses the same code pattern as OpenZeppelin's safeTransferFrom 
+     *      function.
+     */
+<span class="fstat-no" title="function not covered" >    function _safeUpdateURI(</span>
+        string memory newuri,
+        address owner,
+        uint256 id
+    ) internal virtual {
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            owner == _msgSender() || isApprovedForAll(owner, _msgSender()),
+            "ERC1155MultiURI_UserUpgradeable: caller is not owner nor approved"
+        );
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            isPermanentlyUnique(id), 
+            "Can only change URI on a token that is permanently unique"
+        );
+<span class="cstat-no" title="statement not covered" >        uint256 fromBalance = balanceOf(owner, id);</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            fromBalance == 1, 
+            string(abi.encode(
+                "ERC1155MultiURI_UserUpgradeable: given owner ", 
+                owner,
+                " does not own this NFT"
+            ))
+        );
+<span class="cstat-no" title="statement not covered" >        _setURI(id, newuri)</span>;
+    }
+&nbsp;
+    /*  
+     * @dev Overrides _mintWithURI(...) from ERC1155MultiURI, providing an 
+     *      updated require message and an additional condition to check if a
+     *      token is non-mintable.
+     */
+<span class="fstat-no" title="function not covered" >    function _mintWithURI(</span>
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data,
+        string memory newuri
+    ) internal virtual override mintsTokens(id) {
+<span class="cstat-no" title="statement not covered" >        require (</span>
+            !exists(id), 
+            "Cannot change metadata of existing token via minting"
+        );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _setURI(id, newuri)</span>;
+<span class="cstat-no" title="statement not covered" >        _mint(to, id, amount, data)</span>;
+    }
+&nbsp;
+    /*  
+     * @dev Overrides _mintWithoutURI(...) from ERC1155MultiURI, providing an 
+     *      additional condition to check if a token is non-mintable.
+     */
+<span class="fstat-no" title="function not covered" >    function _mintWithoutURI(</span>
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) internal virtual override mintsTokens(id) {
+<span class="cstat-no" title="statement not covered" >        require (exists(id), "Please provide metadata for new token")</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _mint(to, id, amount, data)</span>;
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

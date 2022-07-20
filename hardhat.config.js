@@ -13,6 +13,9 @@ require('@openzeppelin/hardhat-upgrades'); //from OpenZeppelin upgrades tutorial
 
 require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
 
+require('solidity-coverage'); //from solidity-coverage github 
+  // referenced by https://ethereum.org/en/developers/docs/smart-contracts/testing/
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */

@@ -47,12 +47,13 @@ contract TestNfts is ERC1155MultiUri {
         uriList[3] = "infinite-use";
     }
 
-    function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ {
+    function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ returns(uint) {
         require(nftType >= 1 && nftType <= 3, "NFT type must be between 1 and 3");
         require(!(nftType == 3 && amount > 1),"An NFT of type 3 must be unique");
         nextTokenID++;
         totalSupply += amount;
         _mintWithAttributes(to, nextTokenID-1, amount, "", uriList[nftType], nftType);
+        return nextTokenID-1;
     }
 
     function _mintWithAttributes (

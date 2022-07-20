@@ -50,6 +50,8 @@ contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
     
     /// @notice This contract cannot mint more than 100 tickets.
     uint public constant initialSupply = 100;
+
+    /// @notice This contract mints all 100 tickets when it is first created.
     uint public constant totalSupply = initialSupply;
 
     /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
