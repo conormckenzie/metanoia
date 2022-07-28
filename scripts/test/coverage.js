@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// OpenZeppelin script: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/e5fbbda9bac49039847a7ed20c1d966766ecc64a/scripts/coverage.js
+
 const { execSync } = require('child_process');
 const { runCoverage } = require('@openzeppelin/test-environment');
 

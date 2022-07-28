@@ -34,7 +34,10 @@ contract TestNfts is ERC1155MultiUri {
         return attributes[nftId].nftType;
     }
     
-    constructor() ERC1155("https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4") {
+    constructor() ERC1155(
+    // solhint-disable-next-line max-line-length
+        "https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4"
+    ) {
 
         name = "Metanoia NFT";
         symbol = "METANOIA-NFT";
@@ -70,8 +73,12 @@ contract TestNfts is ERC1155MultiUri {
     }
 
     function setAttributes (uint id, uint nftType, uint redemptions) internal {
-        attributes[id].description = "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
-        attributes[id].imageUri = "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
+        attributes[id].description = 
+        // solhint-disable-next-line max-line-length
+            "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
+        attributes[id].imageUri = 
+        // solhint-disable-next-line max-line-length
+            "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
         attributes[id].nftType = nftType;
 
         if (nftType == 1) {

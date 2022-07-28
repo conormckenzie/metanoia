@@ -24,6 +24,7 @@ contract POCTestNfts is ERC1155MultiUri {
         return nftTypes[nftId];
     }
     
+    // solhint-disable-next-line max-line-length
     constructor() ERC1155("https://bafybeib4g7hewm2qwjgoatikznli3rrjnutet5t34lajsbb54gw4z7vh7u.ipfs.infura-ipfs.io/foundingSettlersTicket.json") {
 
         name = "Metanoia NFT";
@@ -32,9 +33,11 @@ contract POCTestNfts is ERC1155MultiUri {
         // 1: single-use
         // 2: MFU
         // 3: infinite-use
+        // solhint-disable max-line-length
         uriList[1] = "https://lyetm5dfqffmxvdaddrd5c3saczy33knndq3zs5oof437o3bwa.arweave.net/Xgk2dGWBSsvU_YBjiPotyALON7U1o4bzLrnF5v7thsM";
         uriList[2] = "https://3s3gyhwh4m4bmklbr5qt6xtem6oqnrmyaotwnymefzc6bgiaqksq.arweave.net/3LZsHsfjOBYpYY9hP15kZ50GxZgDp2bhhC5F4JkAgqU";
         uriList[3] = "https://utyoidgqfdvmfjgqmlhq4id26bg4scm5dsygaqw732jyjduwiy.arweave.net/pPDkD_NAo6sKk0GLPDiB68E3JCZ0csGBC396ThI6WRk";
+        // solhint-enable max-line-length
     }
 
     function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ {

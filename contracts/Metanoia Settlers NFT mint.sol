@@ -58,12 +58,16 @@ contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
     string public name;
     string public symbol;
 
+    // solhint-disable-next-line max-line-length
     /// @notice The metadata for these NFTs are stored immutably on Arweave at "https://lmdrlhtrixymo3ezatsyjyntx5ahrmbnyknxslmue6oq4ywfw2sq.arweave.net/WwcVnnFF8MdsmQTlhOGzv0B4sC3Cm3ktlCedDmLFtqU"
     /** @dev    This constructor mints and distributes 100 NFTs, one to each address on the Founding Settlers list.
      *          The `addresses` list is inherited from the "Founding Settlers List" contract, which disallows duplicate
      *          addresses. This ensures that each address on the list will receive only one ticket.
      */
-    constructor() ERC1155("https://lmdrlhtrixymo3ezatsyjyntx5ahrmbnyknxslmue6oq4ywfw2sq.arweave.net/WwcVnnFF8MdsmQTlhOGzv0B4sC3Cm3ktlCedDmLFtqU") {
+    constructor() ERC1155(
+    // solhint-disable-next-line max-line-length
+        "https://lmdrlhtrixymo3ezatsyjyntx5ahrmbnyknxslmue6oq4ywfw2sq.arweave.net/WwcVnnFF8MdsmQTlhOGzv0B4sC3Cm3ktlCedDmLFtqU"
+    ) {
         
         require (addresses.length <= initialSupply, "address list is too large: # of addresses > initial supply");
 

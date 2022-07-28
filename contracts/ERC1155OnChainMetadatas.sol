@@ -154,6 +154,7 @@ abstract contract OnChainNft is ERC1155Supply {
 
 				'"attributes": [',
 					// '{"trait_type": "NFT Type", "value": ', uint2str(attributes[nftId].nftType), '},',
+                    // solhint-disable-next-line max-line-length
 					// '{"trait_type": "Infinite Redemptions", "value": ', bool2str(attributes[nftId].infiniteRedemptions), '},',
 					// '{"trait_type": "Redemptions", "value": ', uint2str(attributes[nftId].redemptions), '}',
                     jsonAttributes,

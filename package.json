@@ -6,6 +6,7 @@
     "hardhat": "^2.9.5",
     "hardhat-deploy": "^0.11.9",
     "hardhat-ethernal": "^1.0.0",
+    "solhint": "^3.3.7",
     "solidity-coverage": "^0.7.21"
   },
   "dependencies": {

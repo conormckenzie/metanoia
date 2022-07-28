@@ -14,6 +14,7 @@ library Base64 {
                                             hex"00000102030405060708090a0b0c0d0e0f101112131415161718190000000000"
                                             hex"001a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132330000000000";
 
+    //would be good to remove the inline assembly
     function encode(bytes memory data) internal pure returns (string memory) {
         if (data.length == 0) return '';
 
@@ -185,8 +186,11 @@ contract OnChainTestNft is ERC1155MultiUri, Ownable {
     }
 
     function setAttributes (uint id, uint nftType, uint redemptions) internal {
-        attributes[id].description = "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
-        attributes[id].imageUri = "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
+        attributes[id].description = 
+        // solhint-disable-next-line max-line-length
+            "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
+        attributes[id].imageUri = 
+            "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
         attributes[id].nftType = nftType;
 
         if (nftType == 1) {
