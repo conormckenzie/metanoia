@@ -311,7 +311,14 @@
 266
 267
 268
-269</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+269
+270
+271
+272
+273
+274
+275
+276</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,30 +356,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,6 +373,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -615,7 +629,10 @@ contract TestNfts is ERC1155MultiUri {
 <span class="cstat-no" title="statement not covered" >        return attributes[nftId].nftType;</span>
     }
     
-<span class="fstat-no" title="function not covered" >    constructor() ERC1155("https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4") {</span>
+<span class="fstat-no" title="function not covered" >    constructor() ERC1155(</span>
+    // solhint-disable-next-line max-line-length
+        "https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4"
+    ) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        name = "Metanoia NFT"</span>;
 <span class="cstat-no" title="statement not covered" >        symbol = "METANOIA-NFT"</span>;
@@ -651,8 +668,12 @@ contract TestNfts is ERC1155MultiUri {
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function setAttributes (uint id, uint nftType, uint redemptions) internal {</span>
-<span class="cstat-no" title="statement not covered" >        attributes[id].description = "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future."</span>;
-<span class="cstat-no" title="statement not covered" >        attributes[id].imageUri = "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png"</span>;
+<span class="cstat-no" title="statement not covered" >        attributes[id].description = </span>
+        // solhint-disable-next-line max-line-length
+            "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
+<span class="cstat-no" title="statement not covered" >        attributes[id].imageUri = </span>
+        // solhint-disable-next-line max-line-length
+            "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
 <span class="cstat-no" title="statement not covered" >        attributes[id].nftType = nftType</span>;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (nftType == 1) {</span>
@@ -853,7 +874,7 @@ library Base64 {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jul 18 2022 13:03:50 GMT-0700 (Pacific Daylight Saving Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 03 2022 13:43:29 GMT-0700 (Pacific Daylight Saving Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
