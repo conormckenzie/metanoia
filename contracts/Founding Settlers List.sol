@@ -34,6 +34,12 @@ pragma solidity 0.8.4;
  */
 contract FoundingSettlersList {
 
+    string constant private errMsg1_addExisting = "Cannot add address that is already in the list";
+    string constant private errMsg2_addZero = "Cannot add the zero address to the list";
+    string constant private errMsg3_removeNonexisting = "Cannot remove address that is already not in the list";
+    string constant private errMsg4_removeZero = "Cannot remove the zero address from the list";
+    string constant private errMsg5_initNonEmpty = "Cannot initialize a list that is not empty";
+
     /** @dev    AddressList maintains a list of addresses, each address belonging to one of the founding settlers. 
      *          These are stored in a linked-list hashmap hybrid that performs O(1) lookups, insertions and deletions.
      *          Invariants:
@@ -69,13 +75,31 @@ contract FoundingSettlersList {
     /// @param  _address The address to add to the list
     function _addAddress(address _address) internal {
         
-        require(addresses.listInv[_address] == 0, "Cannot add address that is already in the list");
-        require(_address != address(0), "Cannot add the zero address to the list"); 
+        require(addresses.listInv[_address] == 0, errMsg1_addExisting);
+        require(_address != address(0), errMsg2_addZero); 
 
         /// @dev    `addresses.list` is 1-indexed not 0-indexed
         addresses.list[addresses.length+1] = _address; 
         addresses.listInv[_address] = addresses.length+1;
         addresses.length++;
+    }
+
+    /** @dev    Checks if an address can be added to the list by checking the inversions of the require statements in 
+     *          _addAddress, then adds it to the list if it can, and does nothing if it cannot.
+     *          Cannot add to the list the zero address or add address that is already in the list.
+     */
+    /// @param  _address The address to add to the list
+    /// @return success | whether the item was added to the list or not
+    function _tryToAddAddress(address _address) internal returns (bool success, string memory errMsg) {
+        if (!(addresses.listInv[_address] == 0))
+        {
+            return (false, errMsg1_addExisting);
+        }
+        if (!(_address != address(0))) {
+            return (false, errMsg2_addZero);
+        }
+        _addAddress(_address);
+        return (true, "");
     }
 
     /** @dev    Conceptually, this function removes an address from the list, unbinds the last address in the list from 
@@ -86,8 +110,8 @@ contract FoundingSettlersList {
     /// @param  _address The address to remove from the list
     function _removeAddress(address _address) internal {
         
-        require(addresses.listInv[_address] != 0, "Cannot remove address that is already not in the list");
-        require(_address != address(0), "Cannot remove the zero address from the list"); 
+        require(addresses.listInv[_address] != 0, errMsg3_removeNonexisting);
+        require(_address != address(0), errMsg4_removeZero); 
 
         uint removedID = addresses.listInv[_address];
         address removedAddress = _address;
@@ -112,14 +136,45 @@ contract FoundingSettlersList {
         addresses.length--;
     }
 
-    /// @dev    Initializes the address list with a set pre-approved list of addresses. 
+    function _tryToRemoveAddress(address _address) internal returns(bool success, string memory errMsg) {
+        if (!(addresses.listInv[_address] != 0))
+        {
+            return (false, errMsg3_removeNonexisting);
+        }
+        if (!(_address != address(0))) {
+            return (false, errMsg4_removeZero);
+        }
+        _removeAddress(_address);
+        return (true, "");
+    }
+
+    /** @dev    Initializes the address list with a set pre-approved list of addresses. 
+    *           Ignores adding any addresses that already exists in the list or is invalid.
+    *           the ID of the former last address maps to the zero address. 
+    */
     function _initList() internal {
-        addresses.length = 0;
-        _addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
-        _addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);
-        _addAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7);
-        _addAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4);
-        _addAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8);
-        _addAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D);
+        require(addresses.length == 0, errMsg5_initNonEmpty);
+        _tryToAddAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
+        _tryToAddAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);
+        _tryToAddAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7);
+        _tryToAddAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4);
+        _tryToAddAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8);
+        _tryToAddAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D);
+    }
+
+    /// @dev    Used to test that the list initialization works correctly. Must be disabled in production. 
+    function initList() public {
+        _initList();
+    }
+
+    /// @dev    Getters for the underlying list variable. Useful for testing.
+    function addresses_length() public view returns(uint) {
+        return addresses.length;
+    }
+    function addresses_list(uint id) public view returns(address) {
+        return addresses.list[id];
+    }
+    function addresses_listInv(address _address) public view returns(uint) {
+        return addresses.listInv[_address];
     }
 }
