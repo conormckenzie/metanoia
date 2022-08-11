@@ -104,8 +104,15 @@ contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
      *          Can only be called by the contract owner.
      */
     /// @param  toAdd The address which will be added to the Founding Settlers List.
-    function addAddress(address toAdd) public onlyOwner {
-        _addAddress(toAdd);
+    /// @param  revertOnFail Whether to revert or continue (returning false) when failing to add the address.
+    function addAddress(address toAdd, bool revertOnFail) public onlyOwner returns(bool, string memory errMsg) {
+        if (revertOnFail) {
+            _addAddress(toAdd);
+            return (true, "");
+        }
+        else {
+            return _tryToAddAddress(toAdd);
+        }
     }
 
     /** @dev    Removes an address from the Founding Settlers list. This will NOT result in the removed address losing 
@@ -114,8 +121,15 @@ contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
      *          Can only be called by the contract owner.
      */
     /// @param  toRemove The address which will be removed from the Founding Settlers List.
-    function removeAddress(address toRemove) public onlyOwner {
-        _removeAddress(toRemove);
+    /// @param  revertOnFail Whether to revert or continue (returning false) when failing to remove the address.
+    function removeAddress(address toRemove, bool revertOnFail) public onlyOwner returns(bool, string memory errMsg) {
+        if (revertOnFail) {
+            _removeAddress(toRemove);
+            return (true, "");
+        }
+        else {
+            return _tryToRemoveAddress(toRemove);
+        }
     }
 
     /** @dev    Sends a Founding Settler's Ticket NFT from the `extrasHolder` address to a given address.

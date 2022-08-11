@@ -26,6 +26,8 @@
 
 pragma solidity 0.8.4;
 
+import "hardhat/console.sol";
+
 /// @title  Founding Settlers List
 /// @author Conor McKenzie
 /** @dev    This contract is to be deployed ONLY as part of the Metanoia Founding Settler's NFT mint. 
@@ -115,28 +117,40 @@ contract FoundingSettlersList {
 
         uint removedID = addresses.listInv[_address];
         address removedAddress = _address;
+        console.log("[SOL] CPa2: removedAddress = %s", removedAddress);
 
         uint lastID = addresses.length;
+        console.log("[SOL] CPa3: length = %s", lastID);
         address lastAddress = addresses.list[addresses.length];
+        console.log("[SOL] CPa4: lastAddress = %s", lastAddress);
 
-        /** @dev    Modifies `list` so the ID of the removed address maps to the last address, and the ID of the last 
-         *          address maps to the zero address. 
+        /** @dev    Maps the ID of the removed address to the last address in the list, and maps the removed address 
+         *          to ID 0. 
          */
+        // ID of removedAddress -> lastAddress
         addresses.list[removedID] = addresses.list[lastID];
-        delete addresses.list[lastID];
+        // removedAddress -> ID 0
+        delete addresses.listInv[removedAddress];
 
-        /** @dev    Modifies `listInv` so the ID of the removed address no longer maps to the removed address but 
-         *          instead to the address that was previously last in the list. Then modifies `listInv` so that the
-         *          the ID of the former last address maps to the zero address. 
+        /** @dev    Maps the last address to the last address in the list, and maps the removed address 
+         *          to ID 0.  
          */
-        addresses.listInv[removedAddress] = addresses.listInv[lastAddress];
-        delete addresses.listInv[lastAddress];
+        // lastAddress -> removedID
+        addresses.listInv[lastAddress] = removedID;
+        // ID of the end of the list -> zero address
+        delete addresses.list[lastID];
         
         /// @dev    Finally, decrements the length of the list.
         addresses.length--;
     }
 
     function _tryToRemoveAddress(address _address) internal returns(bool success, string memory errMsg) {
+        console.log("[SOL] CP1: addressToRemove=%s, <-ID=%s, length=%s",
+            _address, addresses.listInv[_address], addresses.length
+        );
+        console.log("[SOL] CP5: lastAddress=%s, removedID=%s", 
+            addresses.list[addresses.length], addresses.listInv[_address]
+        );
         if (!(addresses.listInv[_address] != 0))
         {
             return (false, errMsg3_removeNonexisting);
@@ -145,6 +159,9 @@ contract FoundingSettlersList {
             return (false, errMsg4_removeZero);
         }
         _removeAddress(_address);
+        console.log("[SOL] CP6: lastAddress=%s, removedID=%s", 
+            addresses.list[addresses.length], addresses.listInv[_address]
+        );
         return (true, "");
     }
 
