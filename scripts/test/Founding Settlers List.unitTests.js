@@ -1,6 +1,7 @@
 // PASSING as of 2022-Aug-11
 
-// could still stand to be refactored into multiple (possibly parallelized) tests
+// NOTE: could still stand to be refactored into multiple (possibly parallelized) tests
+// NOTE: still has console logs and other debugging artifacts, these could stand to be removed
  
 const {
 	time,
@@ -82,20 +83,22 @@ for (let i = 0; i < descriptions.ops.length*descriptions.states.length*descripti
 }
 // move to inside the for loop for proper test displaying
 describe("Founding Settlers List", async function () {
-	it("Deployment should " +
-		"perform each of the following operations and check that the invariants hold and the result is as expected:\n" +
-		"\tInitialize the address list correctly\n" +
-		"\tAdd an address\n" +
-		"\tRemove an address\n" +
-		".\n" +
-		"The following states of the list should be checked:\n" +
-		"\tEmpty list\n" +
-		"\tNon-empty list\n" +
-		".\n" +
-		"The following elements should be tried:\n" +
-		"\tExists in the list\n" +
-		"\tDoesn't exist in the list\n" +
-		"\tthe zero address\n", async function () {
+	// "Deployment should:\n" +
+	// "perform each of the following operations and check that the invariants hold " + 
+	// "and the result is as expected:\n" +
+	// 	"\tInitialize the address list correctly\n" +
+	// 	"\tAdd an address\n" +
+	// 	"\tRemove an address\n" +
+	// 	"\n" +
+	// 	"The following states of the list should be checked:\n" +
+	// 	"\tEmpty list\n" +
+	// 	"\tNon-empty list\n" +
+	// 	"\n" +
+	// 	"The following elements should be tried:\n" +
+	// 	"\tExists in the list\n" +
+	// 	"\tDoesn't exist in the list\n" +
+	// 	"\tthe zero address\n" 
+	it("Tests the Founding Settlers List", async function () {
 			this.timeout(300000); // 5 minutes!!! Need to separate the tests for clarity and ability to run tests individually
 			const [owner] = await ethers.getSigners();
 

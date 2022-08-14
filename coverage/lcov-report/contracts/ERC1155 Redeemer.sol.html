@@ -142,7 +142,59 @@
 97
 98
 99
-100</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,10 +292,64 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//SPDX-License-Identifier: MIT
 &nbsp;
 pragma solidity 0.8.4;
+function c_0x92d00cc3(bytes32 c__0x92d00cc3) pure {}
+&nbsp;
 &nbsp;
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
@@ -254,6 +360,8 @@ interface ITypedNftSender {
 }
 &nbsp;
 contract ERC1155Redeemer is ERC1155Holder, Ownable {
+function c_0x05b5f9a4(bytes32 c__0x05b5f9a4) internal pure {}
+&nbsp;
 &nbsp;
     mapping (address =&gt; mapping (uint =&gt; uint)) public selfBalances;
     mapping (address =&gt; bool) whitelist; //not implemented yet 
@@ -274,71 +382,119 @@ contract ERC1155Redeemer is ERC1155Holder, Ownable {
         regardless of whether they have actually sent the ERC1155 to this contract.
         This MUST be fixed before production.
 &nbsp;
-        This has been fixed by tracking this contract's address internally and 
+<span class="fstat-no" title="function not covered" >        This has been fixed by tracking this contract's address internally and </span>
         checking it against this contract's balance from the sending contract.
         This needs to be tested before this message can be removed.
     */
-<span class="fstat-no" title="function not covered" >    function onERC1155Received(</span>
+    function onERC1155Received(
         address /*operator*/,
         address from,
-        uint256 nftId,
-        uint256 value,
+<span class="cstat-no" title="statement not covered" >        uint256 nftId,</span>
+<span class="cstat-no" title="statement not covered" >        uint256 value,</span>
         bytes memory
-    ) public virtual override returns (bytes4) {
-<span class="cstat-no" title="statement not covered" >        require(value == 1, "Please redeem only one NFT at a time")</span>;
-<span class="cstat-no" title="statement not covered" >        require(</span>
+    ) public virtual override returns (bytes4) {c_0x05b5f9a4(0x61a471d46a9647b310e32ab3c0a1d9588f5ff97941ea5dc7486186af81f36258); /* function */ 
+&nbsp;
+c_0x05b5f9a4(0xe5e5897f6619a1940f4a03527246b1292b4181890657e6d342dc0f3a015028c9); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0x05b5f9a4(0x17e547368e4ae6d45ce3fcc3201943e04c21bd81a1a60773c7122ac16de71da2); /* requirePre */ </span>
+c_0x05b5f9a4<span class="cstat-no" title="statement not covered" >(0xbdd0192e2ffda3f7aac2a0d5e30faafb5bc2b06d389a5af114cd432f7189f605); /* statement */ </span>
+require(value == 1, "Please redeem only one NFT at a time");c_0x05b5f9a4(0x2a93d6c85e399d6580e28d6831a2365b8cbd84d0b4deba853b720b519f295529); /* requirePost */ 
+&nbsp;
+c_0x05b5f9a4(0x69a336117e63c3a8c2de39f5ecacc64d177c3240471e2b89a369808821ae28c9); /* line */ 
+        c_0x<span class="cstat-no" title="statement not covered" >05b5f9a4(0xbdf2fb86ad2d699ad8dfd2b3ab3e3e97e6b2c74ce19c70acd11d390f0fbc0db1); /* requirePre */ </span>
+c_0x05b5f9a4(0xbef3157f514453e74af3b197dd3918411e6312ad25e1d780d9af25e3e8e03c85); /* statement */ 
+require(
             IERC1155(msg.sender).balanceOf(address(this), nftId) 
             == selfBalances[msg.sender][nftId] + 1,
-            "Redeemer contract's balance of this nft is not the expected value"
-        );
-<span class="cstat-no" title="statement not covered" >        try ITypedNftSender(msg.sender).getNftType(nftId) returns (uint) {</span>
-<span class="cstat-no" title="statement not covered" >            require(</span>
+<span class="cstat-no" title="statement not covered" >            "Redeemer contract's balance of this nft is not the expected value"</span>
+        );c_0x05b5f9a4(0xe2d3d62bb47445ca18e33e560b22001aba2b8e9866d216f0a1baa755386eab6c); /* requirePost */ 
+<span class="cstat-no" title="statement not covered" ></span>
+c_0x05b5<span class="cstat-no" title="statement not covered" >f9a4(0x1d984788b8a73803dbfd87436cc63</span>a252bd32487752f43c946299b918b8f1020); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0x05b5f9a4(0x27d7db9157d1de8b9cc8c9ca0bd18f823d88c48757fdaa1f146d335ac8c977de); /* st</span>atement */ 
+try ITyp<span class="cstat-no" title="statement not covered" >edNftSender(msg.sender).getNftType(nftI</span>d) returns (uint) {
+c_0x05b5f9a4(0x51765898f32a0ec392aad89a6f8b7f941b8fcfb8650deef28437241c881f3428); /* line */ 
+            c_0x05b5f9a4(0x0067efef8f0744cb3246e0db32762196120871dc4ef0d3c64af1f8d1b3c608d4); /* requirePre */ 
+c_0x05b5f9a4(0x503c2b1ed59fc01fb0b8ea2806d9c08b225eece821fa55672cf23f7d48f3e309); /* statement */ 
+requ<span class="fstat-no" title="function not covered" >ire(</span>
                 ITypedNftSender(msg.sender).getNftType(nftId) &gt;= 0, 
                 "Nft Minter contract provides invalid nftType"
-            );
-<span class="cstat-no" title="statement not covered" >            require(</span>
+            );c_0x05b5f9a4(0xf2f86b359f06f4e2fd61cd4176148352bc4852c925a8e25fb08a9b9cf780cb54); /* requirePost */ 
+&nbsp;
+c_0x05b5f9a4(0x711ff5ac65737fae58914ebe265c1b0fc5fd39037759d64f31888eb6e7fd60e1); /* line */ 
+            c_0x05b5f9a4(0xa0013019697a77120d562b51103598dadcb218caf01d961b6bfe7e27c0baf418); /* requirePre */ 
+c_0x05b5<span class="cstat-no" title="statement not covered" >f9a4(0x0d5a989a62f0d48ccbe651e8b51f049c8cdf809387a3e390ac441221d40e5f6e)</span>; /* statement */ 
+require(
                 ITypedNftSender(msg.sender).getNftType(nftId) != 3, 
                 "Cannot redeem NFT type 3 (infinite-use) via this contract."
-            );
-        } catch {
-<span class="cstat-no" title="statement not covered" >            revert("Nft Minter contract does not provide getNftType external function")</span>;
+            );c_0x05b5f9a4(0x6ac52fcac2a61b27d1ef18c42ffb542937634cb3557dd1f2026e54296785b5bf); /* requirePost */ 
+<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        } catch {</span>
+c_0x05b5f9a4(0x6cc1d25f7e14e7dc444165f356174fe004f3324edabb8e8f7efa077c82370c3d); /* line */ 
+            c_0x05b5f9a4(0xc797079c063ba2e3be3b3ea41cee37411e40f7f881338722551286acf8ef1569); /* statement */ 
+revert("Nft Minter contract does not provide getNftType external function");
         }
-<span class="cstat-no" title="statement not covered" >        uint nftType = ITypedNftSender(msg.sender).getNftType(nftId);</span>
-<span class="cstat-no" title="statement not covered" >        selfBalances[msg.sender][nftId] += 1</span>;
-<span class="cstat-no" title="statement not covered" >        emit ERC1155Received(block.timestamp, from, nftId, address(this), msg.sender, nftType);</span>
-<span class="cstat-no" title="statement not covered" >        return this.onERC1155Received.selector;</span>
+c_0x05b5<span class="cstat-no" title="statement not covered" >f9a4(0xd6b71eb6d134191cb191e57ce5327d7b01682ff171e050a9edc3ddba6191f544); /* line */ </span>
+        c_0x05b5f9a4(0xa7fd84b20fde214efc468231ad7e648830c6e0329c8d5d2b7dbb7bcbcd08413b); /* statement */ 
+uint nftType = ITypedNftSender(msg.sender).getNftType(nftId);
+c_0x05b5<span class="cstat-no" title="statement not covered" >f9a4(0x75b8686a4c0faed5f07a3a4ad07879077223d502e538c9192c97a56901d253a3</span>); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0x05b5f9a4(0xba70cf7a165e0417ab21ce</span>95c1e26d8732d09b2e6b5c45a40a3bca1e696a778c); /* statement */ 
+selfBalances[msg.sender][nftId] += 1;
+c_0x05b5f9a4(0x95f01a9fbc81bf44232630ea72be9545ba1d8c881ac0fb35cf6c55b8cd1ddd68); /* line */ 
+        c_0x05b5f9a4(0x3e2018192bf488e678c534050976de2eda38c3f499886d1a5cad108f78ede2ae); /* statement */ 
+emit<span class="fstat-no" title="function not covered" > ERC1155Received(block.timestamp, from, nftId, address(this), msg.sender, nftType);</span>
+c_0x05b5f9a4(0x012aed013a87f43365197bb579e936e93250d4d6b9197514ba73256c26694984); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0x05b5f9a4(0x4a04f65d1444f8eaa44a824fb9e6a3b59939d73b29a63a</span>3841a5e56cc3ddd5ec); /* statement */ 
+return this.onERC1155Received.selector;
     }
 &nbsp;
     // needs testing to make sure it fails successfully
-<span class="fstat-no" title="function not covered" >    function onERC1155BatchReceived(</span>
+    function onERC1155BatchReceived(
         address /*operator*/,
         address /*from*/,
         uint256[] memory /*nftIds*/,
         uint256[] memory /*values*/,
         bytes memory
-    ) public virtual override returns (bytes4) {
-<span class="cstat-no" title="statement not covered" >        revert("Please redeem only one NFT at a time to this redeemer contract")</span>;
+    ) public virtual override returns (bytes4) {c_0x05b5f9a4(0x178369facf8f78b6556d5b4af4596d993e7bf049c85f9bd3d540d685f70047e7); /* function */ 
+&nbsp;
+c_0x05b5f9a4(0x4ffe5738cded7d0936f69da7f9985885e43f810333b24f87b8c5f8995b7cd27f); /* line */ 
+        c_0x05b5f9a4(0xcf785c5bfca6e74723f2916e0cb1b519d62a39f957743b170e720215b8bef2fa); /* statement */ 
+revert("Please redeem only one NFT at a time to this redeemer contract");
     }
 &nbsp;
     // TO DO: upgrade the error messages to show the relevant values
     // TO DO: test this function
-<span class="fstat-no" title="function not covered" >    function returnERC1155(address to, address nftContract, uint nftId) public onlyOwner {</span>
-<span class="cstat-no" title="statement not covered" >        require(</span>
+    function returnERC1155(address to, address nftContract, uint nftId) public onlyOwner {c_0x05b5f9a4(0xd77783f4d24273fcdf3277ce2d3baba00b7319c49f6a9e8d7b571620cbe35420); /* function */ 
+&nbsp;
+c_0x05b5f9a4(0xbd0706cb7692ec665c73c78d6c481109e2fd7cc66e983ac1d7d7e819bfc27af7); /* line */ 
+        c_0x05b5f9a4(0x0dcf2dcfec5c2230d2cbdd31367f87ec35b6c4bab57825625ca9e46a250031ee); /* requirePre */ 
+c_0x05b5f9a4(0x3aa187a1fd1807115c61c16776d36ca3396503cb3d35a08b3a4ba1bd83f3d6e5); /* statement */ 
+require(
             IERC1155(nftContract).balanceOf(address(this), nftId) 
             == selfBalances[nftContract][nftId],
             "Redeemer contract's balance of this nft with this id is not the expected value"
-        );
-<span class="cstat-no" title="statement not covered" >        require(selfBalances[nftContract][nftId] &gt;= 1,</span>
+        );c_0x05b5f9a4(0xd08a2636adbc708cb9fca7b4a241571fc7d5e422c64b9c59bc0eef828f6f4af0); /* requirePost */ 
+&nbsp;
+c_0x05b5f9a4(0xbc575b4ae457a553a145bc489d32f55be1f93be98c5fc8c1800ac9ef240e2e82); /* line */ 
+        c_0x05b5f9a4(0xd542aea9a541bda3cccc8e61ee8d363fd61b46710b1c518d1e647a42fd74323d); /* requirePre */ 
+c_0x05b5f9a4(0x07b3e5a0836f4c9888f5ce99069e719b2067ebbb61275ca7b6ce2bbdb4b48f9a); /* statement */ 
+require(selfBalances[nftContract][nftId] &gt;= 1,
             "Redeemer contract's balance of this nft with this id is zero"
-        );
-<span class="cstat-no" title="statement not covered" >        IERC1155(nftContract).safeTransferFrom(address(this), to, nftId, 1, "")</span>;
-<span class="cstat-no" title="statement not covered" >        selfBalances[nftContract][nftId] -= 1</span>;
+        );c_0x05b5f9a4(0xabf94f7becf3d44a7a59c5c51bd1bf5f8613a24d06d9a3b8f26130be9eb8ca39); /* requirePost */ 
+&nbsp;
+c_0x05b5f9a4(0xc749122d12b4aa803dcda66342b9da00938051763c7797db6ee178eb59dc143c); /* line */ 
+        c_0x05b5f9a4(0x619be3873ccd9877786573445d49fc9c045479682182e4ada853a1c655184825); /* statement */ 
+IERC1155(nftContract).safeTransferFrom(address(this), to, nftId, 1, "");
+c_0x05b5f9a4(0xa2bb3858cf9c2362a1a9d6f80ce921abf0c589c62e61f169ed03d30484d12dfe); /* line */ 
+        c_0x05b5f9a4(0x4cdac48595e68c0cb4caa4c5607ec643b428f7fe4ef9191be24761fc6e2d404d); /* statement */ 
+selfBalances[nftContract][nftId] -= 1;
     }
 &nbsp;
     // needs testing
-<span class="fstat-no" title="function not covered" >    function checkThisContractsBalance(address nftContract, uint nftId) </span>
-    public view returns (uint) {
-<span class="cstat-no" title="statement not covered" >        return IERC1155(nftContract).balanceOf(address(this), nftId);</span>
+    function checkThisContractsBalance(address nftContract, uint nftId) 
+    public view returns (uint) {c_0x05b5f9a4(0x5bccae9da3c3541bfce5d1f0262788ad847fcca6d3596b28c950b1c01b6b2f7b); /* function */ 
+&nbsp;
+c_0x05b5f9a4(0x47e1af3fec58ebc67059dda02bd1123fa4ba07f26666bb981c0b90360e2880ba); /* line */ 
+        c_0x05b5f9a4(0x56502a427592244cc9d83f19263b0b689adb4b1ba726424555e4a4de3a99c823); /* statement */ 
+return IERC1155(nftContract).balanceOf(address(this), nftId);
     }
 }</pre></td></tr>
 </table></pre>
@@ -346,7 +502,7 @@ contract ERC1155Redeemer is ERC1155Holder, Ownable {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 03 2022 13:43:29 GMT-0700 (Pacific Daylight Saving Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Aug 11 2022 11:36:51 GMT-0700 (Pacific Daylight Saving Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

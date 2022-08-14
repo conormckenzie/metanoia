@@ -124,7 +124,33 @@
 79
 80
 81
-82</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,10 +230,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
 &nbsp;
 pragma solidity ^0.8.0;
+function c_0x82d979a2(bytes32 c__0x82d979a2) pure {}
+&nbsp;
 &nbsp;
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 &nbsp;
@@ -245,46 +299,70 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
  * to mint tokens.
  */
 abstract contract ERC1155MultiUri is ERC1155Supply {
+function c_0xea4b8481(bytes32 c__0xea4b8481) internal pure {}
+&nbsp;
 &nbsp;
     /**
      * @dev Replaces &lt;_uri&gt; as the variable which holds metadata information.
      *
      * Syntax:      _uris[id]
-     * Description: stores the URI for the given token ID
+<span class="fstat-no" title="function not covered" >     * Description: stores the URI for the given token ID</span>
      */
-    mapping (uint256 =&gt; string) private _uris;
+    mapp<span class="cstat-no" title="statement not covered" >ing (uint256 =&gt; s</span>tring) private _uris;
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function uri(uint256 id) </span>
-    public view virtual override returns (string memory) {
-<span class="cstat-no" title="statement not covered" >        return _uris[id];</span>
+    function uri(uint256 id) 
+<span class="fstat-no" title="function not covered" >    public view virtual override returns (string memory) {c_0xea4b8481(0x13c888bf25905f197ca3959b3c15b678f6fd56407036d05464582f2c70a84078); /* function */ </span>
+<span class="cstat-no" title="statement not covered" ></span>
+c_0xea4b8481(0xf7ddcbca17c0ea9838be3f3c200e84e784acc28df5ef75667d9703caeda6f4f8); /* line */ 
+        c_0xea4b8481(0xf7e953c4b80edc4c39f6054be5635e1a2b35e6a23c0a4c798fec60014655f047); /* statement */ 
+retu<span class="fstat-no" title="function not covered" >rn _uris[id];</span>
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function _setURI(uint id, string memory newuri) internal virtual {</span>
-<span class="cstat-no" title="statement not covered" >        _uris[id] = newuri</span>;
-    }
+    function _setURI(uint id, string memory newuri) internal virtual {c_0xea4b8481(0xbeae18ca4a5b581abfb44ab31654108bf3035600611dc731895f35f4ce1351c3); /* function */ 
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function _mintWithURI(</span>
+c_0xea4b8481(0xab9c6a8580aaa9c620649088d4fc9caff7c2aca8e42972045de5f0e52c29dd8e); /* line */ 
+        c_0xea4b8481(0x3c94ede625a0b8d304bb682de39de668c8fa1c7d369fe2043e8679b80392480f); /* statement */ 
+_uris[id<span class="cstat-no" title="statement not covered" >] = newuri;</span>
+    }
+<span class="cstat-no" title="statement not covered" ></span>
+    func<span class="cstat-no" title="statement not covered" >tion _mintWithURI(</span>
         address to,
         uint256 id,
-        uint256 amount,
+<span class="fstat-no" title="function not covered" >        uint256 amount,</span>
         bytes memory data,
         string memory newuri
-    ) internal virtual {
-<span class="cstat-no" title="statement not covered" >        require (!exists(id), "Cannot change metadata of existing token")</span>;
+    ) internal virtual {c_0xea4b8481(0x17b68b3ffc5582b20d4e947353a30d9e8cc415ebd3a6720937211fba624f10b0); /* function */ 
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _setURI(id, newuri)</span>;
-<span class="cstat-no" title="statement not covered" >        _mint(to, id, amount, data)</span>;
+c_0xea4b8481(0x083588ff3a57d5e8276a57e0975bf1ed72b52905a79d64fc0fba0946af9f475d); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0xea4b8481(0x1fd30869d42e34939553218d564fa8ed1036afaaa055eb</span>e831e12dba7e1ce93b); /* requirePre */ 
+c_0xea4b8481(0xf2000f46e074a93bcdc04b27b0684a320a148943d50c2bd645dd30dadfb875db); /* statement */ 
+require <span class="cstat-no" title="statement not covered" >(!exists(id), "Cannot chang</span>e metadata of existing token");c_0xea4b8481(0xa664e7241b2486a1e6c70570093d4da8cb05ea083c6b0a2313d3386f7c0d6fd0); /* requirePost */ 
+&nbsp;
+&nbsp;
+c_0xea4b8481(0xd5369aecd51315ed9c53008a019c029c806123c2c586657179e18be1f7a2621b); /* line */ 
+        c_0xea4b8481(0x4a6c1305e9ccb3fb25ab6475d4aac6fc7ddd642b72ce0744e53a7001f19d317c); /* statement */ 
+_setURI(id, newuri);
+c_0xea4b8481(0x3c68815966c1e9c7a9201483bd84032ae5610efecb43ecdc67216e91338f9e73); /* line */ 
+        c_0xea4b8481(0xb23d90010cc8269c5bc3d7f8219aa93e2f5f47acf5371063eb365df24bb016e0); /* statement */ 
+_mint(to, id, amount, data);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function _mintWithoutURI(</span>
+    function _mintWithoutURI(
         address to,
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) internal virtual {
-<span class="cstat-no" title="statement not covered" >        require (exists(id), "Please provide metadata for new token")</span>;
+    ) internal virtual {c_0xea4b8481(0xe8586f31a1336d17878f9b9912f563cb586c3b709ab0b1c1f0724e6553125a22); /* function */ 
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _mint(to, id, amount, data)</span>;
+c_0xea4b8481(0xbc1de6370809bd777d4c49acac45ef093bbc2196047ce66dd06cc29f55e48245); /* line */ 
+        c_0xea4b8481(0x2ab721a5c8fec0b59a959d25ba3481fde680bc8e923aebfd2d831d5afd62e2a0); /* requirePre */ 
+c_0xea4b8481(0xe3909db2ce751f3d7937a2c1ad2280c36f607400f76c7bddc9fd918b4f1801ce); /* statement */ 
+require (exists(id), "Please provide metadata for new token");c_0xea4b8481(0x1cda7d24b12857522b11e2a8e9b0f83652c4d9057321210fbef813cc30a7699b); /* requirePost */ 
+&nbsp;
+&nbsp;
+c_0xea4b8481(0xaa2ad0cfa2ec3fb58c7783a70949db5e255e292a4b35ed91c48b8c0319cb310a); /* line */ 
+        c_0xea4b8481(0xfa71c49f4ea2ca0a8ee280b595e429d03a57fd6818d9a833e91a72a28ba2ba1a); /* statement */ 
+_mint(to, id, amount, data);
     }
 }</pre></td></tr>
 </table></pre>
@@ -292,7 +370,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 03 2022 13:43:29 GMT-0700 (Pacific Daylight Saving Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Aug 11 2022 11:36:51 GMT-0700 (Pacific Daylight Saving Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

@@ -152,7 +152,35 @@
 107
 108
 109
-110</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,6 +281,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,6 +320,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
 &nbsp;
 pragma solidity ^0.8.0;
+function c_0x0db9fbb0(bytes32 c__0x0db9fbb0) pure {}
+&nbsp;
 &nbsp;
 import "./ERC1155MultiUri_UserUpgradeable.sol";
 import {ModeratedUris} from "./Moderated Uris.sol";
@@ -303,55 +361,78 @@ import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 &nbsp;
 abstract contract ERC1155MultiUri_UserUpgradeable_ModeratedUris is 
 ERC1155MultiUri_UserUpgradeable, AccessControl {
+function c_0xfac37cbd(bytes32 c__0xfac37cbd) internal pure {}
+&nbsp;
 &nbsp;
     ModeratedUris u = new ModeratedUris();
 &nbsp;
-    /*  
+<span class="fstat-no" title="function not covered" >    /*  </span>
      * @dev Adds a require statement to check the user-given URI against a list
      *      of pre-approved metadata, and then runs _safeUpdateURI(...)
      */
-<span class="fstat-no" title="function not covered" >    function safeUpdateURI(</span>
-        string memory newuri,
+    function safeUpdateURI(
+<span class="cstat-no" title="statement not covered" >        string memory newuri,</span>
         address owner,
         uint256 id
-    ) public virtual {
-<span class="cstat-no" title="statement not covered" >        require(</span>
+    ) public virtual {c_0xfac37cbd(0x94dce12d2d554b4912835d005ab83840c62f4d554d5d7bd3127b4ab7a9e69cef); /* function */ 
+&nbsp;
+c_0xfac37cbd(0xfa28320f18b667ecf7aa6b4b1195abffa9e59ad774b1e86f4ec3798825c8f39b); /* line */ 
+<span class="cstat-no" title="statement not covered" >        c_0xfac37cbd(0x1f2ef2d46535f866d3</span>d36bc1311029340c998555bb55f0a687d0ac7a9fea6f38); /* requirePre */ 
+c_0xfac37cbd(0x6b21e9c90ff044165315679e2b3cb9930762a7680e9d317f680f71ce0cf65aae); /* statement */ 
+require(
             u.isMetadataApprovedForId(id, newuri), 
             string(abi.encode(
                 "Given metadata is not approved for token id ", id
             ))
-        );
-<span class="cstat-no" title="statement not covered" >        _safeUpdateURI(newuri, owner, id)</span>;
+        );c_0xfac37cbd(0x489a3bd1598d753cc7071b8216904ab62e8b8350813484ecb196df4317551fd5); /* requirePost */ 
+<span class="fstat-no" title="function not covered" ></span>
+c_0xfac37cbd(0x906192502c510ad6948d13326dde607b81bbe72ab41ebabcaac8ffa72cf4922d); /* line */ 
+        c_0xfac37cbd(0xed28708cbe86601935b4031528e085bbcb4ba0741d3904c455bb0cb5cca52420); /* statement */ 
+_safeUpdateURI(newuri, owner, id);
     }
 &nbsp;
     /*  
-     * @dev Overrides _mintWithURI(...) from ERC1155MultiURI, providing an 
+     * @<span class="cstat-no" title="statement not covered" >dev Overrides _mintWithURI(...) from ERC1155MultiURI, providing an </span>
      *      updated require message and an additional condition to check if a
      *      token is non-mintable.
      */
-<span class="fstat-no" title="function not covered" >    function _mintWithURI(</span>
+    func<span class="cstat-no" title="statement not covered" >tion _mintWithURI(</span>
         address to,
         uint256 id,
         uint256 amount,
         bytes memory data,
         string memory newuri
-    ) internal virtual override mintsTokens(id) {
-<span class="cstat-no" title="statement not covered" >        require (</span>
+    ) internal virtual override mintsTokens(id) {c_0xfac37cbd(0x6fb9b1c56686905ac1114a56425d293a9976bc68d4b56b20c0a120d853757359); /* function */ 
+<span class="cstat-no" title="statement not covered" ></span>
+c_0xfac3<span class="cstat-no" title="statement not covered" >7cbd(0xff9ed907e0fd55d5e11d</span>a9b2d5fe305c0ece5f09494013f741ed7eede55d55ca); /* line */ 
+        c_0xfac37cbd(0x6ec070615f3e00c59a459a7d50ad03fa0ab41a26c32c076f23bace528be423e9); /* requirePre */ 
+c_0xfac37cbd(0xbceef225ec4f277eb865b0c4b20c20b01beb126971b99b54ae16d50339cfb067); /* statement */ 
+requ<span class="fstat-no" title="function not covered" >ire (</span>
             !exists(id), 
             "Cannot change metadata of existing token via minting"
-        );
-<span class="cstat-no" title="statement not covered" >        require(</span>
+        );c_0xfac37cbd(0xf7cb6d476488d6c0c6f7663ea18d753434005819cadafa351a1a037bcdb6d8d5); /* requirePost */ 
+&nbsp;
+c_0xfac37cbd(0x7722049d6afbbe00f4e2c4cff9aef10e862c056c8cc1c3a3acb9b5b4ac60f456); /* line */ 
+        c_0xfac37cbd(0xc50cd851ed83e3924b7312bfd20977ec3780a19124b0acfba6b17e316df022ec); /* requirePre */ 
+c_0xfac37cbd(0x6fdff63da804c4f326b159dbd6add860b26da749de364cf3388016bb37e2af40); /* statement */ 
+requ<span class="fstat-no" title="function not covered" >ire(</span>
             u.isMetadataApprovedForId(id, newuri), 
-            string(abi.encode(
+<span class="cstat-no" title="statement not covered" >            string(abi.encode(</span>
                 "Given metadata is not approved for token id ", id)
             )
-        );
+        );c_0xfac37cbd(0x03bea581852452ad6eddca41b36ff0b0cd8407effc82a48193c548fb1a326113); /* requirePost */ 
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _setURI(id, newuri)</span>;
-<span class="cstat-no" title="statement not covered" >        _mint(to, id, amount, data)</span>;
+&nbsp;
+c_0xfac37cbd(0xec4b231042d22e50de319c9a5137be7f0bbdc32350c8b9debbc74ad3cc81aa20); /* line */ 
+        c_0xfac37cbd(0x9d2c5bf093c3795d6e2f1e2e568be9ffa409346749ba4de1ca7e2bb7b166a47f); /* statement */ 
+_setURI(id, newuri);
+c_0xfac37cbd(0x960425ee81f0fdf8aadb13d8cb038d7d7232718ef1e2530c4ca553733a10b5bd); /* line */ 
+        c_0xfac37cbd(0x794b51b462dfaaf6226e5236d835842ae78820bcb5d8855acd8ece954fdb2482); /* statement */ 
+_mint(to, id, amount, data);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    constructor() {</span>
+    constructor() {c_0xfac37cbd(0x275bb10735a1b3742eaffeda88c5e8692bee991d59d85810cd3e3281469ef831); /* function */ 
+&nbsp;
         
     }
 &nbsp;
@@ -359,9 +440,12 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
      * @dev Override required by Solidity compiler
      */
      // not sure if this is correct or not
-<span class="fstat-no" title="function not covered" >    function supportsInterface(bytes4 interfaceId) </span>
-    public view virtual override(ERC1155, AccessControl) returns (bool) {
-<span class="cstat-no" title="statement not covered" >        return</span>
+    function supportsInterface(bytes4 interfaceId) 
+    public view virtual override(ERC1155, AccessControl) returns (bool) {c_0xfac37cbd(0x143ae39fd90c6c5a9b1ac1c0b181b51053aa0d4e3a4efdad3e28d22227683870); /* function */ 
+&nbsp;
+c_0xfac37cbd(0x76f2336396f058f688fa911ff3e2fc2b59ba12f5247007b6c7cf4fc487258717); /* line */ 
+        c_0xfac37cbd(0x398b9511e5e3d0dd16eb7458ba99773b4f767c11b9df1b6123ef4f6465e668a9); /* statement */ 
+return
             interfaceId == type(IERC1155).interfaceId ||
             interfaceId == type(IERC1155MetadataURI).interfaceId ||
             interfaceId == type(IAccessControl).interfaceId || 
@@ -376,7 +460,7 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 03 2022 13:43:29 GMT-0700 (Pacific Daylight Saving Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Aug 11 2022 11:36:51 GMT-0700 (Pacific Daylight Saving Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
