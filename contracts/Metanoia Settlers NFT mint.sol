@@ -40,7 +40,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  *
  *          The Founding Settlers List may exceed 100 addresses after minting, by use of the `addAddress` function. 
  */
-contract SettlersTickets is ERC1155, FoundingSettlersList, Ownable {
+contract SettlersTickets is ERC1155, AddressList, Ownable {
 
     /** @notice This contract always mints 100 tickets upon creation, even when there are not 100 qualified addresses.  
      *          If there are less than 100 qualified addresses, then some NFTs will not be distributed. The extras will

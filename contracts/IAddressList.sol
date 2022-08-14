@@ -34,7 +34,7 @@ pragma solidity ^0.8.0;
  *          Each of this interface's functions is view-only and takes constant time.
  *          More info can be found in source code for the Founding Settlers Tickets NFT mint & storage contract.
  */
-interface IFoundingSettlersList {
+interface IAddressList {
     function getMFS_length() external view returns(uint length);
     function getMFS_list(uint ID) external view returns(address FoundingSettlerAddress);
     function getMFS_listInv(address FoundingSettlerAddress) external view returns(uint addressID);

@@ -28,13 +28,13 @@ pragma solidity 0.8.4;
 
 import "hardhat/console.sol";
 
-/// @title  Founding Settlers List
+/// @title  Address List
 /// @author Conor McKenzie
 /** @dev    This contract is to be deployed ONLY as part of the Metanoia Founding Settler's NFT mint. 
  *          It can be referenced in other smart contracts which need it through the interface of the Metanoia Founding 
  *          Settler's NFT mint smart contract.
  */
-contract FoundingSettlersList {
+contract _AddressList {
 
     string constant private errMsg1_addExisting = "Cannot add address that is already in the list";
     string constant private errMsg2_addZero = "Cannot add the zero address to the list";
