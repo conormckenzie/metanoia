@@ -37,9 +37,8 @@ pragma solidity 0.8.4;
 contract MixieNftMintStorage is 
 ERC1155MultiUri_UserUpgradeable_ModeratedUris {
     address public extrasHolder = address(this);
-    mapping(address => uint[]) public ownedMixies;
-    mapping(uint => address) public ownerOf;
-    address[] public owners;
+
+    mapping (uint256 => string) private _alternateUris;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant URI_LOADER_ROLE = keccak256("URI_LOADER_ROLE");
@@ -57,12 +56,24 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
     /*  
     *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
     */
-    modifier isNewMint(uint _tokenID, uint _newSupply) {
+    modifier isNewMint(uint _tokenID, uint _newSupply, address _to) {
+        require(
+            hasRole(MINTER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Minter or Admin"
+        );
+        require(
+            nextUnusedToken <= maxSupply, 
+            string(abi.encodePacked(
+                "Cannot mint more than <maxSupply> (", maxSupply, ") tokens"
+            ))
+        );
         require(!exists(_tokenID), "FoundingNFTMintStorage: ERR 1"); 
             // string(abi.encode(
             //     "You have tried to call a mint function on an existing token while providing a new metadata URI.", 
             //     "Please call the correponding function without URI as a parameter." 
             // ))
+        
         if (_tokenID >= nextUnusedToken) {
             nextUnusedToken = _tokenID + 1;
         }
@@ -90,6 +101,10 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
         return maxSupply;
     }
 
+    function _setAlternateURI(uint id, string memory newuri) internal {
+        _alternateUris[id] = newuri;
+    }
+
     /*  
     *  @dev Pre-loads the URI for each token's metadata.
     *       Note: This can only be called on NFTs that have not been minted yet
@@ -104,25 +119,32 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
             uint id = ids[i];
             string memory uri = uris[i];
             require(!exists(id), "Cannot change URI for existing token");
+            _setAlternateURI(id, uri);
+        }
+    }
+
+    function preLoadFutureURIs(uint[] memory ids, string[] memory uris) external {
+        require(
+            hasRole(URI_LOADER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not URI Manager or Admin"
+        );
+        for (uint i = 0; i < ids.length; ++i) {
+            uint id = ids[i];
+            string memory uri = uris[i];
             _setURI(id, uri);
         }
+    }
+
+    function upgradeUri (uint id) public {
+        _setURI(id, _alternateUris[id]);
     }
 
     /*  
     *  @dev Mints the next unminted NFT in the collection.
     */
-    function mintNextNftToAddress(address to) external isNewMint(nextUnusedToken, 1) {
-        require(
-            hasRole(MINTER_ROLE, _msgSender()) || 
-            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Minter or Admin"
-        );
-        require(
-            nextUnusedToken <= maxSupply, 
-            string(abi.encodePacked(
-                "Cannot mint more than <maxSupply> (", maxSupply, ") tokens"
-            ))
-        );
+    function mintNextNftToAddress(address to) external isNewMint(nextUnusedToken, 1, to) {
+        
         // all logic regarding nextUsedToken etc. is handled by modifier
         // nextUnusedToken is incremeneted by modifier
         _mintWithURI(to, nextUnusedToken-1, 1, "", uri(nextUnusedToken-1));
