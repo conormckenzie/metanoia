@@ -56,6 +56,8 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
         _uris[id] = newuri;
     }
 
+    // function _setOwnerInfo()
+
     function _mintWithURI(
         address to,
         uint256 id,
@@ -66,6 +68,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
         require (!exists(id), "Cannot change metadata of existing token");
 
         _setURI(id, newuri);
+
         _mint(to, id, amount, data);
     }
 

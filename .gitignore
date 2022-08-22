@@ -1,14 +1,16 @@
-remixd_command.txt
-dummy*
-Coding*Utilities.sol
-Access*Control*Extension.sol
-
 node_modules/
 .vscode/
 artifacts/
 cache/
 .env
 .openzeppelin
+
+remixd_command.txt
+dummy*
+Coding*Utilities.sol
+Access*Control*Extension.sol
+
+.devUtils/
 
 deploy_testNfts.js
 verify_testNfts.js

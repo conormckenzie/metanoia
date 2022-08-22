@@ -25,7 +25,7 @@
 */
 
 import "./ERC1155MultiUri.sol";
-import "./IFoundingSettlersList.sol";
+import "./IAddressList.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;
@@ -44,7 +44,7 @@ pragma solidity 0.8.4;
  */
 contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
-    IFoundingSettlersList public MFSList;
+    IAddressList public MFSList;
 
     string public name;
     string public symbol;

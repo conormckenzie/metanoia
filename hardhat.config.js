@@ -3,9 +3,11 @@ require('dotenv').config(); //from mulitple tutorials
 require("@nomiclabs/hardhat-ethers"); //from Polygon tutorial
 require("@nomiclabs/hardhat-etherscan"); //from Polygon tutorial
 
+require("@nomicfoundation/hardhat-toolbox"); // from hardhat.org setup tutorial
+
 require('hardhat-ethernal'); //potential blockchain explorer
 
-//require("@nomiclabs/hardhat-waffle"); //from other tutorial
+require("@nomiclabs/hardhat-waffle"); //from other tutorial
 
 require('hardhat-deploy'); //from OpenZeppelin tutorial
 
@@ -51,7 +53,7 @@ module.exports = {
   },
   paths: {
     sources: "./contracts",
-    //tests: "./test",
+    tests: "./scripts/test",
     cache: "./cache",
     artifacts: "./artifacts"
   },

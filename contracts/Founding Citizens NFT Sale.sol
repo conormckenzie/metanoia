@@ -66,17 +66,20 @@ contract FoundingNFTSale is AccessControl {
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
     bytes32 public constant SALE_MANAGER_ROLE = keccak256("SALE_MANAGER_ROLE");
     bytes32 public constant POST_SALE_MINTER_ROLE = keccak256("POST_SALE_MINTER_ROLE");
+
+    // NEEDS a mapping (uint => address) to store who the original minters were 
     
 
     uint startTime  = 1893484800; //set to the year 2030 initially, needs to be updated once date is finalized 
+	uint topTime	= 1893484820;
     uint endTime    = 1893484900;
 
     uint constant units = 10**6;
-    uint startPrice = 10 * units;
-    // uint startPrice = 10000;
-    uint EndPrice = 1 * units;
+    uint topPrice = 10 * units;
+    // uint topPrice = 10000 * units;
+    uint BottomPrice = 1000 * units;
 
-    uint constant priceDescresePerMinute = 1 * units;
+    uint constant priceDecreasePerMinute = (units * 25) / 8;
 
     struct Update {
         uint price;
@@ -106,7 +109,7 @@ contract FoundingNFTSale is AccessControl {
 
     function updateState() internal requiresConsistentState {
         //update price
-        lastUpdate.price = startPrice - ((block.timestamp - startTime) / 60 * priceDescresePerMinute);
+        lastUpdate.price = topPrice - ((block.timestamp - topTime) / 60 * priceDecreasePerMinute);
 
         //update time
         lastUpdate.time = block.timestamp;
@@ -160,6 +163,7 @@ contract FoundingNFTSale is AccessControl {
             "Sender is not Sale Manager or Admin"
         );
         startTime = unixTime;
+		topTime = unixTime;
     }
 
     function setEndTime(uint unixTime) public {
@@ -184,19 +188,28 @@ contract FoundingNFTSale is AccessControl {
         return calculateCustomPrice(prospectiveBuyer, discountRate);
     }
 
-    function _buyNFT(uint price) internal {
-        usdcEscrowStorageContract.decreaseUsdcBalance(msg.sender, price);
-        mintNextNftToAddress(msg.sender);
-    }
+    function _buyNFTs(uint amount, uint totalPrice) internal {
+        usdcEscrowStorageContract.decreaseUsdcBalance(msg.sender, totalPrice);
+        for (uint i = 0; i < amount; i++) {
+			mintNextNftToAddress(msg.sender);
+    	}
+		topTime = lastUpdate.time;
+	}
 
     function buyNFT() public pushesUpdate { //requires using existing balance
         uint price = lastUpdate.price;
-        _buyNFT(price);
+        _buyNFTs(1, price);
     }
 
-    function buyNftWithDiscount(uint discountRate) public pushesUpdate {
-        uint price = calculateCustomPrice(msg.sender, discountRate);
-        _buyNFT(price);
+	// needs to be updated to authorize that the applied discounts are approved
+    function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) public pushesUpdate {
+        uint[] memory prices;
+		uint totalPrice;
+		for (uint i = 0; i < amount; i++) {
+            prices[i] = calculateCustomPrice(msg.sender, discountRate[i]);
+			totalPrice += prices[i];
+        }
+        _buyNFTs(1, totalPrice);
     }
 
     //caution: only use this if most of the NFTs have been sold. It needs to be tested what is the acceptable
