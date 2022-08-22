@@ -2,7 +2,12 @@
 
 // NOTE: could still stand to be refactored into multiple (possibly parallelized) tests
 // NOTE: still has console logs and other debugging artifacts, these could stand to be removed
- 
+
+const testEnabled = false;
+
+if (!testEnabled) {
+	return;
+}
 const {
 	time,
 	loadFixture,
@@ -52,6 +57,12 @@ const addConsoleLogWhere = () => {
 	});
 };
 addConsoleLogWhere();
+
+// if uncommented, this process stops console methods from producing output
+['logWhere', 'warn', 'error'].forEach((methodName) => {
+	const originalMethod = console[methodName];
+	console[methodName] = (...args) => {}
+})
 
 var addresses = [];
 const generateNewAddress = async () => {
@@ -372,4 +383,4 @@ describe("Founding Settlers List", async function () {
 				}
 			}
 		});
-});
+});	

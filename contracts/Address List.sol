@@ -26,7 +26,7 @@
 
 pragma solidity 0.8.4;
 
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
 
 /// @title  Address List
 /// @author Conor McKenzie
@@ -117,12 +117,12 @@ contract _AddressList {
 
         uint removedID = addresses.listInv[_address];
         address removedAddress = _address;
-        console.log("[SOL] CPa2: removedAddress = %s", removedAddress);
+        // console.log("[SOL] CPa2: removedAddress = %s", removedAddress);
 
         uint lastID = addresses.length;
-        console.log("[SOL] CPa3: length = %s", lastID);
+        // console.log("[SOL] CPa3: length = %s", lastID);
         address lastAddress = addresses.list[addresses.length];
-        console.log("[SOL] CPa4: lastAddress = %s", lastAddress);
+        // console.log("[SOL] CPa4: lastAddress = %s", lastAddress);
 
         /** @dev    Maps the ID of the removed address to the last address in the list, and maps the removed address 
          *          to ID 0. 
@@ -145,12 +145,12 @@ contract _AddressList {
     }
 
     function _tryToRemoveAddress(address _address) internal returns(bool success, string memory errMsg) {
-        console.log("[SOL] CP1: addressToRemove=%s, <-ID=%s, length=%s",
-            _address, addresses.listInv[_address], addresses.length
-        );
-        console.log("[SOL] CP5: lastAddress=%s, removedID=%s", 
-            addresses.list[addresses.length], addresses.listInv[_address]
-        );
+        // console.log("[SOL] CP1: addressToRemove=%s, <-ID=%s, length=%s",
+        //     _address, addresses.listInv[_address], addresses.length
+        // );
+        // // console.log("[SOL] CP5: lastAddress=%s, removedID=%s", 
+        //     addresses.list[addresses.length], addresses.listInv[_address]
+        // );
         if (!(addresses.listInv[_address] != 0))
         {
             return (false, errMsg3_removeNonexisting);
@@ -159,9 +159,9 @@ contract _AddressList {
             return (false, errMsg4_removeZero);
         }
         _removeAddress(_address);
-        console.log("[SOL] CP6: lastAddress=%s, removedID=%s", 
-            addresses.list[addresses.length], addresses.listInv[_address]
-        );
+        // console.log("[SOL] CP6: lastAddress=%s, removedID=%s", 
+        //     addresses.list[addresses.length], addresses.listInv[_address]
+        // );
         return (true, "");
     }
 
@@ -180,9 +180,9 @@ contract _AddressList {
     }
 
     /// @dev    Used to test that the list initialization works correctly. Must be disabled in production. 
-    function initList() public {
-        _initList();
-    }
+    // function initList() public {
+    //     _initList();
+    // }
 
     /// @dev    Getters for the underlying list variable. Useful for testing.
     function addresses_length() public view returns(uint) {

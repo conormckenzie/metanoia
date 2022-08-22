@@ -25,7 +25,7 @@
 */
 
 import "./ERC1155MultiUri.sol";
-import "./IFoundingSettlersList.sol";
+import "./IAddressList.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;

@@ -25,7 +25,7 @@
 
 pragma solidity 0.8.4;
 
-import "./Founding Settlers List.sol";
+import "./Address List.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -40,7 +40,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  *
  *          The Founding Settlers List may exceed 100 addresses after minting, by use of the `addAddress` function. 
  */
-contract SettlersTickets is ERC1155, AddressList, Ownable {
+contract SettlersTickets is ERC1155Supply, _AddressList, Ownable {
 
     /** @notice This contract always mints 100 tickets upon creation, even when there are not 100 qualified addresses.  
      *          If there are less than 100 qualified addresses, then some NFTs will not be distributed. The extras will
@@ -51,8 +51,15 @@ contract SettlersTickets is ERC1155, AddressList, Ownable {
     /// @notice This contract cannot mint more than 100 tickets.
     uint public constant initialSupply = 100;
 
+    // function totalSupply(uint256 id) public view override returns(uint256) {
+    //     return _totalSupply[id];
+    // } 
+
     /// @notice This contract mints all 100 tickets when it is first created.
-    uint public constant totalSupply = initialSupply;
+    function totalSupply() public pure returns(uint256) {
+        uint totalSupply_ = initialSupply;
+        return totalSupply_;
+    } 
 
     /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
     string public name;
