@@ -78,7 +78,7 @@ contract TestNfts is ERC1155MultiUri {
             "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
         attributes[id].imageUri = 
         // solhint-disable-next-line max-line-length
-            "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
+            "https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4";
         attributes[id].nftType = nftType;
 
         if (nftType == 1) {

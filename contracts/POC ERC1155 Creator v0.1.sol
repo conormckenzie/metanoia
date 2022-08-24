@@ -25,7 +25,7 @@ contract POCTestNfts is ERC1155MultiUri {
     }
     
     // solhint-disable-next-line max-line-length
-    constructor() ERC1155("https://bafybeib4g7hewm2qwjgoatikznli3rrjnutet5t34lajsbb54gw4z7vh7u.ipfs.infura-ipfs.io/foundingSettlersTicket.json") {
+    constructor() ERC1155("https://5onxwdchjdxmgedt32sk5viwzfqxhhsycntmfoqiowaswrblkt7a.arweave.net/65t7DEdI7sMQc96krtUWyWFznlgTZsK6CHWBK0QrVP4") {
 
         name = "Metanoia NFT";
         symbol = "METANOIA-NFT";
