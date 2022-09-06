@@ -8,7 +8,7 @@ import "./ERC1155MultiUri.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract TestNfts is ERC1155MultiUri {
+contract ERC1155CreatorV2_0 is ERC1155MultiUri {
     address public extrasHolder = address(this);
     
     uint public constant initialSupply = 0;

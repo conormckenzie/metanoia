@@ -10,7 +10,7 @@ interface ITypedNftSender {
     function getNftType(uint nftId) external view returns (uint);
 }
 
-contract ERC1155Redeemer is ERC1155Holder, Ownable {
+contract ERC1155RedeemerV2_0 is ERC1155Holder, Ownable {
 
     mapping (address => mapping (uint => uint)) public selfBalances;
     mapping (address => bool) whitelist; //not implemented yet 
