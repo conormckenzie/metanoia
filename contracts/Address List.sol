@@ -117,12 +117,9 @@ contract _AddressList {
 
         uint removedID = addresses.listInv[_address];
         address removedAddress = _address;
-        // console.log("[SOL] CPa2: removedAddress = %s", removedAddress);
 
         uint lastID = addresses.length;
-        // console.log("[SOL] CPa3: length = %s", lastID);
         address lastAddress = addresses.list[addresses.length];
-        // console.log("[SOL] CPa4: lastAddress = %s", lastAddress);
 
         /** @dev    Maps the ID of the removed address to the last address in the list, and maps the removed address 
          *          to ID 0. 
@@ -145,12 +142,6 @@ contract _AddressList {
     }
 
     function _tryToRemoveAddress(address _address) internal returns(bool success, string memory errMsg) {
-        // console.log("[SOL] CP1: addressToRemove=%s, <-ID=%s, length=%s",
-        //     _address, addresses.listInv[_address], addresses.length
-        // );
-        // // console.log("[SOL] CP5: lastAddress=%s, removedID=%s", 
-        //     addresses.list[addresses.length], addresses.listInv[_address]
-        // );
         if (!(addresses.listInv[_address] != 0))
         {
             return (false, errMsg3_removeNonexisting);
@@ -168,21 +159,20 @@ contract _AddressList {
     /** @dev    Initializes the address list with a set pre-approved list of addresses. 
     *           Ignores adding any addresses that already exists in the list or is invalid.
     *           the ID of the former last address maps to the zero address. 
+    *           
     */
     function _initList() internal {
         require(addresses.length == 0, errMsg5_initNonEmpty);
-        _tryToAddAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
-        _tryToAddAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);
-        _tryToAddAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7);
-        _tryToAddAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4);
-        _tryToAddAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8);
-        _tryToAddAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D);
-    }
+        _tryToAddAddress(0xEcb074B04151fFA0CEdBD070e84D62673750D2e8);
+        _tryToAddAddress(0x89046fBB6538A3d3DfA94b04F577Ed630cC99C06);
+        _tryToAddAddress(0x8cFe3482Eb04819ED5FaC1265D7b1EC0701887dA);
+        _tryToAddAddress(0xa22CcF5AbFa599ed1e434D480469784e95F8d9bf);
+        _tryToAddAddress(0x50Ad91E62958C5715F652Da531aC1dedf315f2C9);
+        _tryToAddAddress(0x83226edb655488522af57Fb94deCF77c05bd324c);
+        _tryToAddAddress(0x019A2e8c754Fb4629631eAe0125305f94CE6aC0a);
+        _tryToAddAddress(0xd7B9260fEdb5800B74e0a3BFF596c1e3A63AA834);
 
-    /// @dev    Used to test that the list initialization works correctly. Must be disabled in production. 
-    // function initList() public {
-    //     _initList();
-    // }
+    }
 
     /// @dev    Getters for the underlying list variable. Useful for testing.
     function addresses_length() public view returns(uint) {

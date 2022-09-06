@@ -28,7 +28,8 @@
     "colors": "^1.4.0",
     "dotenv": "^16.0.1",
     "logger-line-number": "^1.0.5",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync": "^4.2.0",
+    "typescript": "^4.8.2"
   },
   "scripts": {
     "compile": "npx hardhat compile"

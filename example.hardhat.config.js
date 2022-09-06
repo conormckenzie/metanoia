@@ -37,10 +37,6 @@ module.exports = {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY]
     },
-    matic: {
-      url: "https://polygon-rpc.com",
-      accounts: [process.env.PRIVATE_KEY]
-    },
   },
   ethernal: {
     disableSync: false, // If set to true, plugin will not sync blocks & txs
@@ -63,7 +59,6 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      polygon: process.env.POLYGONSCAN_API_KEY,
       polygonMumbai: process.env.POLYGONSCAN_API_KEY,
     },
   },

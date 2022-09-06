@@ -4,6 +4,7 @@ artifacts/
 cache/
 .env
 .openzeppelin
+hardhat.config.js
 
 remixd_command.txt
 dummy*
