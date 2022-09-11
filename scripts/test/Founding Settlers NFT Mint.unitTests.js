@@ -92,7 +92,7 @@ const generateNewAddress = () => {
 	return address;
 };
 
-// Need to run these tests with the FOunding Settlers List being empty, partly full, full, and overfull 
+// Need to run these tests with the Founding Settlers List being empty, partly full, full, and overfull 
 
 describe("Founding Settlers NFT Mint", function () {
 	async function deployFoundingSettlersNftMintFixture() {

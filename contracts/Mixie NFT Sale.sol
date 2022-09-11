@@ -1,7 +1,3 @@
-/*
- *Submitted for verification at polygonscan.com on 2022-xx-xx (YYYY-MM-DD)
-*/
-
 // SPDX-License-Identifier: MIT
 
 /*
@@ -175,7 +171,7 @@ contract FoundingNFTSale is AccessControl {
         endTime = unixTime;
     }
 
-    function calculateCustomPrice(address prospectiveBuyer, uint discountRate) 
+    function calculateDiscountedPrice(address prospectiveBuyer, uint discountRate) 
     public requiresUpdate view returns(uint) {
         require(privilgedBuyerList.addressHasCoupon(prospectiveBuyer, discountRate), string(abi.encodePacked(
             "Address ", prospectiveBuyer, " does not have a coupon with a discount rate of ", discountRate, "%")));
@@ -183,9 +179,9 @@ contract FoundingNFTSale is AccessControl {
         return price;
     }
 
-    function updateAndCalculateCustomPrice(address prospectiveBuyer, uint discountRate) 
+    function updateAndCalculateDiscountedPrice(address prospectiveBuyer, uint discountRate) 
     public pushesUpdate() returns(uint) {
-        return calculateCustomPrice(prospectiveBuyer, discountRate);
+        return calculateDiscountedPrice(prospectiveBuyer, discountRate);
     }
 
     function _buyNFTs(uint amount, uint totalPrice) internal {
@@ -196,38 +192,31 @@ contract FoundingNFTSale is AccessControl {
 		topTime = lastUpdate.time;
 	}
 
-    function buyNFT() public pushesUpdate { //requires using existing balance
+    function buyNFTs(uint amount) public pushesUpdate { //requires using existing balance
+        require(amount <= 10, "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying");
         uint price = lastUpdate.price;
-        _buyNFTs(1, price);
+        _buyNFTs(amount, price * amount);
     }
 
-	// needs to be updated to authorize that the applied discounts are approved
     function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) public pushesUpdate {
         uint[] memory prices;
 		uint totalPrice;
 		for (uint i = 0; i < amount; i++) {
-            prices[i] = calculateCustomPrice(msg.sender, discountRate[i]);
+            // authorizes that the applied discounts are approved
+            prices[i] = calculateDiscountedPrice(msg.sender, discountRate[i]); 
 			totalPrice += prices[i];
+            privilgedBuyerList.useCoupon(msg.sender, discountRate[i]);
         }
-        _buyNFTs(1, totalPrice);
+        _buyNFTs(amount, totalPrice);
     }
 
-    //caution: only use this if most of the NFTs have been sold. It needs to be tested what is the acceptable
-    // upper bound for number of NFTs minted this way before running out of gas.
-    function mintRemainderToTreasuryAddress() external pushesUpdate {
+    function bulkBuyNfts(uint amount, uint totalPrice) public pushesUpdate {
         require(
-            hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
-            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Post-Sale Minter or Admin"
+            privilgedBuyerList.addressHasCoupon(msg.sender, totalPrice),
+            "You do not have a bulk buy coupon with those parameters"
         );
-        require(
-            block.timestamp > endTime && !lastUpdate.saleIsLive, 
-            "Cannot mint to treasury address until sale is finished"
-        );
-        uint leftToMint = getMaxSupply() - (getNextUnusedToken()-1);
-        for (; leftToMint > 0; leftToMint--) {
-            mintNextNftToAddress(treasuryAddress);
-        }
+        privilgedBuyerList.useCoupon(msg.sender, totalPrice);
+        _buyNFTs(amount, totalPrice);
     }
 
     function mintNextToTreasuryAddress() public pushesUpdate {

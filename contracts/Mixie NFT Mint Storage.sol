@@ -53,6 +53,8 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
     string public name;
     string public symbol;
 
+    bool contractInitialized = false;
+
     /*  
     *  @dev Handles checks and effects for minting a new token. Use for functions that mint new tokens.
     */
@@ -70,8 +72,8 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
         );
         require(!exists(_tokenID), "FoundingNFTMintStorage: ERR 1"); 
             // string(abi.encode(
-            //     "You have tried to call a mint function on an existing token while providing a new metadata URI.", 
-            //     "Please call the correponding function without URI as a parameter." 
+            //     "You have tried to call a new mint function on an existing token.", 
+            //     "This is probably a software bug." 
             // ))
         
         if (_tokenID >= nextUnusedToken) {
@@ -88,6 +90,10 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
     }
 
     function initialize() public {
+        require(
+            !contractInitialized,
+            "Cannot initialise this MixieNftMintStorage contract; it has already been initialized." 
+        );
         _setURI("URI not applicable: Using ERC1155MultiURI");
         name = "Metanoia Founding Citizens NFT";
         symbol = "MFS NFT";
@@ -136,6 +142,8 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris {
         }
     }
 
+    // need to restrict this to only verify once the upgrade has been approved
+    // need an "approved" marker variable
     function upgradeUri (uint id) public {
         _setURI(id, _alternateUris[id]);
     }
