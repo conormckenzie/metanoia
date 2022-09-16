@@ -1,7 +1,3 @@
-/*
- *Submitted for verification at polygonscan.com on 2022-xx-xx (YYYY-MM-DD)
-*/
-
 // SPDX-License-Identifier: MIT
 
 /*
@@ -27,12 +23,13 @@
 */
 
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "./EmergencyPausable.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 pragma solidity 0.8.4;
 
-contract UsdcEscrowStorage is AccessControl {
+contract UsdcEscrowStorage is AccessControl, EmergencyPausable, Initializable {
     
     bytes32 public constant USDC_MANAGER_ROLE = keccak256("USDC_MANAGER_ROLE");
 
@@ -40,22 +37,14 @@ contract UsdcEscrowStorage is AccessControl {
     IERC20 usdcToken;
     mapping (address => uint) public usdcBalances;
 
-    bool initialized;
-
-    modifier onlyOnce {
-        require(!initialized, "contract has already been initialized");
-        initialized == true;
-        _;
-    }
-
-    function initialize() public onlyOnce {
+    function initialize() public initializer {
         usdcTokenAddress = 0xe11A86849d99F524cAC3E7A0Ec1241828e332C62;
         usdcToken = IERC20(usdcTokenAddress);
     }
 
     //IMPORTANT: Test that this catches all transfers to this address.
     //Probably doesn't :/
-    function receiveUSDC(uint amount) public {
+    function receiveUSDC(uint amount) public whenNotPaused {
         require(amount > 0, "amount transferred must be a positive value");
         //requires javascript code to get buyer to first approve the allowance
         usdcToken.transferFrom(msg.sender, address(this), amount);
@@ -63,7 +52,7 @@ contract UsdcEscrowStorage is AccessControl {
     }
 
     //IMPORTANT: Check that this refunds the USDC correctly
-    function refundUsdcTo(address to, uint amount) public {
+    function refundUsdcTo(address to, uint amount) public whenNotPaused {
         decreaseUsdcBalance(to, amount);
         usdcToken.transferFrom(address(this), to, amount);
     }
@@ -72,7 +61,7 @@ contract UsdcEscrowStorage is AccessControl {
         return usdcBalances[address_];
     }
 
-    function transferUsdcBalance(address from, address to, uint amount) public {
+    function transferUsdcBalance(address from, address to, uint amount) public whenNotPaused {
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -82,7 +71,7 @@ contract UsdcEscrowStorage is AccessControl {
         increaseUsdcBalance(to, amount);
     }
 
-    function increaseUsdcBalance(address address_, uint amount) public {
+    function increaseUsdcBalance(address address_, uint amount) public whenNotPaused {
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -92,7 +81,7 @@ contract UsdcEscrowStorage is AccessControl {
         usdcBalances[address_] += amount;
     }
 
-    function decreaseUsdcBalance(address address_, uint amount) public {
+    function decreaseUsdcBalance(address address_, uint amount) public whenNotPaused {
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -104,6 +93,8 @@ contract UsdcEscrowStorage is AccessControl {
             " by more than the existing balance ", usdcBalances[address_])));
         usdcBalances[address_] -= amount;
     }
+
+    
 
     receive() external payable {
         revert("This contract only accepts USDC");

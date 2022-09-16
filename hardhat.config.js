@@ -23,7 +23,16 @@ require('solidity-coverage'); //from solidity-coverage github
  */
 
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.4"
+      },
+      {
+        version: "0.8.2"
+      },
+    ],
+  },
   defaultNetwork: 'hardhat',
   networks: {
     // localhost: {
@@ -34,7 +43,7 @@ module.exports = {
       chainId: 1337
     },
     matic_testnet: {
-      url: "https://rpc-mumbai.maticvigil.com",
+      url: "https://matic-mumbai.chainstacklabs.com/",
       accounts: [process.env.PRIVATE_KEY]
     },
     matic: {

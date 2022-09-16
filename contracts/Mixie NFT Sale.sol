@@ -26,8 +26,9 @@
 pragma solidity 0.8.4;
 
 //import "./Access Control Extension.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./EmergencyPausable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol"; 
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 
 
@@ -52,8 +53,7 @@ interface IUsdcStorage {
     function decreaseUsdcBalance(address address_, uint amount) external;
 }
 
-//Ownable is not the right access structure - use OpenZeppelin Roles
-contract FoundingNFTSale is AccessControl {
+contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
     IMintStorage public ERC1155storageContract;
     IPrivilegedListStorage public privilgedBuyerList;
     IUsdcStorage public usdcEscrowStorageContract;
@@ -65,15 +65,16 @@ contract FoundingNFTSale is AccessControl {
 
     // NEEDS a mapping (uint => address) to store who the original minters were 
     
+    bool initialized;
 
-    uint startTime  = 1893484800; //set to the year 2030 initially, needs to be updated once date is finalized 
-	uint topTime	= 1893484820;
-    uint endTime    = 1893484900;
+    uint startTime; //set to the year 2030 initially, needs to be updated once date is finalized 
+	uint topTime;
+    uint endTime;
 
     uint constant units = 10**6;
-    uint topPrice = 10 * units;
-    // uint topPrice = 10000 * units;
-    uint BottomPrice = 1000 * units;
+    uint topPrice;
+    // uint topPrice;
+    uint BottomPrice;
 
     uint constant priceDecreasePerMinute = (units * 25) / 8;
 
@@ -82,7 +83,7 @@ contract FoundingNFTSale is AccessControl {
         uint time;
         bool saleIsLive;
     }
-    Update public lastUpdate = Update(10000, block.timestamp, false);
+    Update public lastUpdate;
 
     modifier requiresUpdate() {
         require(lastUpdate.time == block.timestamp, "timestamp is not up-to-date");
@@ -99,8 +100,16 @@ contract FoundingNFTSale is AccessControl {
         _;
     }
 
-    constructor() {
-        
+    function initialize() public initializer {
+        startTime   = 1893484800; //set to the year 2030 initially, needs to be updated once date is finalized 
+        topTime	    = 1893484820;
+        endTime     = 1993484900; //set to some date in the distant future, needs to be updated once date is finalized
+
+        topPrice = 10 * units;
+        // topPrice = 10000 * units;
+        BottomPrice = 1000 * units;
+
+        lastUpdate = Update(10000, block.timestamp, false);
     }
 
     function updateState() internal requiresConsistentState {
@@ -130,12 +139,12 @@ contract FoundingNFTSale is AccessControl {
         usdcEscrowStorageContract = IUsdcStorage(storageAddress);
     }
 
-    function mintNextNftToAddress(address to) internal {
+    function mintNextNftToAddress(address to) internal whenNotPaused {
         IMintStorage(ERC1155storageContract).mintNextNftToAddress(to);
     }
 
     function preLoadURIs(uint[] memory ids, string[] memory uris) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -162,6 +171,7 @@ contract FoundingNFTSale is AccessControl {
 		topTime = unixTime;
     }
 
+    // if wanting to manually end the sale, set endTime to current or recently passed unixTime
     function setEndTime(uint unixTime) public {
         require(
             hasRole(SALE_MANAGER_ROLE, _msgSender()) || 
@@ -184,7 +194,7 @@ contract FoundingNFTSale is AccessControl {
         return calculateDiscountedPrice(prospectiveBuyer, discountRate);
     }
 
-    function _buyNFTs(uint amount, uint totalPrice) internal {
+    function _buyNFTs(uint amount, uint totalPrice) internal whenNotPaused {
         usdcEscrowStorageContract.decreaseUsdcBalance(msg.sender, totalPrice);
         for (uint i = 0; i < amount; i++) {
 			mintNextNftToAddress(msg.sender);
@@ -192,13 +202,13 @@ contract FoundingNFTSale is AccessControl {
 		topTime = lastUpdate.time;
 	}
 
-    function buyNFTs(uint amount) public pushesUpdate { //requires using existing balance
+    function buyNFTs(uint amount) public pushesUpdate whenNotPaused { //requires using existing balance
         require(amount <= 10, "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying");
         uint price = lastUpdate.price;
         _buyNFTs(amount, price * amount);
     }
 
-    function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) public pushesUpdate {
+    function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) public pushesUpdate whenNotPaused {
         uint[] memory prices;
 		uint totalPrice;
 		for (uint i = 0; i < amount; i++) {
@@ -210,7 +220,7 @@ contract FoundingNFTSale is AccessControl {
         _buyNFTs(amount, totalPrice);
     }
 
-    function bulkBuyNfts(uint amount, uint totalPrice) public pushesUpdate {
+    function bulkBuyNfts(uint amount, uint totalPrice) public pushesUpdate whenNotPaused {
         require(
             privilgedBuyerList.addressHasCoupon(msg.sender, totalPrice),
             "You do not have a bulk buy coupon with those parameters"
@@ -219,7 +229,7 @@ contract FoundingNFTSale is AccessControl {
         _buyNFTs(amount, totalPrice);
     }
 
-    function mintNextToTreasuryAddress() public pushesUpdate {
+    function mintNextToTreasuryAddress() public pushesUpdate whenNotPaused {
         require(
             hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -234,7 +244,7 @@ contract FoundingNFTSale is AccessControl {
         mintNextNftToAddress(treasuryAddress);
     }
 
-    function mintNextManyToTreasuryAddress(uint numberToMint) public pushesUpdate {
+    function mintNextManyToTreasuryAddress(uint numberToMint) public pushesUpdate whenNotPaused {
         require(
             hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),

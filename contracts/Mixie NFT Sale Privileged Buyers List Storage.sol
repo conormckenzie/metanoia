@@ -27,11 +27,12 @@
     buyers for the Founding Citizen NFT Sale.
 */
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./EmergencyPausable.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 pragma solidity 0.8.4;
 
-contract PrivilegedListStorage is AccessControl {
+contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializable {
 
     bytes32 public constant ADDRESS_MANAGER_ROLE = keccak256("ADDRESS_MANAGER_ROLE");
     bytes32 public constant COUPON_MANAGER_ROLE = keccak256("COUPON_MANAGER_ROLE");
@@ -159,7 +160,7 @@ contract PrivilegedListStorage is AccessControl {
         revert("Mixie NFT Sale Privileged Boyers List: addressHasType2Coupon: invalid mode");
     }
 
-    function addAddress(address address_) public {
+    function addAddress(address address_) public whenNotPaused {
         require(
             hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
@@ -177,7 +178,7 @@ contract PrivilegedListStorage is AccessControl {
     *       <addressList.addresses> into its spot. 
     *       Updates <addressList.ids> accordingly.  
     */
-    function removeAddress(address address_) public {
+    function removeAddress(address address_) public whenNotPaused {
         require(
             hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -206,7 +207,7 @@ contract PrivilegedListStorage is AccessControl {
         uint numberOfMixies, 
         uint totalPrice,
         uint numberOfUses
-    ) public {
+    ) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -235,7 +236,7 @@ contract PrivilegedListStorage is AccessControl {
                 .totalPrice = totalPrice;
     }
 
-    function removeCoupon(address address_, uint id) public {
+    function removeCoupon(address address_, uint id) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -248,7 +249,7 @@ contract PrivilegedListStorage is AccessControl {
         couponListList.couponLists[idOf(address_)].length--;
     }
 
-    function _reduceCouponUses(address address_, uint id, uint numberOfUses) internal {
+    function _reduceCouponUses(address address_, uint id, uint numberOfUses) internal whenNotPaused {
         bool condition = (couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses >= numberOfUses);
         string memory errorMsg = string(abi.encodePacked(
             "Cannot reduce coupon uses by more than the number of uses for this coupon: ", 
@@ -260,7 +261,7 @@ contract PrivilegedListStorage is AccessControl {
         }
     }
 
-    function reduceType1CouponUses(address address_, uint discountRate, uint numberOfUses) public {
+    function reduceType1CouponUses(address address_, uint discountRate, uint numberOfUses) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -276,7 +277,11 @@ contract PrivilegedListStorage is AccessControl {
         }
     }
 
-    function reduceType2CouponUses(address address_, uint numberOfMixies, uint totalPrice, uint numberOfUses) public {
+    function reduceType2CouponUses(
+        address address_, 
+        uint numberOfMixies, 
+        uint totalPrice, 
+        uint numberOfUses) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -294,7 +299,7 @@ contract PrivilegedListStorage is AccessControl {
         }
     }
 
-    function useType1Coupon(address address_, uint discountRate) public {
+    function useType1Coupon(address address_, uint discountRate) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -304,7 +309,7 @@ contract PrivilegedListStorage is AccessControl {
         reduceType1CouponUses(address_, discountRate, 1);
     }
 
-    function useType2Coupon(address address_, uint numberOfMixies, uint totalPrice) public {
+    function useType2Coupon(address address_, uint numberOfMixies, uint totalPrice) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -320,7 +325,7 @@ contract PrivilegedListStorage is AccessControl {
         uint discountRate,
         uint numberOfMixies, 
         uint totalPrice
-    ) public {
+    ) public whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -338,7 +343,7 @@ contract PrivilegedListStorage is AccessControl {
 
     //probably should change this to use public only-once initialization.
 
-    function _initList() internal {
+    function initialize() public initializer {
         couponListList.length = 0;
         addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
         addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);

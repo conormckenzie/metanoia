@@ -3,16 +3,16 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./EmergencyPausable.sol";
 
-contract ModeratedUris is AccessControl {
+contract ModeratedUris is AccessControl, EmergencyPausable {
 
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
     bytes32 public constant URI_ADDER_ROLE = keccak256("URI_ADDER_ROLE");
-    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
     
     //replace with role to manage this.
     bool private canRevokeUriApproval;
-    function makeApprovedUriListsAppendOnly() public onlyRole(DEFAULT_ADMIN_ROLE) {
+    function makeApprovedUriListsAppendOnly() public onlyRole(DEFAULT_ADMIN_ROLE) whenNotPaused {
         canRevokeUriApproval = false;
     }
 
@@ -305,7 +305,7 @@ contract ModeratedUris is AccessControl {
 
     // does nothing if (0, uri) pair is already approved
     function approveMetadatForId(uint id, string memory metadata_uri) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(URI_ADDER_ROLE, _msgSender()) ||
@@ -317,7 +317,7 @@ contract ModeratedUris is AccessControl {
 
     // does nothing if (0, uri) pair is already approved
     function approveMetadatForAll(string memory metadata_uri) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(URI_ADDER_ROLE, _msgSender()) ||
@@ -329,7 +329,7 @@ contract ModeratedUris is AccessControl {
 
     // does nothing if (id, uri) pair is already unapproved
     function unapproveMetadatForId(uint id, string memory metadata_uri) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -340,7 +340,7 @@ contract ModeratedUris is AccessControl {
 
     // does nothing if uri is already unapproved for all ids (including 0)
     function unapproveMetadataForAll(string memory metadata_uri) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -352,7 +352,7 @@ contract ModeratedUris is AccessControl {
     // does nothing if all uris for id are already unapproved
     // does not apply to globally approved uri
     function unapproveAllMetadataForId(uint id) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),

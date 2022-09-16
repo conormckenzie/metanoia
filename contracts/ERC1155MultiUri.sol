@@ -39,6 +39,8 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
  */
 abstract contract ERC1155MultiUri is ERC1155Supply {
 
+    event uriChanged(address indexed msgSender, uint indexed id, string indexed newuri);
+
     /**
      * @dev Replaces <_uri> as the variable which holds metadata information.
      *
