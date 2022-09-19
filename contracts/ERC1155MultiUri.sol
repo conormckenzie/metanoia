@@ -39,7 +39,7 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
  */
 abstract contract ERC1155MultiUri is ERC1155Supply {
 
-    event uriChanged(address indexed msgSender, uint indexed id, string indexed newuri);
+    event uriChanged(address indexed msgSender, uint indexed id, string olduri, string indexed newuri);
 
     /**
      * @dev Replaces <_uri> as the variable which holds metadata information.
@@ -55,6 +55,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
     }
 
     function _setURI(uint id, string memory newuri) internal virtual {
+        emit uriChanged(_msgSender(), id, _uris[id], newuri);
         _uris[id] = newuri;
     }
 

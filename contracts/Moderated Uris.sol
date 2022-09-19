@@ -2,10 +2,17 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./EmergencyPausable.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract ModeratedUris is AccessControl, EmergencyPausable {
+contract ModeratedUris is EmergencyPausable {
+
+    event approvedMetadataForId(address indexed msgSender, uint id, string metadata_uri);
+    event approvedMetadataForAll(address indexed msgSender, string indexed metadata_uri);
+    event unapprovedMetadataForId(address indexed msgSender, uint id, string indexed metadata_uri);
+    event unapprovedMetadataForAll(address indexed msgSender, string indexed metadata_uri);
+    event unapprovingAllMetadataForId(address indexed msgSender, uint id);
+    event unapprovedAllMetadataForId(address indexed msgSender, uint id);
 
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
     bytes32 public constant URI_ADDER_ROLE = keccak256("URI_ADDER_ROLE");
@@ -247,6 +254,7 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
         for (uint count = 0; count < _state.indexesWithId[id].length; count++) {
             uint i = _state.indexesWithId[id][count];
             __updateEntry(i, false);
+            emit unapprovedMetadataForId(_msgSender(), id, __getEntry(i, false).uri);
         }
     }
 
@@ -304,7 +312,7 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
     }
 
     // does nothing if (0, uri) pair is already approved
-    function approveMetadatForId(uint id, string memory metadata_uri) 
+    function approveMetadataForId(uint id, string memory metadata_uri) 
     public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
@@ -313,10 +321,11 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(id, metadata_uri, true);
+        emit approvedMetadataForId(_msgSender(), id, metadata_uri);
     }
 
     // does nothing if (0, uri) pair is already approved
-    function approveMetadatForAll(string memory metadata_uri) 
+    function approveMetadataForAll(string memory metadata_uri) 
     public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
@@ -325,10 +334,11 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(0, metadata_uri, true);
+        emit approvedMetadataForAll(_msgSender(), metadata_uri);
     }
 
     // does nothing if (id, uri) pair is already unapproved
-    function unapproveMetadatForId(uint id, string memory metadata_uri) 
+    function unapproveMetadataForId(uint id, string memory metadata_uri) 
     public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
@@ -336,6 +346,7 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(id, metadata_uri, false);
+        emit unapprovedMetadataForId(_msgSender(), id, metadata_uri);
     }
 
     // does nothing if uri is already unapproved for all ids (including 0)
@@ -347,6 +358,7 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
             "Sender is not URI Manager or Admin"
         );
         _unapproveUriForAllIds(metadata_uri, true);
+        emit approvedMetadataForAll(_msgSender(), metadata_uri);
     }
 
     // does nothing if all uris for id are already unapproved
@@ -358,6 +370,12 @@ contract ModeratedUris is AccessControl, EmergencyPausable {
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not URI Manager or Admin"
         );
+        emit unapprovingAllMetadataForId(_msgSender(), id);
         _unapproveAllUrisForId(id);
+        emit unapprovedAllMetadataForId(_msgSender(), id);
+    }
+
+    function initialize() public virtual override {
+        super.initialize();
     }
 }

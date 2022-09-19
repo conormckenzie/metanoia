@@ -25,11 +25,10 @@
 
 pragma solidity 0.8.4;
 
-//import "./Access Control Extension.sol";
 import "./EmergencyPausable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol"; 
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 
 interface IMintStorage {
@@ -53,9 +52,36 @@ interface IUsdcStorage {
     function decreaseUsdcBalance(address address_, uint amount) external;
 }
 
-contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
+contract FoundingNFTSale is Initializable, ReentrancyGuard, EmergencyPausable {
+
+    event stateUpdated(address indexed msgSender, Update indexed update);
+    event ERC1155storageContractChanged(
+        address indexed msgSender, 
+        address indexed oldERC1155storageContract,
+        address indexed newERC1155storageContract
+    );
+    event privilegedBuyersListContractChanged(
+        address indexed msgSender, 
+        address indexed oldPrivilegedBuyersListContract,
+        address indexed newPrivilegedBuyersListContract
+    );
+    event usdcEscrowContractChanged(
+        address indexed msgSender, 
+        address indexed oldUsdcEscrowContract,
+        address indexed newUsdcEscrowContract
+    );
+    event mintNextNftActionSent(
+        address indexed msgSender, 
+        address indexed mintedTo, 
+        address indexed actionReceivingAddress
+    );
+    event preLoadURIsActionSent(address indexed msgSender, address indexed actionReceivingAddress);
+    event startTimeChanged(address indexed msgSender, uint indexed oldStartTime, uint indexed newStartTime);
+    event endTimeChanged(address indexed msgSender, uint indexed oldEndTime, uint indexed newEndTime);
+    event nftsBought(address indexed msgSender, uint indexed amount, uint indexed totalPrice);
+
     IMintStorage public ERC1155storageContract;
-    IPrivilegedListStorage public privilgedBuyerList;
+    IPrivilegedListStorage public privilgedBuyersListContract;
     IUsdcStorage public usdcEscrowStorageContract;
     address public treasuryAddress;
 
@@ -100,7 +126,7 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
         _;
     }
 
-    function initialize() public initializer {
+    function initialize() public override initializer {
         startTime   = 1893484800; //set to the year 2030 initially, needs to be updated once date is finalized 
         topTime	    = 1893484820;
         endTime     = 1993484900; //set to some date in the distant future, needs to be updated once date is finalized
@@ -110,6 +136,7 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
         BottomPrice = 1000 * units;
 
         lastUpdate = Update(10000, block.timestamp, false);
+        super.initialize();
     }
 
     function updateState() internal requiresConsistentState {
@@ -125,22 +152,27 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
         } else {
             lastUpdate.saleIsLive = false;
         }
+        emit stateUpdated(_msgSender(), lastUpdate);
     }
 
     function setERC1155StorageContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        emit ERC1155storageContractChanged(_msgSender(), address(ERC1155storageContract), storageAddress);
         ERC1155storageContract = IMintStorage(storageAddress);
     }
 
     function setPrivilegedBuyersListContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        privilgedBuyerList = IPrivilegedListStorage(storageAddress);
+        emit privilegedBuyersListContractChanged(_msgSender(), address(privilgedBuyersListContract), storageAddress);
+        privilgedBuyersListContract = IPrivilegedListStorage(storageAddress);
     }
 
     function setUsdcEscrowContractAddress(address storageAddress) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        emit usdcEscrowContractChanged(_msgSender(), address(usdcEscrowStorageContract), storageAddress);
         usdcEscrowStorageContract = IUsdcStorage(storageAddress);
     }
 
     function mintNextNftToAddress(address to) internal whenNotPaused {
         IMintStorage(ERC1155storageContract).mintNextNftToAddress(to);
+        emit mintNextNftActionSent(_msgSender(), to, address(ERC1155storageContract));
     }
 
     function preLoadURIs(uint[] memory ids, string[] memory uris) 
@@ -151,6 +183,7 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
             "Sender is not URI Manager or Admin"
         );
         IMintStorage(ERC1155storageContract).preLoadURIs(ids, uris);
+        emit preLoadURIsActionSent(_msgSender(), address(ERC1155storageContract));
     }
 
     function getNextUnusedToken() public view returns(uint) {
@@ -167,6 +200,7 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not Sale Manager or Admin"
         );
+        emit startTimeChanged(_msgSender(), startTime, unixTime);
         startTime = unixTime;
 		topTime = unixTime;
     }
@@ -178,12 +212,13 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not Sale Manager or Admin"
         );
+        emit endTimeChanged(_msgSender(), endTime, unixTime);
         endTime = unixTime;
     }
 
     function calculateDiscountedPrice(address prospectiveBuyer, uint discountRate) 
     public requiresUpdate view returns(uint) {
-        require(privilgedBuyerList.addressHasCoupon(prospectiveBuyer, discountRate), string(abi.encodePacked(
+        require(privilgedBuyersListContract.addressHasCoupon(prospectiveBuyer, discountRate), string(abi.encodePacked(
             "Address ", prospectiveBuyer, " does not have a coupon with a discount rate of ", discountRate, "%")));
         uint price = lastUpdate.price / 100 * (100 - discountRate);
         return price;
@@ -200,36 +235,38 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
 			mintNextNftToAddress(msg.sender);
     	}
 		topTime = lastUpdate.time;
+        emit nftsBought(_msgSender(), amount, totalPrice);
 	}
 
-    function buyNFTs(uint amount) public pushesUpdate whenNotPaused { //requires using existing balance
+    function buyNFTs(uint amount) external pushesUpdate whenNotPaused nonReentrant { //requires using existing balance
         require(amount <= 10, "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying");
         uint price = lastUpdate.price;
         _buyNFTs(amount, price * amount);
     }
 
-    function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) public pushesUpdate whenNotPaused {
+    function buyNftsWithDiscounts(uint amount, uint[] memory discountRate) 
+    external pushesUpdate whenNotPaused nonReentrant {
         uint[] memory prices;
 		uint totalPrice;
 		for (uint i = 0; i < amount; i++) {
             // authorizes that the applied discounts are approved
             prices[i] = calculateDiscountedPrice(msg.sender, discountRate[i]); 
 			totalPrice += prices[i];
-            privilgedBuyerList.useCoupon(msg.sender, discountRate[i]);
+            privilgedBuyersListContract.useCoupon(msg.sender, discountRate[i]);
         }
         _buyNFTs(amount, totalPrice);
     }
 
-    function bulkBuyNfts(uint amount, uint totalPrice) public pushesUpdate whenNotPaused {
+    function bulkBuyNfts(uint amount, uint totalPrice) external pushesUpdate whenNotPaused nonReentrant{
         require(
-            privilgedBuyerList.addressHasCoupon(msg.sender, totalPrice),
+            privilgedBuyersListContract.addressHasCoupon(msg.sender, totalPrice),
             "You do not have a bulk buy coupon with those parameters"
         );
-        privilgedBuyerList.useCoupon(msg.sender, totalPrice);
+        privilgedBuyersListContract.useCoupon(msg.sender, totalPrice);
         _buyNFTs(amount, totalPrice);
     }
 
-    function mintNextToTreasuryAddress() public pushesUpdate whenNotPaused {
+    function mintNextToTreasuryAddress() external pushesUpdate whenNotPaused nonReentrant{
         require(
             hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -244,7 +281,7 @@ contract FoundingNFTSale is AccessControl, EmergencyPausable, Initializable {
         mintNextNftToAddress(treasuryAddress);
     }
 
-    function mintNextManyToTreasuryAddress(uint numberToMint) public pushesUpdate whenNotPaused {
+    function mintNextManyToTreasuryAddress(uint numberToMint) external pushesUpdate whenNotPaused nonReentrant {
         require(
             hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),

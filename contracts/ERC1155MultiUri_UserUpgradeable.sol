@@ -36,6 +36,8 @@ import "./ERC1155MultiUri.sol";
  * to mint tokens.
  */
 abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
+
+    event idMintingLocked(address indexed msgSender, uint indexed id, uint indexed numberOfExistingCopies);
     
     modifier mintsTokens(uint id) {
         require (!cannotMintMore[id], "Token is non-mintable");
@@ -62,6 +64,7 @@ abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
      */
     function _lockMinting(uint id) internal {
         cannotMintMore[id] = true;
+        emit idMintingLocked(_msgSender(), id, totalSupply(id));
     }
 
     /*  

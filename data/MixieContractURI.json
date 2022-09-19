@@ -1,0 +1,8 @@
+{
+    "name": "Metanoia Mixies",
+    "description": "{TBD}",
+    "image": "{TBD}",
+    "external_link": "https://metanoia.country/",
+    "seller_fee_basis_points": 500, 
+    "fee_recipient": "0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d"
+}

@@ -32,7 +32,40 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 pragma solidity 0.8.4;
 
-contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializable {
+contract PrivilegedListStorage is Initializable, EmergencyPausable {
+
+    event addedAddress(address indexed msgSender, address indexed addedAddress);
+    event removedAddress(address indexed msgSender, address indexed removedAddress);
+    event couponAdded(
+        address indexed msgSender, 
+        address indexed couponRecipient, 
+        uint indexed couponType, 
+        uint discountRate, 
+        uint numberOfMixies, 
+        uint totalPrice, 
+        uint numberOfUses
+    );
+    event couponRemoved(
+        address indexed msgSender, 
+        address indexed couponHolder, 
+        uint couponType, 
+        uint discountRate, 
+        uint numberOfMixies, 
+        uint totalPrice, 
+        uint numberOfUses,
+        uint indexed id
+    );
+    event couponUsed(
+        address indexed msgSender, 
+        address indexed couponHolder, 
+        uint couponType, 
+        uint discountRate, 
+        uint numberOfMixies, 
+        uint totalPrice, 
+        uint numberOfUses,
+        uint indexed id
+    );
+    
 
     bytes32 public constant ADDRESS_MANAGER_ROLE = keccak256("ADDRESS_MANAGER_ROLE");
     bytes32 public constant COUPON_MANAGER_ROLE = keccak256("COUPON_MANAGER_ROLE");
@@ -74,6 +107,22 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
 
     function couponListLength(address address_) public view returns(uint) {
         return couponListList.couponLists[idOf(address_)].length;
+    }
+
+    function viewCoupon(address address_, uint couponId) public view returns(
+        uint couponType, 
+        uint numberOfUses,
+        uint discountRate,        
+        uint numberOfMixies,
+        uint totalPrice
+    ) {
+        return (
+            couponListList.couponLists[idOf(address_)].coupons[couponId].couponType,
+            couponListList.couponLists[idOf(address_)].coupons[couponId].numberOfUses,
+            couponListList.couponLists[idOf(address_)].coupons[couponId].discountRate,
+            couponListList.couponLists[idOf(address_)].coupons[couponId].numberOfMixies,
+            couponListList.couponLists[idOf(address_)].coupons[couponId].totalPrice
+        );
     }
 
     function addressExists(address address_) public view returns(bool) {
@@ -171,6 +220,7 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
         couponListList.length++;
         couponListList.addresses[couponListList.length] = address_; //<addressList.addresses> is 1-indexed not 0-indexed
         couponListList.ids[address_] = couponListList.length;
+        emit addedAddress(_msgSender(), address_);
     }
 
     /*
@@ -198,6 +248,7 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
         delete couponListList.ids[_toMove2];
         
         couponListList.length--;
+        emit removedAddress(_msgSender(), address_);
     }
 
     function addCoupon(
@@ -234,6 +285,7 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
         couponListList.couponLists[idOf(address_)].
             coupons[couponListLength(address_)]
                 .totalPrice = totalPrice;
+        emit couponAdded(_msgSender() ,address_, couponType, discountRate, numberOfMixies, totalPrice, numberOfUses);
     }
 
     function removeCoupon(address address_, uint id) public whenNotPaused {
@@ -242,6 +294,17 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
+        
+        emit couponRemoved(
+            _msgSender() ,
+            address_, 
+            couponListList.couponLists[idOf(address_)].coupons[id].couponType, 
+            couponListList.couponLists[idOf(address_)].coupons[id].discountRate, 
+            couponListList.couponLists[idOf(address_)].coupons[id].numberOfMixies, 
+            couponListList.couponLists[idOf(address_)].coupons[id].totalPrice, 
+            couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses,
+            id
         );
         couponListList.couponLists[idOf(address_)].coupons[id] = 
             couponListList.couponLists[idOf(address_)].coupons[couponListLength(address_)];
@@ -256,10 +319,29 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
             couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses));
         require(condition, errorMsg);
         couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses -= numberOfUses;
+        emit couponUsed(
+            _msgSender() ,
+            address_, 
+            couponListList.couponLists[idOf(address_)].coupons[id].couponType, 
+            couponListList.couponLists[idOf(address_)].coupons[id].discountRate, 
+            couponListList.couponLists[idOf(address_)].coupons[id].numberOfMixies, 
+            couponListList.couponLists[idOf(address_)].coupons[id].totalPrice, 
+            couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses,
+            id
+        );
         if (couponListList.couponLists[idOf(address_)].coupons[id].numberOfUses <= 0) {
             removeCoupon(address_, id);
         }
     }
+    function reduceCouponUsesById(address address_, uint id, uint numberOfUses) external {
+        require(
+            hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
+            hasRole(COUPON_USER_ROLE, _msgSender()) ||
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "Sender is not Coupon Manager, Coupon User, or Admin"
+        );
+        _reduceCouponUses(address_, id, numberOfUses);
+    } 
 
     function reduceType1CouponUses(address address_, uint discountRate, uint numberOfUses) public whenNotPaused {
         require(
@@ -341,9 +423,7 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
         revert("Mixie NFT Sale Privileged Boyers List: useCoupon: invalid couponType");
     }
 
-    //probably should change this to use public only-once initialization.
-
-    function initialize() public initializer {
+    function initialize() public override initializer {
         couponListList.length = 0;
         addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
         addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);
@@ -351,6 +431,6 @@ contract PrivilegedListStorage is AccessControl, EmergencyPausable, Initializabl
         addAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4);
         addAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8);
         addAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D);
-
+        super.initialize();
     }
 }

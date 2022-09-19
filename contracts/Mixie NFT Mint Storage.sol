@@ -33,6 +33,7 @@
 import "./ERC1155MultiUri_UserUpgradeable_ModeratedUris.sol";
 import "./EmergencyPausable.sol";
 import "./ERC2981/ERC2981ContractWideRoyalties.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 pragma solidity 0.8.4;
 
@@ -43,7 +44,18 @@ interface IUriProvider {
 }
 
 contract MixieNftMintStorage is 
-ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981ContractWideRoyalties {
+ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981ContractWideRoyalties, ReentrancyGuard {
+
+    event contractUriChanged(address indexed msgSender, string indexed olduri, string indexed newuri);
+    event royaltyInfoChanged(address indexed msgSender, address indexed recipient, uint indexed value);
+    event alternateUriChanged(address indexed msgSender, uint indexed id); // old and new uri is supposed to be hidden
+    event uriProviderIndexChanged(
+        address indexed msgSender, 
+        uint indexed id, 
+        uint oldProviderIndex, 
+        uint indexed newProviderIndex
+    );
+
     address public extrasHolder = address(this);
 
     mapping (uint256 => string) private _alternateUris;
@@ -113,6 +125,12 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
         name = "Metanoia Founding Citizens NFT";
         symbol = "MFS NFT";
         _setRoyalties(royaltyRecipient, royaltyFee);
+        // _setupRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
+        initialize();
+    }
+
+    function initialize() public override initializer{
+        super.initialize();
     }
 
     function getNextUnusedToken() external view returns(uint) {
@@ -139,6 +157,7 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
      */
     /// @param  newUri The new contract URI.
     function setContractUri(string calldata newUri) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        emit contractUriChanged(_msgSender(), _contractUri, newUri);
         _contractUri = newUri;
     }
 
@@ -154,6 +173,7 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
         royaltyRecipient = recipient;
         royaltyFee = feeInBasisPoints;
         _setRoyalties(royaltyRecipient, royaltyFee);
+        emit royaltyInfoChanged(_msgSender(), recipient, feeInBasisPoints);
     }
 
     // check that this works if provider for `id` is 0
@@ -168,6 +188,7 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
     }
 
     function _setAlternateURI(uint id, string memory newuri) internal {
+        emit alternateUriChanged(_msgSender(), id);
         _alternateUris[id] = newuri;
     }
 
@@ -185,7 +206,7 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
             uint id = ids[i];
             string memory newuri = uris[i];
             require(!exists(id), "Cannot change URI for existing token");
-            _setAlternateURI(id, newuri);
+            _setURI(id, newuri);
         }
     }
 
@@ -198,25 +219,26 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
         for (uint i = 0; i < ids.length; ++i) {
             uint id = ids[i];
             string memory newuri = uris[i];
-            _setURI(id, newuri);
+            _setAlternateURI(id, newuri);
         }
     }
 
     // need to restrict this to only verify once the upgrade has been approved
     // need an "approved" marker variable
-    function upgradeUri (uint id, uint provider) public whenNotPaused {
-        if (provider == 0 || _uriProviderIndexForThisId[id] == 0) {
+    function upgradeUri (uint id, uint newProvider) public whenNotPaused {
+        if (newProvider == 0 || _uriProviderIndexForThisId[id] == 0) {
             _setURI(id, _alternateUris[id]);
         }
         else {
-            _uriProviderIndexForThisId[id] = provider;
+            emit uriProviderIndexChanged(_msgSender(), id, _uriProviderIndexForThisId[id], newProvider);
+            _uriProviderIndexForThisId[id] = newProvider;
         }
     }
 
     /*  
     *  @dev Mints the next unminted NFT in the collection.
     */
-    function mintNextNftToAddress(address to) external isNewMint(nextUnusedToken, 1, to) whenNotPaused {
+    function mintNextNftToAddress(address to) external isNewMint(nextUnusedToken, 1, to) whenNotPaused nonReentrant {
         
         // all logic regarding nextUsedToken etc. is handled by modifier
         // nextUnusedToken is incremeneted by modifier
