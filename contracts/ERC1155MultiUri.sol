@@ -55,6 +55,10 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
     }
 
     function _setURI(uint id, string memory newuri) internal virtual {
+        require(
+            keccak256(abi.encodePacked(newuri)) != keccak256(abi.encodePacked("")), 
+            "Empty string is not a valid metadata URI"
+        );
         emit uriChanged(_msgSender(), id, _uris[id], newuri);
         _uris[id] = newuri;
     }
@@ -69,6 +73,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
         string memory newuri
     ) internal virtual {
         require (!exists(id), "Cannot change metadata of existing token");
+        require (id != 0, "Cannot mint ID 0");
 
         _setURI(id, newuri);
 
@@ -82,6 +87,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
         bytes memory data
     ) internal virtual {
         require (exists(id), "Please provide metadata for new token");
+        require (id != 0, "Cannot mint ID 0");
 
         _mint(to, id, amount, data);
     }

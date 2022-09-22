@@ -3,7 +3,7 @@
 // NOTE: could still stand to be refactored into multiple (possibly parallelized) tests
 // NOTE: still has console logs and other debugging artifacts, these could stand to be removed
 
-const testEnabled = true;
+const testEnabled = false;
 
 if (!testEnabled) {
 	return;

@@ -5,7 +5,7 @@ require("@nomiclabs/hardhat-etherscan"); //from Polygon tutorial
 
 require("@nomicfoundation/hardhat-toolbox"); // from hardhat.org setup tutorial
 
-require('hardhat-ethernal'); //potential blockchain explorer
+// require('hardhat-ethernal'); //potential blockchain explorer
 
 require("@nomiclabs/hardhat-waffle"); //from other tutorial
 
@@ -39,7 +39,7 @@ module.exports = {
     //   url: "http://127.0.0.1:8545"
     // },
     hardhat: {
-      accounts:{mnemonic: "test test test test test test test test test test test junk"},
+      accounts:{mnemonic: process.env.MNEMONIC},
       chainId: 1337
     },
     matic_testnet: {

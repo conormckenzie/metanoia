@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC1155MultiUri.sol";
+import "../ERC1155MultiUri_UserUpgradeable.sol";
 
 // ERC1155MultiURI_UserUpgradeable contract (created by Conor McKenzie)
 
@@ -35,30 +35,14 @@ import "./ERC1155MultiUri.sol";
  * These functions both call _mint(address, uint256, uint256, bytes memory)
  * to mint tokens.
  */
-abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
-
-    event idMintingLocked(address indexed msgSender, uint indexed id, uint indexed numberOfExistingCopies);
+contract test_ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri_UserUpgradeable{
     
-    modifier mintsTokens(uint id) {
-        require (!_cannotMintMore[id], "Token is non-mintable");
-        _;
-    }
-    
-    /*  
-     * @dev Tracks whether a given token's supply cannot be increased,
-     *      i.e. the token is non-mintable.
-     *      private w/ public getter pattern is used to enforce that in derived contracts, unlocking is not possible 
-     */
-    mapping(uint => bool) private _cannotMintMore;
-    function cannotMintMore(uint id) public view returns(bool) {
-        return (_cannotMintMore[id]);
-    }
-
+    constructor() ERC1155("") {}
     /*  
      * @dev Checks whether a token is a unique and non-mintable. 
      */
-    function isPermanentlyUnique(uint id) public view returns(bool) {
-        return (totalSupply(id) == 1 && _cannotMintMore[id]);
+    function test_isPermanentlyUnique(uint id) public view returns(bool) {
+        return isPermanentlyUnique(id);
     }
 
     /*  
@@ -66,38 +50,24 @@ abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
      *
      * CAUTION: This cannot be undone!
      */
-    function _lockMinting(uint id) internal {
-        _cannotMintMore[id] = true;
-        emit idMintingLocked(_msgSender(), id, totalSupply(id));
+    function lockMinting(uint id) external {
+        _lockMinting(id);
+    }
+
+    function setURI(uint id, string memory newuri) external {
+        _setURI(id, newuri);
     }
 
     /*  
      * @dev Uses the same code pattern as OpenZeppelin's safeTransferFrom 
      *      function.
      */
-    function _safeUpdateURI(
+    function safeUpdateURI(
         string memory newuri,
         address owner,
         uint256 id
-    ) internal virtual {
-        require(
-            owner == _msgSender() || isApprovedForAll(owner, _msgSender()),
-            "ERC1155MultiURI_UserUpgradeable: caller is not owner nor approved"
-        );
-        require(
-            isPermanentlyUnique(id), 
-            "Can only change URI on a token that is permanently unique"
-        );
-        uint256 fromBalance = balanceOf(owner, id);
-        require(
-            fromBalance == 1, 
-            string(abi.encode(
-                "ERC1155MultiURI_UserUpgradeable: given owner ", 
-                owner,
-                " does not own this NFT"
-            ))
-        );
-        _setURI(id, newuri);
+    ) external {
+        _safeUpdateURI(newuri, owner, id);
     }
 
     /*  
@@ -105,32 +75,26 @@ abstract contract ERC1155MultiUri_UserUpgradeable is ERC1155MultiUri {
      *      updated require message and an additional condition to check if a
      *      token is non-mintable.
      */
-    function _mintWithURI(
+    function mintWithURI(
         address to,
         uint256 id,
         uint256 amount,
         bytes memory data,
         string memory newuri
-    ) internal virtual override mintsTokens(id) {
-        require (
-            !exists(id), 
-            "Cannot change metadata of existing token via minting"
-        );
-
-        super._mintWithURI(to, id, amount, data, newuri);
+    ) external {
+        _mintWithURI(to, id, amount, data, newuri);
     }
 
     /*  
      * @dev Overrides _mintWithoutURI(...) from ERC1155MultiURI, providing an 
      *      additional condition to check if a token is non-mintable.
      */
-    function _mintWithoutURI(
+    function mintWithoutURI(
         address to,
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) internal virtual override mintsTokens(id) {
-        require (exists(id), "Please provide metadata for new token");
-        super._mintWithoutURI(to, id, amount, data);
+    ) external {
+        _mintWithoutURI(to, id, amount, data);
     }
 }
