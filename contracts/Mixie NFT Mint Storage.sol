@@ -31,7 +31,6 @@
 // TO-DO: update this contract to move metadata on-chain
 
 import "./ERC1155MultiUri_UserUpgradeable_ModeratedUris.sol";
-import "./EmergencyPausable.sol";
 import "./ERC2981/ERC2981ContractWideRoyalties.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
@@ -44,7 +43,7 @@ interface IUriProvider {
 }
 
 contract MixieNftMintStorage is 
-ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981ContractWideRoyalties, ReentrancyGuard {
+ERC1155MultiUri_UserUpgradeable_ModeratedUris, ERC2981ContractWideRoyalties, ReentrancyGuard {
 
     event contractUriChanged(address indexed msgSender, string indexed olduri, string indexed newuri);
     event royaltyInfoChanged(address indexed msgSender, address indexed recipient, uint indexed value);
@@ -248,7 +247,6 @@ ERC1155MultiUri_UserUpgradeable_ModeratedUris, EmergencyPausable, ERC2981Contrac
     function supportsInterface(bytes4 interfaceId) 
     public view virtual override(
         ERC1155MultiUri_UserUpgradeable_ModeratedUris, 
-        AccessControl, 
         ERC2981Base
     ) returns (bool) {
         return

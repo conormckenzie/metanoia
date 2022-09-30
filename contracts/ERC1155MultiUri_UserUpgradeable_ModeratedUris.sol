@@ -3,12 +3,11 @@
 pragma solidity ^0.8.0;
 
 import "./ERC1155MultiUri_UserUpgradeable.sol";
-import {ModeratedUris} from "./Moderated Uris.sol";
+import "./Moderated Uris.sol";
+import "./EmergencyPausable.sol";
 
-import "@openzeppelin/contracts/access/IAccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-
-import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import "hardhat/console.sol";
 
 /**
  * @dev Extension of ERC1155MultiURI that adds support for changing the metadata 
@@ -38,10 +37,23 @@ import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
  * to mint tokens.
  */
 
-abstract contract ERC1155MultiUri_UserUpgradeable_ModeratedUris is 
-ERC1155MultiUri_UserUpgradeable, AccessControl {
+// interface IModeratedUris {
+//     function isMetadataApprovedForId(uint id, string memory metadata_uri) external view returns(bool);
+//     function isMetadataApprovedForAll(string memory metadata_uri) external view returns(bool);
+//     function approveMetadataForId(uint id, string memory metadata_uri) external;
+//     function approveMetadataForAll(string memory metadata_uri) external;
+//     function unapproveMetadataForId(uint id, string memory metadata_uri) external;
+//     function unapproveMetadataForAll(string memory metadata_uri) external;
+// }
 
-    ModeratedUris u = new ModeratedUris();
+abstract contract ERC1155MultiUri_UserUpgradeable_ModeratedUris is 
+ERC1155MultiUri_UserUpgradeable, ModeratedUris {
+
+    // IModeratedUris public moderatedUris;
+    
+    // function setModeratedUrisAddress(address address_) public onlyRole(DEFAULT_ADMIN_ROLE) {
+    //     moderatedUris = IModeratedUris(address_);
+    // }
 
     /*  
      * @dev Adds a require statement to check the user-given URI against a list
@@ -53,7 +65,7 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
         uint256 id
     ) public virtual {
         require(
-            u.isMetadataApprovedForId(id, newuri), 
+            isMetadataApprovedForId(id, newuri), 
             string(abi.encode(
                 "Given metadata is not approved for token id ", id
             ))
@@ -78,7 +90,7 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
             "Cannot change metadata of existing token via minting"
         );
         require(
-            u.isMetadataApprovedForId(id, newuri), 
+            isMetadataApprovedForId(id, newuri), 
             string(abi.encode(
                 "Given metadata is not approved for token id ", id)
             )
@@ -88,8 +100,9 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
         _mint(to, id, amount, data);
     }
 
-    constructor() {
-        
+    function initialize() public virtual override {
+        // console.log("ERC1155MultiUri_UserUpgradeable_ModeratedUris: initializer");
+        super.initialize();
     }
 
     /*  
@@ -101,7 +114,7 @@ ERC1155MultiUri_UserUpgradeable, AccessControl {
         return
             interfaceId == type(IERC1155).interfaceId ||
             interfaceId == type(IERC1155MetadataURI).interfaceId ||
-            interfaceId == type(IAccessControl).interfaceId || 
+            interfaceId == type(AccessControl).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 }

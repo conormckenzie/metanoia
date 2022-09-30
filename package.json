@@ -15,6 +15,7 @@
     "ethers": "^5.7.1",
     "ganache-cli": "^6.12.2",
     "hardhat": "^2.9.5",
+    "hardhat-contract-sizer": "^2.6.1",
     "hardhat-deploy": "^0.11.9",
     "hardhat-gas-reporter": "^1.0.9",
     "solhint": "^3.3.7",

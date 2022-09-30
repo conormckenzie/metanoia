@@ -18,6 +18,8 @@ require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
 require('solidity-coverage'); //from solidity-coverage github 
   // referenced by https://ethereum.org/en/developers/docs/smart-contracts/testing/
 
+require('hardhat-contract-sizer');
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -26,7 +28,13 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.4"
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 1
+          }
+        }
       },
       {
         version: "0.8.2"
@@ -76,4 +84,10 @@ module.exports = {
       polygonMumbai: process.env.POLYGONSCAN_API_KEY,
     },
   },
+  contractSizer: {
+    alphaSort: true,
+    disambiguatePaths: false,
+    runOnCompile: true,
+    strict: false
+  }
 };
