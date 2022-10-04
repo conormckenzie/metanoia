@@ -35,24 +35,40 @@ import "./EmergencyPausable.sol";
 
 pragma solidity 0.8.4;
 
-contract MixieNftSaleIntegratedContractTest8 is 
+contract MixieNftSaleIntegratedContractV1_1 is 
 ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable {
 
     // IN PRODUCTION, ALL TESTING TOGGLES SHOULD BE FALSE
-    bool constant testing1 = true; // starting price is $10000 (false) or $0.10 (true) USD, ending price is 1/10th
-    bool constant testing2 = true; // unused
+    bool constant testing1 = false; // starting price is $10000 (false) or $0.10 (true) USD, ending price is 1/10th
 
     /// ERROR MESSAGES:
-    // ERR1: "Sender is not Minter or Admin"
-    // ERR1A:"Sender is not Minter or Admin or recipient"
-    // ERR2: "timestamp is not up-to-date"
-    // ERR3: "startTime is later than endTime"
-    // ERR4: "Sender is not Sale Manager or Admin"
-    // ERR5: "Given address does not have a coupon with the given discount rate
-    // ERR6: "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying"
-    // ERR7: "You do not have a bulk buy coupon with those parameters"
-    // ERR8: "Sender is not Post-Sale Minter or Admin"
-    // ERR9: {next candidate in mintNextToTreasuryAddress()}
+    // ERR1 : "Sender is not Minter or Admin"
+    // ERR1a: "Sender is not Minter or Admin or recipient"
+    // ERR1b: "Cannot only mint a reserved NFT through this method"
+    // ERR1c: "Reserved NFT has already been minted"
+    // ERR2 : "timestamp is not up-to-date"
+    // ERR3 : "startTime is later than endTime"
+    // ERR4 : "Sender is not Sale Manager or Admin"
+    // ERR5 : "{Given address} does not have a coupon with {given discount rate}
+    // ERR6 : "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying"
+    // ERR7 : "You do not have a bulk buy coupon with those parameters"
+    // ERR8 : "Sender is not Post-Sale Minter or Admin"
+    // ERR8a: "Cannot mint to treasury address until sale is finished"
+    // ERR8b: "No tokens left to mint"
+    // ERR9 : "Amount of USDC transferred must be a positive non-zero value"
+    // ERR10: "Sender is not USDC Manager or Admin"
+    // ERR11: "must update the USDC balance with a non-zero amount"
+    // ERR12: "Sender is not USDC Manager, Admin, or the address which would have its USDC balance decreased"
+    // ERR13: "Cannot decrease USDC balance of {given address} by more than {balance of given address}
+    // ERR14: "This contract only accepts USDC"
+    // ERR15: "Sender is not Approved Role: Address Manager, Coupon Manager, Coupon User, or Admin"
+    // ERR16: "Sender is not Address Manager or Admin"
+    // ERR17: "Sender is not Coupon Manager or Admin"
+    // ERR18: "Invalid coupon type"
+    // ERR19: "Coupon discount rate must be between 0 and 100 exclusive"
+    // ERR20: "Coupon cannot be for zero Mixies"
+    // ERR21: "Coupon number of uses cannot be zero"
+    // ERR22: "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
 
     ///GENERAL-----------------------------
     
@@ -126,7 +142,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
     // solhint-disable-next-line max-line-length
-    string _contractUri = "";
+    string _contractUri = "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
 
      /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
     string public constant name = "Metanoia Mixie (Egg)";
@@ -146,17 +162,20 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
 
         _setupList();
         _setRoyalties(royaltyRecipient, royaltyFee);
-        
+
+        treasuryAddress = royaltyRecipient;
 
         super.initialize();
     }
 
     /// MINTING----------------------------
 
-    uint public nextUnusedToken = 1;
-    uint public maxSupply = 10000;
+    uint public constant maxSupply = 10000;
+    uint constant reserved = 500;
+    uint public nextUnusedToken = reserved + 1;
 
-    constructor() ERC1155("") {
+    // solhint-disable-next-line max-line-length
+    constructor() ERC1155("https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY") {
         initialize();
     }
 
@@ -201,7 +220,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == to,
-            "ERR1A"
+            "ERR1a"
             //"Sender is not Minter or Admin or recipient"
         );
         nextUnusedToken++;
@@ -215,6 +234,25 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             //"Sender is not Minter or Admin"
         );
         _mintNextNftToAddress(to);
+    }
+    function mintReservedNftToAddress(uint id, address to) external whenNotPaused nonReentrant {
+        require(
+            hasRole(MINTER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "ERR1"
+            // "Sender is not Minter or Admin"
+        );
+        require(
+            id <= reserved && id != 0,
+            "ERR1b"
+            // "Cannot only mint a reserved NFT through this method"
+        );
+        require(
+            !exists(id),
+            "ERR1c"
+            // "Reserved NFT has already been minted"
+        );
+        _mint(to, id, 1, "");
     }
 
     /// SALE----------------------------------
@@ -249,7 +287,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             lastUpdate.time == block.timestamp, 
             "ERR2"
-            //"timestamp is not up-to-date"
+            // "timestamp is not up-to-date"
         );
         _;
     }
@@ -263,26 +301,27 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             startTime <= endTime, 
             "ERR3"
-            //"startTime is later than endTime"
+            // "startTime is later than endTime"
         );
         _;
     }
 
     function getUpdatedPrice() public view returns(uint) {
         //update price
-        // 1) difference between current time and topTime (units: seconds)
-        // 2) difference between
 
-        // rearrangement of the following formula:
+        // price is updated using a rearrangement of the following formula:
         // price = topPrice - (block.timestamp - topTime) * priceDecreasePerSecond
-        int tempPrice;
-        // using perHour instead of perSecond works for low and high values of units due to higher precision
-        tempPrice = int(topPrice - (((block.timestamp - topTime) * priceDecreasePerHour) / (60*60)));
-        if (tempPrice < int(bottomPrice) || tempPrice < 0 /*Not strictly necessary, but good defensive programming*/) {
+        uint tempPrice;
+        if (topPrice < ((block.timestamp - topTime) * priceDecreasePerHour) / (60*60)) {
             return bottomPrice;
         }
         else {
-            return uint(tempPrice);
+            // using perHour instead of perSecond works for low and high values of units due to higher precision
+            tempPrice = topPrice - (((block.timestamp - topTime) * priceDecreasePerHour) / (60*60));
+            if (tempPrice < bottomPrice) {
+                return bottomPrice;
+            }
+            return tempPrice;
         }
     }
 
@@ -301,16 +340,13 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         }
         emit stateUpdated(_msgSender(), lastUpdate);
     }
-    // function updateState() external nonReentrant {
-
-    // }
 
     function setstartTime(uint blockNumber) public {
         require(
             hasRole(SALE_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "ERR4"
-            //"Sender is not Sale Manager or Admin"
+            // "Sender is not Sale Manager or Admin"
         );
         emit startTimeChanged(_msgSender(), startTime, blockNumber);
         startTime = blockNumber;
@@ -324,7 +360,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(SALE_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "ERR4"
-            //"Sender is not Sale Manager or Admin"
+            // "Sender is not Sale Manager or Admin"
         );
         emit endTimeChanged(_msgSender(), endTime, blockNumber);
         endTime = blockNumber;
@@ -353,9 +389,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         return calculateDiscountedPrice(prospectiveBuyer, discountRate);
     }
 
-    function _buyNFTs(uint amount, uint totalPrice) internal requiresUpdate whenNotPaused {
+    function _buyNfts(uint amount, uint totalPrice) internal requiresUpdate whenNotPaused {
         require(lastUpdate.saleIsLive);
         _decreaseUsdcBalance(msg.sender, totalPrice);
+        usdcBalances[treasuryAddress] += totalPrice;
+        
         for (uint i = 0; i < amount; i++) {
 			_mintNextNftToAddress(msg.sender);
     	}
@@ -363,36 +401,37 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         emit nftsBought(_msgSender(), amount, totalPrice);
 	}
 
-    function buyNFTs(uint amount) external pushesUpdate whenNotPaused nonReentrant { //requires using existing balance
+    function buyNfts(uint amount) external pushesUpdate whenNotPaused nonReentrant { //requires using existing balance
         require(
             amount <= 10, 
             "ERR6"
             // "Can only puchase up to 10 Mixies at a time - for more, ask about bulk buying"
         );
         uint price = lastUpdate.price;
-        _buyNFTs(amount, price * amount);
+        _buyNfts(amount, price * amount);
     }
 
     function buyNftWithDiscounts(uint discountRate) 
     external pushesUpdate whenNotPaused nonReentrant {
         uint price;
-		uint totalPrice;
-            // authorizes that the applied discount is approved
-            price = calculateDiscountedPrice(msg.sender, discountRate); 
-			totalPrice += price;
-            useType1Coupon(msg.sender, discountRate);
-        _buyNFTs(1, totalPrice);
+        // authorizes that the applied discount is approved
+        price = calculateDiscountedPrice(msg.sender, discountRate); 
+        _useType1Coupon(msg.sender, discountRate);
+        if ( price == 0) {
+
+        }
+        _buyNfts(1, price);
     }
 
-    function bulkBuyNfts(uint amount, uint numberOfMixies, uint totalPrice) 
+    function bulkBuyNfts(uint numberOfMixies, uint totalPrice) 
     external pushesUpdate whenNotPaused nonReentrant{
         require(
             addressHasType2Coupon(msg.sender, numberOfMixies, totalPrice),
             "ERR7"
             // "You do not have a bulk buy coupon with those parameters"
         );
-        useType2Coupon(msg.sender, numberOfMixies, totalPrice);
-        _buyNFTs(amount, totalPrice);
+        _useType2Coupon(msg.sender, numberOfMixies, totalPrice);
+        _buyNfts(numberOfMixies, totalPrice);
     }
 
     function mintNextToTreasuryAddress() external pushesUpdate whenNotPaused nonReentrant{
@@ -404,10 +443,14 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         );
         require(
             block.timestamp > endTime && !lastUpdate.saleIsLive, 
-            "Cannot mint to treasury address until sale is finished"
+            "ERR8a"
+            // "Cannot mint to treasury address until sale is finished"
         );
-        uint leftToMint = maxSupply - (nextUnusedToken-1);
-        require(leftToMint > 0, "No tokens left to mint");
+        require(
+            nextUnusedToken <= maxSupply,
+            "ERR8b" 
+            // "No tokens left to mint"
+        );
         _mintNextNftToAddress(treasuryAddress);
     }
 
@@ -415,11 +458,13 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Post-Sale Minter or Admin"
+            "ERR8"
+            // "Sender is not Post-Sale Minter or Admin"
         );
         require(
             block.timestamp > endTime && !lastUpdate.saleIsLive, 
-            "Cannot mint to treasury address until sale is finished"
+            "ERR8a"
+            // "Cannot mint to treasury address until sale is finished"
         );
         uint leftToMint = maxSupply - (nextUnusedToken-1);
         leftToMint = Math.min(leftToMint, numberToMint);
@@ -435,8 +480,12 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
     IERC20 usdcToken;
     mapping (address => uint) public usdcBalances;
 
-    function receiveUSDC(uint amount) external whenNotPaused nonReentrant {
-        require(amount > 0, "amount transferred must be a positive value");
+    function receiveUsdc(uint amount) external whenNotPaused nonReentrant {
+        require(
+            amount > 0, 
+            "ERR9"
+            // "Amount of USDC transferred must be a positive non-zero value"
+        );
         //requires javascript code to get buyer to first approve the allowance
         usdcToken.transferFrom(msg.sender, address(this), amount);
         usdcBalances[msg.sender] += amount;
@@ -449,24 +498,40 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         emit usdcRefunded(_msgSender(), to, amount);
     }
 
-    function transferUsdcBalance(address from, address to, uint amount) external whenNotPaused nonReentrant {
+    function _transferUsdcBalance(address from, address to, uint amount) internal whenNotPaused {
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
-            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not USDC Manager or Admin"
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
+            _msgSender() == from,
+            "ERR10"
+            // "Sender is not USDC Manager or Admin"
         );
         _decreaseUsdcBalance(from, amount);
         _increaseUsdcBalance(to, amount);
         emit usdcTransferred(_msgSender(), to, from, amount);
+    }
+    function transferUsdcBalance(address from, address to, uint amount) external nonReentrant {
+        require(
+            hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "ERR10"
+            // "Sender is not USDC Manager or Admin"
+        );
+        _transferUsdcBalance(from, to, amount);
     }
 
     function _increaseUsdcBalance(address address_, uint amount) internal whenNotPaused {
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not USDC Manager or Admin"
+            "ERR10"
+            // "Sender is not USDC Manager or Admin"
         );
-        require(amount > 0, "must update the USDC balance with a (positive or negative) non-zero amount");
+        require(
+            amount > 0, 
+            "ERR11"
+            // "Must update the USDC balance with a non-zero amount"
+        );
         usdcBalances[address_] += amount;
         emit usdcBalanceIncreased(_msgSender(), address_, amount);
     }
@@ -479,12 +544,24 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not USDC Manager, Admin, or the address which would have its USDC balance decreased"
+            "ERR12"
+            // "Sender is not USDC Manager, Admin, or the address which would have its USDC balance decreased"
         );
-        require(amount > 0, "must update the USDC balance with a (positive or negative) non-zero amount");
-        require(amount <= usdcBalances[address_], string(abi.encodePacked(
-            "cannot decrease USDC balance of ", address_, 
-            " by more than the existing balance ", usdcBalances[address_])));
+        require(
+            amount > 0, 
+            "ERR11"
+            // "must update the USDC balance with a non-zero amount"
+        );
+        require(
+            amount <= usdcBalances[address_], 
+            "ERR13"
+            /*
+            string(abi.encodePacked(
+                "cannot decrease USDC balance of ", address_, 
+                " by more than the existing balance ", usdcBalances[address_]
+            ))
+            */
+        );
         usdcBalances[address_] -= amount;
         emit usdcBalanceDecreased(_msgSender(), address_, amount);
     }
@@ -492,7 +569,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not USDC Manager or Admin"
+            "ERR10"
+            // "Sender is not USDC Manager or Admin"
         );
         _decreaseUsdcBalance(address_, amount);
     }
@@ -501,19 +579,19 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             hasRole(USDC_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not USDC Manager or Admin"
+            "ERR10"
+            // "Sender is not USDC Manager or Admin"
         );
         IERC20(tokenAddress).transfer(to, amount);
         emit erc20Refunded(_msgSender(), to, tokenAddress, amount);
     } 
     
     receive() external payable {
-        revert("This contract only accepts USDC");
+        revert(
+            "ERR14"
+            // "This contract only accepts USDC"
+        );
     }
-
-    // fallback() external payable {
-    //     revert("Fallback triggered - please interact with this contract only via it's available functions");
-    // }
 
     /// COUPONS
 
@@ -527,10 +605,6 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         uint numberOfMixies; // applies to coupon type 2
         uint totalPrice; // applies to coupon type 2
     }
-
-    // struct idList {
-    //     uint ids;
-    // }
 
     struct CouponList { // each address in addressList has one couponList
     // WARNING: must be iterated over to show the user's existing coupons
@@ -579,82 +653,30 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         return (couponListList.couponLists[idOf(address_)].length != 0);
     }
 
-    function addressHasType1Coupon(address address_, uint discountRate/*, uint mode*/) public view returns(bool) {
-        // solhint-disable-next-line max-line-length
-        // require(mode >= 1 && mode <= 2, "Mixie NFT Sale Privileged Boyers List: addressHasType1Coupon: invalid mode");
-        // if (mode == 1) { // discount rate provided
-            for (uint i = 0; i < couponListLength(address_); i++) {
-                if (
-                    couponListList.couponLists[idOf(address_)].coupons[i].couponType == 1 &&
-                    couponListList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate
-                ) {
-                    return true;
-                }
+    function addressHasType1Coupon(address address_, uint discountRate) public view returns(bool) {
+        for (uint i = 1; i <= couponListLength(address_); i++) {
+            if (
+                couponListList.couponLists[idOf(address_)].coupons[i].couponType == 1 &&
+                couponListList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate
+            ) {
+                return true;
             }
-            return false;
-        // }
-        // if (mode == 2) { // discount rate not provided   
-        //     for (uint i = 0; i < couponListLength(address_); i++) {
-        //         if (
-        //             couponListList.couponLists[idOf(address_)].coupons[i].couponType == 1
-        //         ) {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-        // revert("Mixie NFT Sale Privileged Boyers List: addressHasType1Coupon: invalid mode");
+        }
+        return false;
     }
 
-    function addressHasType2Coupon(address address_, uint numberOfMixies, uint totalPrice/*, uint mode*/) 
+    function addressHasType2Coupon(address address_, uint numberOfMixies, uint totalPrice) 
     public view returns(bool) {
-        // solhint-disable-next-line max-line-length
-        // require(mode >= 1 && mode <= 4, "Mixie NFT Sale Privileged Boyers List: addressHasType2Coupon: invalid mode");
-        // if (mode == 1) { // both numberOfMixies and totalPrice are provided
-            for (uint i = 0; i < couponListLength(address_); i++) {
-                if (
-                    couponListList.couponLists[idOf(address_)].coupons[i].couponType == 2 &&
-                    couponListList.couponLists[idOf(address_)].coupons[i].numberOfMixies == numberOfMixies &&
-                    couponListList.couponLists[idOf(address_)].coupons[i].totalPrice == totalPrice
-                ) {
-                    return true;
-                }
+        for (uint i = 1; i <= couponListLength(address_); i++) {
+            if (
+                couponListList.couponLists[idOf(address_)].coupons[i].couponType == 2 &&
+                couponListList.couponLists[idOf(address_)].coupons[i].numberOfMixies == numberOfMixies &&
+                couponListList.couponLists[idOf(address_)].coupons[i].totalPrice == totalPrice
+            ) {
+                return true;
             }
-            return false;
-        // }
-        // if (mode == 2) { // only numberOfMixies is provided
-        //     for (uint i = 0; i < couponListLength(address_); i++) {
-        //         if (
-        //             couponListList.couponLists[idOf(address_)].coupons[i].couponType == 2 &&
-        //             couponListList.couponLists[idOf(address_)].coupons[i].numberOfMixies == numberOfMixies
-        //         ) {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-        // if (mode == 3) { // only totalPrice is provided
-        //     for (uint i = 0; i < couponListLength(address_); i++) {
-        //         if (
-        //             couponListList.couponLists[idOf(address_)].coupons[i].couponType == 2 &&
-        //             couponListList.couponLists[idOf(address_)].coupons[i].totalPrice == totalPrice
-        //         ) {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-        // if (mode == 4) { // neither numberOfMixies nor totalPrice is provided
-        //     for (uint i = 0; i < couponListLength(address_); i++) {
-        //         if (
-        //             couponListList.couponLists[idOf(address_)].coupons[i].couponType == 2
-        //         ) {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-        // revert("Mixie NFT Sale Privileged Boyers List: addressHasType2Coupon: invalid mode");
+        }
+        return false;
     }
 
     function _addAddress(address address_) internal whenNotPaused {
@@ -663,7 +685,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Approved Role: Address Manager, Coupon Manager, Coupon User, or Admin"
+            "ERR15"
+            // "Sender is not Approved Role: Address Manager, Coupon Manager, Coupon User, or Admin"
         );
         couponListList.length++;
         couponListList.addresses[couponListList.length] = address_; //<addressList.addresses> is 1-indexed not 0-indexed
@@ -683,7 +706,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             hasRole(ADDRESS_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Address Manager or Admin"
+            "ERR16"
+            // "Sender is not Address Manager or Admin"
         );
         
         uint _toRemove1 = idOf(address_);
@@ -716,29 +740,48 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "Sender is not Coupon Manager or Admin"
+            "ERR17"
+            // "Sender is not Coupon Manager or Admin"
+        );
+        require(
+            couponType == 1 || couponType == 2,
+            "ERR18"
+            // "Invalid coupon type"
+        );
+        require(
+            discountRate > 0 && discountRate < 100,
+            "ERR19"
+            // "Coupon discount rate must be between 0 and 100 exclusive"
+        );
+        require(
+            numberOfMixies > 0,
+            "ERR20"
+            // "Coupon cannot be for zero Mixies"
+        );
+        require(
+            numberOfUses > 0,
+            "ERR21"
+            // "Coupon number of uses cannot be zero"
         );
         if (!addressExists(address_)) {
             _addAddress(address_);
         }
-        //currentCouponList = addressList.couponLists[idOf(address_)]
         couponListList.couponLists[idOf(address_)].length++;
-        //currentCoupon = addressList.couponLists[idOf(address_)].coupons[currentCouponList.length]
         couponListList.couponLists[idOf(address_)]
             .coupons[couponListLength(address_)]
-                .discountRate = discountRate;
+            .discountRate = discountRate;
         couponListList.couponLists[idOf(address_)].
             coupons[couponListLength(address_)]
-                .numberOfUses = numberOfUses;
+            .numberOfUses = numberOfUses;
         couponListList.couponLists[idOf(address_)].
             coupons[couponListLength(address_)]
-                .couponType = couponType;
+            .couponType = couponType;
         couponListList.couponLists[idOf(address_)].
             coupons[couponListLength(address_)]
-                .numberOfMixies = numberOfMixies;
+            .numberOfMixies = numberOfMixies;
         couponListList.couponLists[idOf(address_)].
             coupons[couponListLength(address_)]
-                .totalPrice = totalPrice;
+            .totalPrice = totalPrice;
         emit couponAdded(_msgSender() ,address_, couponType, discountRate, numberOfMixies, totalPrice, numberOfUses);
     }
     function addCoupon(
@@ -765,7 +808,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         
         emit couponRemoved(
@@ -814,12 +858,13 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         _reduceCouponUses(address_, id, numberOfUses);
     } 
 
-    function reduceType1CouponUses(address address_, uint discountRate, uint numberOfUses) internal whenNotPaused {
+    function _reduceType1CouponUses(address address_, uint discountRate, uint numberOfUses) internal whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -828,7 +873,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         bool found = false;
-        for (uint i = 0; i < couponListLength(address_); i++) {
+        for (uint i = 1; i <= couponListLength(address_); i++) {
             if (couponListList.couponLists[idOf(address_)].coupons[i].discountRate == discountRate) 
             {
                 _reduceCouponUses(address_, i, numberOfUses);
@@ -839,11 +884,12 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(found, "Matching coupon not found");
     }
 
-    function reduceType2CouponUses(
+    function _reduceType2CouponUses(
         address address_, 
         uint numberOfMixies, 
         uint totalPrice, 
-        uint numberOfUses) public whenNotPaused {
+        uint numberOfUses
+    ) internal whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -852,7 +898,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         bool found = false;
-        for (uint i = 0; i < couponListLength(address_); i++) {
+        for (uint i = 1; i <= couponListLength(address_); i++) {
             if (
                 couponListList.couponLists[idOf(address_)].coupons[i].numberOfMixies == numberOfMixies &&
                 couponListList.couponLists[idOf(address_)].coupons[i].totalPrice == totalPrice
@@ -865,7 +911,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(found, "Matching coupon not found");
     }
 
-    function useType1Coupon(address address_, uint discountRate) public whenNotPaused {
+    function _useType1Coupon(address address_, uint discountRate) internal whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -873,10 +919,13 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             _msgSender() == address_,
             "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
-        reduceType1CouponUses(address_, discountRate, 1);
+        _reduceType1CouponUses(address_, discountRate, 1);
+    }
+    function useType1Coupon(address address_, uint discountRate) external nonReentrant {
+        _useType1Coupon(address_, discountRate);
     }
 
-    function useType2Coupon(address address_, uint numberOfMixies, uint totalPrice) public whenNotPaused {
+    function _useType2Coupon(address address_, uint numberOfMixies, uint totalPrice) internal whenNotPaused {
         require(
             hasRole(COUPON_MANAGER_ROLE, _msgSender()) ||
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
@@ -884,7 +933,10 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             _msgSender() == address_,
             "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
-        reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
+        _reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
+    }
+    function useType2Coupon(address address_, uint numberOfMixies, uint totalPrice) external nonReentrant {
+        _useType2Coupon(address_, numberOfMixies, totalPrice);
     }
 
     function useCoupon(
@@ -902,11 +954,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         if (couponType == 1) {
-            reduceType1CouponUses(address_, discountRate, 1);
+            _reduceType1CouponUses(address_, discountRate, 1);
             return;
         }
         else if (couponType == 2) {
-            reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
+            _reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
             return;
         }
         revert("Mixie NFT Sale Privileged Boyers List: useCoupon: invalid couponType");
@@ -914,12 +966,6 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
 
     function _setupList() internal {
         couponListList.length = 0;
-        // _addAddress(0xc0ffee254729296a45a3885639AC7E10F9d54979);
-        // _addAddress(0x59eeD72447F2B0418b0fe44C0FCdf15AAFfa1f77);
-        // _addAddress(0xCb172d8fA7b46b53A6b0BDACbC5521b315D1d3F7);
-        // _addAddress(0x5061b6b8B572776Cff3fC2AdA4871523A8aCA1E4);
-        // _addAddress(0xff2710dF4D906414C01726f049bEb5063929DaA8);
-        // _addAddress(0xb3c8801aF1E17a4D596E7678C1548094C872AE0D);
     }
     
 

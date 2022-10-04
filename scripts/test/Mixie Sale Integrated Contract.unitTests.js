@@ -102,7 +102,7 @@ describe("Mixie Sale Integrated Contract", function () {
 	async function deployContractFixture() {
     
 		const [owner, addr1, addr2] = await ethers.getSigners();
-		const Contract = await ethers.getContractFactory("MixieNftSaleIntegratedContractTest8");
+		const Contract = await ethers.getContractFactory("MixieNftSaleIntegratedContractFinal");
 		let hardhatContract = await Contract.deploy();
 		let addresses = [];
 		addresses[0] = "0x0000000000000000000000000000000000000000";
@@ -205,13 +205,19 @@ describe("Mixie Sale Integrated Contract", function () {
 		await expect(hardhatContract.emergencyPause()).to.not.be.reverted;
 		await expect(hardhatContract.setContractUri(expectedUri)).to.be.reverted;
 	});
+	it("[A-8] Allows authorized minter to mint reserved Mixie", async function() {
+		// construction of this test is in progress
+		const { Contract, hardhatContract, owner, addr1, addr2 } = await loadFixture(deployContractFixture);
+		let expectedUri = "test URI";
+		await expect(hardhatContract.connect(addr1).setContractUri(expectedUri)).to.be.reverted;
+	});
 
 	// COUPONS
 	it("[B-0.1] Adds an address successfully from admin", async function() {
 		const { Contract, hardhatContract, owner, addr1, addr2 } = await loadFixture(deployContractFixture);
 		let addressesLength = await hardhatContract.couponListList();
 		await expect(await hardhatContract.addressHasCoupon(addr1.address)).to.equal(false);
-		expect(addressesLength).to.equal(6);
+		expect(addressesLength).to.equal(0);
 		await expect(hardhatContract.addAddress(
 			addr1.address,
 		)).to.not.be.reverted;
@@ -223,7 +229,7 @@ describe("Mixie Sale Integrated Contract", function () {
 	it("[B-0.2] Adds multiple addresses successfully from admin", async function() {
 		const { Contract, hardhatContract, owner, addr1, addr2 } = await loadFixture(deployContractFixture);
 		let addressesLength = await hardhatContract.couponListList();
-		expect(addressesLength).to.equal(6);
+		expect(addressesLength).to.equal(0);
 		await expect(hardhatContract.addAddress(
 			addr1.address,
 		)).to.not.be.reverted;
@@ -383,7 +389,7 @@ describe("Mixie Sale Integrated Contract", function () {
 			await expect(hardhatContract.addCoupon(
 				addr1.address,
 				2,
-				0,
+				1,
 				10,
 				20000 + i,
 				1
@@ -393,7 +399,7 @@ describe("Mixie Sale Integrated Contract", function () {
 		await expect(hardhatContract.connect(addr1).useCoupon(
 			addr1.address,
 			2,
-			0,
+			1,
 			10,
 			20001
 		)).to.not.be.reverted;
@@ -522,7 +528,7 @@ describe("Mixie Sale Integrated Contract", function () {
 		let units = await hardhatContract.getUnits();
 		let prices = [];
 		let timestamps = [];
-		for (let i = 0; i <= 50; i++) {
+		for (let i = 0; i <= 60; i++) {
 			let blockNumber = await ethers.provider.getBlockNumber();
 			prices[i] = await hardhatContract.getUpdatedPrice();
 			timestamps[i] = await (await ethers.provider.getBlock(blockNumber)).timestamp;
@@ -536,5 +542,4 @@ describe("Mixie Sale Integrated Contract", function () {
 		}
 		await expect(await hardhatContract.getUpdatedPrice()).to.equal(1000*units)
 	});
-
 });
