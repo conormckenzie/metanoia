@@ -3,7 +3,7 @@
 // NOTE: could still stand to be refactored into multiple (possibly parallelized) tests
 // NOTE: still has console logs and other debugging artifacts, these could stand to be removed
 
-const testEnabled = true;
+const testEnabled = false;
 
 if (!testEnabled) {
 	return;
@@ -15,6 +15,7 @@ const {
 } = require("@nomicfoundation/hardhat-network-helpers");
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { solidity } = require("@nomiclabs/hardhat-waffle");
 //const { web3 } = require("web3");
 var crypto = require('crypto');
 const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
@@ -91,7 +92,7 @@ const generateNewAddress = () => {
 	return address;
 };
 
-// Need to run these tests with the FOunding Settlers List being empty, partly full, full, and overfull 
+// Need to run these tests with the Founding Settlers List being empty, partly full, full, and overfull 
 
 describe("Founding Settlers NFT Mint", function () {
 	async function deployFoundingSettlersNftMintFixture() {
@@ -225,7 +226,7 @@ describe("Founding Settlers NFT Mint", function () {
 		let extrasHolder = await hardhatFoundingSettlersNftMint.extrasHolder();
 		let extrasHolderTickets = []; 
 		let firstNonzeroIndex = 999;
-		console.logWhereInline(`Beep`.bgGreen);
+		// console.logWhereInline(`Beep`.bgGreen);
 		for (let id = 1; id <= maxSupply; id++) {
 			extrasHolderTickets[id] = await hardhatFoundingSettlersNftMint.balanceOf(extrasHolder, id);
 		}
@@ -236,15 +237,16 @@ describe("Founding Settlers NFT Mint", function () {
 				firstNonzeroIndex = i;
 			}
 		}
+		// console.logWhereInline(`Beep3`.bgGreen);
 		if (extrasHolderTicketsSum == 0) {
 			console.logWhereInline("extrasHolder holds no tickets");
 			expect(false).to.equal(true);
 		}
 		else {
 			// console.logWhereInline(`BOOP`);
-			await expect(sendTicket(hardhatFoundingSettlersNftMint,addr2, firstNonzeroIndex)).to.be.not.reverted;
+			await expect(sendTicket(hardhatFoundingSettlersNftMint, addr2.address, firstNonzeroIndex)).to.be.not.reverted;
 		}
-		console.logWhereInline(`Beep2`.bgGreen);
+		// console.logWhereInline(`Beep2`.bgGreen);
 	});
 	it("Fails to send a ticket from non-owner address", async function() {
 		const { FoundingSettlersNftMint, hardhatFoundingSettlersNftMint, owner, addr1, addr2 } = await loadFixture(deployFoundingSettlersNftMintFixture);
@@ -265,6 +267,41 @@ describe("Founding Settlers NFT Mint", function () {
 			console.logWhereInline("extrasHolder holds no tickets");
 			expect(false).to.equal(true);
 		}
-		await expect(hardhatFoundingSettlersNftMint.connect(addr1).sendTicket(addr2, firstNonzeroIndex)).to.be.reverted;
+		await expect(hardhatFoundingSettlersNftMint.connect(addr1).sendTicket(addr2.address, firstNonzeroIndex)).to.be.reverted;
+	});
+	it("Updates the royalty info and calculates royalties correctly", async function() {
+		const { FoundingSettlersNftMint, hardhatFoundingSettlersNftMint, owner, addr1, addr2 } = await loadFixture(deployFoundingSettlersNftMintFixture);
+		let newRoyaltiesValue = 600;
+		await expect(hardhatFoundingSettlersNftMint.setRoyaltyInfo(addr2.address, newRoyaltiesValue)).to.not.be.reverted;
+		let examplePrice = 10**8;
+		let expectedRoyalties = (examplePrice * newRoyaltiesValue) / 10000;
+		let result = await hardhatFoundingSettlersNftMint.royaltyInfo(0, examplePrice);
+		await expect(result[0]).to.equal(addr2.address);
+		await expect(result[1]).to.equal(expectedRoyalties);
+		// for (component in result) {
+		// 	console.logWhereInline(`${component}`.bgYellow);
+		// }
+		// console.logWhereInline("---");
+		// for (let i = 0; i < result.length; i++) {
+		// 	console.logWhereInline(`${result[i]}`.bgYellow);
+		// }
+	});
+	it("Fails to update the royalty info if not done by owner", async function() {
+		const { FoundingSettlersNftMint, hardhatFoundingSettlersNftMint, owner, addr1, addr2 } = await loadFixture(deployFoundingSettlersNftMintFixture);
+		let newRoyaltiesValue = 600;
+		await expect(hardhatFoundingSettlersNftMint.connect(addr1).setRoyaltyInfo(addr2.address, newRoyaltiesValue)).to.be.reverted;
+	});
+	it("Updates the contract URI correctly", async function() {
+		const { FoundingSettlersNftMint, hardhatFoundingSettlersNftMint, owner, addr1, addr2 } = await loadFixture(deployFoundingSettlersNftMintFixture);
+		let expectedUri = "test URI";
+		await expect(hardhatFoundingSettlersNftMint.setContractUri(expectedUri)).to.not.be.reverted;
+		await expect(await hardhatFoundingSettlersNftMint.contractURI()).to.equal(expectedUri);
+		let result = await hardhatFoundingSettlersNftMint.contractURI();
+		// console.logWhereInline(result);
+	});
+	it("Fails to update the contract URI if not done by owner", async function() {
+		const { FoundingSettlersNftMint, hardhatFoundingSettlersNftMint, owner, addr1, addr2 } = await loadFixture(deployFoundingSettlersNftMintFixture);
+		let expectedUri = "test URI";
+		await expect(hardhatFoundingSettlersNftMint.connect(addr1).setContractUri(expectedUri)).to.be.reverted;
 	});
 });

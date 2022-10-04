@@ -2,18 +2,53 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./EmergencyPausable.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import "hardhat/console.sol";
 
-contract ModeratedUris is AccessControl {
+contract ModeratedUris is EmergencyPausable {
+
+    event approvedMetadataForId(address indexed msgSender, uint indexed id, string metadata_uri);
+    event approvedMetadataForAll(address indexed msgSender, string indexed metadata_uri);
+    event unapprovedMetadataForId(address indexed msgSender, uint indexed id, string indexed metadata_uri);
+    event unapprovedMetadataForAll(address indexed msgSender, string indexed metadata_uri);
+    event unapprovingAllMetadataForId(address indexed msgSender, uint indexed id);
+    event unapprovedAllMetadataForId(address indexed msgSender, uint indexed id);
+    event view_metadataIsApprovedForId(address indexed msgSender, uint indexed id, string indexed metadata_uri);
 
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
     bytes32 public constant URI_ADDER_ROLE = keccak256("URI_ADDER_ROLE");
-    bytes32 public constant COUPON_USER_ROLE = keccak256("COUPON_USER_ROLE");
+
+    bool public debugMode_ModeratedUris;
+
+    function initialize() public virtual override {
+        // console.log("ModeratedUris: initializer");
+        _state.entries.push(Entry({
+            _entryID: 0,
+            id: 0,
+            uri: "",
+            approved: false
+        }));
+        // bytesToRoles["URI_MANAGER_ROLE"] = URI_MANAGER_ROLE;
+        // bytesToRoles["URI_ADDER_ROLE"] = URI_ADDER_ROLE;
+        debugMode_ModeratedUris = false;
+        super.initialize();
+    }
     
-    //replace with role to manage this.
-    bool private canRevokeUriApproval;
-    function makeApprovedUriListsAppendOnly() public onlyRole(DEFAULT_ADMIN_ROLE) {
-        canRevokeUriApproval = false;
+    function setDebugMode(bool mode) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        debugMode_ModeratedUris = mode;
+    } 
+
+    modifier Entries_NoOOBArrayAccess(uint i) {
+        require(i < _state.entries.length);
+        _;
+    }
+
+    modifier ifDebugModeActive {
+        if (!hasRole(DEFAULT_ADMIN_ROLE, _msgSender())) {
+            require(debugMode_ModeratedUris, "ModeratedUris: debug mode is not active and caller is not admin");
+        }
+        _;
     }
 
     struct Entry {
@@ -41,23 +76,70 @@ contract ModeratedUris is AccessControl {
          * @dev Stores the entry of the index for each (URI, ID) pair.
          *
          * Syntax:      indexWithIdUri[keccak256(abi.encodePacked(id, uri))]
-         * Usage: Returns a bool whether a given URI string is approved for a 
-         *              given token id.
          */
         mapping(bytes32 => uint) indexWithIdUri;
         // bytes 32 = keccak256(abi.encodePacked(id, uri)) is the hash of the 
         // tuple (uint id, string uri)
 
+        // provides potential missing ids when only the uri is provided
         mapping(string => uint[]) indexesWithUri;
 
+        // provides potential missing uris when only the id is provided
         mapping(uint => uint[]) indexesWithId;
     }
     State private _state;
 
+    function get_bytes32hash(uint id, string memory uri) external pure returns(bytes32) {
+        return keccak256(abi.encodePacked(id, uri));
+    }
+
+    // admin-only testing functions
+
+    function debug_get_entry(uint _entryId)
+    external view Entries_NoOOBArrayAccess(_entryId) ifDebugModeActive 
+    returns(uint _entryID, uint id, string memory uri, bool approved) {
+        return (
+            _state.entries[_entryId]._entryID,
+            _state.entries[_entryId].id,
+            _state.entries[_entryId].uri,
+            _state.entries[_entryId].approved
+        );
+    }
+
+    function debug_get_entries_length() 
+    external view ifDebugModeActive returns(uint) {
+        return _state.entries.length;
+    }
+
+    function debug_get_indexWithIdUri(bytes32 _bytes32) 
+    external view ifDebugModeActive returns(uint) {
+        return _state.indexWithIdUri[_bytes32];
+    }
+
+    function debug_get_indexesWithUri(string memory _string, uint _indexId) 
+    external view ifDebugModeActive returns(uint) {
+        return _state.indexesWithUri[_string][_indexId];
+    }
+
+    function debug_get_indexesWithUri_length(string memory _string)
+    external view ifDebugModeActive returns(uint) {
+        return _state.indexesWithUri[_string].length;
+    }
+
+    function debug_get_indexesWithId(uint id, uint _indexId) 
+    external view ifDebugModeActive returns(uint) {
+        return _state.indexesWithId[id][_indexId];
+    }
+
+    function debug_get_indexesWithId_length(uint id)
+    external view ifDebugModeActive returns(uint) {
+        return _state.indexesWithId[id].length;
+    }
+
     // LEVEL 0 functions: CRU(D) - encapsulate _state.entries
 
     function __entryExists(uint i) 
-    private pure returns(bool) {
+    private view Entries_NoOOBArrayAccess(i) returns(bool) {
         return i != 0;
     }
 
@@ -68,32 +150,30 @@ contract ModeratedUris is AccessControl {
     private returns(uint) {
         // entries[0] should always have id:0, uri:"", and approved:false
         if (_state.entries.length == 0) {
-            _state.entries[0] = Entry({
+            _state.entries.push(Entry({
                 _entryID: 0,
                 id: 0,
                 uri: "",
                 approved: false
-            });
+            }));
         }
         require(
             keccak256(bytes(_uri)) != keccak256(bytes("")),
             "ModeratedUris: ERR 1" 
             // "Cannot make entry with empty URI"
         );
-        _state.entries.push(
-            Entry({
-                _entryID: _state.entries.length,
-                id: _id,
-                uri: _uri,
-                approved: _approved
-            })
-        );
+        _state.entries.push(Entry({
+            _entryID: _state.entries.length,
+            id: _id,
+            uri: _uri,
+            approved: _approved
+        }));
         return _state.entries.length-1; //returns the entryID of the new entry
     }
 
     //update
     function __updateEntry(uint i, bool _approved)
-    private {
+    private Entries_NoOOBArrayAccess(i) {
         require(i != 0, "ModeratedUris: ERR 2");
         // "Cannot edit _state.entries[0]"
         _state.entries[i].approved = _approved;
@@ -102,7 +182,7 @@ contract ModeratedUris is AccessControl {
     //retrieve - should be used in combination with L0:(exists) when it is not
     // okay to skip entries that don't exist
     function __getEntry(uint i, bool checked) 
-    private view returns(Entry memory) {
+    private view Entries_NoOOBArrayAccess(i) returns(Entry memory) {
         if (checked) {
             require(i != 0, "ModeratedUris: ERR 3");
             // "Cannot retrieve _state.entries[0]"
@@ -111,7 +191,7 @@ contract ModeratedUris is AccessControl {
     }
 
     function __entryIsGlobal(uint i, bool checked)
-    private view returns(bool) {
+    private view Entries_NoOOBArrayAccess(i) returns(bool) {
         return __getEntry(i, checked).id == 0;
     }
 
@@ -159,77 +239,6 @@ contract ModeratedUris is AccessControl {
         return _getEntry(id, uri, false).approved;
     }
 
-    // function _getAllUrisFromId(uint id, bool includeGloballyApproved) 
-    // private view returns(string[] memory) {
-    //     string[] memory results;
-    //     if (includeGloballyApproved) {
-    //         results = _getAllUrisFromId(0, false);
-    //     }
-    //     uint returnCount = results.length;
-    //     for (uint count = 0; count < _state.indexesWithId[id].length; count++) {
-    //         uint i = _state.indexesWithId[id][count];
-    //         results[returnCount] = __getEntry(i, false).uri;
-    //     }
-    //     return results;
-    // }
-
-    function _getAllApprovedUrisFromId(uint id, bool includeGloballyApproved) 
-    private view returns(string[] memory) {
-        string[] memory results;
-        if (includeGloballyApproved) {
-            results = _getAllApprovedUrisFromId(0, false);
-        }
-        uint returnCount = results.length;
-        for (uint count = 0; count < _state.indexesWithId[id].length; count++) {
-            uint i = _state.indexesWithId[id][count];
-            Entry memory e = __getEntry(i, false);
-            if (e.approved) {
-                results[returnCount] = e.uri;
-                returnCount++;
-            }
-        }
-        return results;
-    }
-
-    // function _getAllIdsFromUri(string memory uri, bool includeGloballyApproved) 
-    // private view returns(uint[] memory) {
-    //     uint[] memory results;
-    //     if (includeGloballyApproved && _entryExists(0, uri)) {
-    //         results[0] = __getEntry(0, false).id;
-    //     }
-    //     uint returnCount = results.length;
-    //     for (uint count = 0; count < _state.indexesWithUri[uri].length; count++)
-    //     {
-    //         uint i = _state.indexesWithUri[uri][count];
-    //         results[returnCount] = __getEntry(i, false).id;
-    //     }
-    //     return results;
-    // }
-
-    function _getAllApprovedIdsFromUri(
-        string memory uri, 
-        bool includeGloballyApproved
-    ) private view returns(uint[] memory) {
-        uint[] memory results;
-        if (
-            includeGloballyApproved && 
-            _entryExists(0, uri) &&
-            _getEntry(0, uri, true).approved
-        ) {
-            results[0] = 0;
-        }
-        uint returnCount = results.length;
-        for (uint count = 0; count < _state.indexesWithUri[uri].length; count++) {
-            uint i = _state.indexesWithUri[uri][count];
-            Entry memory e = __getEntry(i, false);
-            if (e.approved) {
-                results[returnCount] = e.id;
-                returnCount++;
-            }
-        }
-        return results;
-    }
-
     function _unapproveUriForAllIds(
         string memory uri, 
         bool includeGloballyApproved
@@ -247,6 +256,7 @@ contract ModeratedUris is AccessControl {
         for (uint count = 0; count < _state.indexesWithId[id].length; count++) {
             uint i = _state.indexesWithId[id][count];
             __updateEntry(i, false);
+            emit unapprovedMetadataForId(_msgSender(), id, __getEntry(i, false).uri);
         }
     }
 
@@ -284,28 +294,15 @@ contract ModeratedUris is AccessControl {
         return _isIdUriPairApproved(0, metadata_uri);
     }
 
-    function getAllGloballyApprovedMetadata() 
-    public view returns(string[] memory) {
-        return _getAllApprovedUrisFromId(0, false);
-    }
+    // // due to solidity limitations with dynamic arrays in memory, 
+    // // providing all uris approved for an id or global use is infeasible, 
+    // // and providing all ids a uri is approved for is also infeasible.
 
-    function getAllApprovedMetadatasForId(uint id, bool includeGloballyApproved) 
-    public view returns(string[] memory) {
-        if (id == 0) {
-            return _getAllApprovedUrisFromId(0, false);
-        } else {
-            return _getAllApprovedUrisFromId(id, includeGloballyApproved);
-        }
-    }
-
-    function getAllApprovedIdsForMetadata(string memory metadata_uri) 
-    public view returns(uint[] memory) {
-        return _getAllApprovedIdsFromUri(metadata_uri, true);
-    }
+    // // if either of these features are needed, debug mode should be enabled to get the raw entries
 
     // does nothing if (0, uri) pair is already approved
-    function approveMetadatForId(uint id, string memory metadata_uri) 
-    public {
+    function approveMetadataForId(uint id, string memory metadata_uri) 
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(URI_ADDER_ROLE, _msgSender()) ||
@@ -313,11 +310,12 @@ contract ModeratedUris is AccessControl {
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(id, metadata_uri, true);
+        emit approvedMetadataForId(_msgSender(), id, metadata_uri);
     }
 
     // does nothing if (0, uri) pair is already approved
-    function approveMetadatForAll(string memory metadata_uri) 
-    public {
+    function approveMetadataForAll(string memory metadata_uri) 
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(URI_ADDER_ROLE, _msgSender()) ||
@@ -325,39 +323,44 @@ contract ModeratedUris is AccessControl {
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(0, metadata_uri, true);
+        emit approvedMetadataForAll(_msgSender(), metadata_uri);
     }
 
     // does nothing if (id, uri) pair is already unapproved
-    function unapproveMetadatForId(uint id, string memory metadata_uri) 
-    public {
+    function unapproveMetadataForId(uint id, string memory metadata_uri) 
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not URI Manager or Admin"
         );
         _setIdUriPairApproval(id, metadata_uri, false);
+        emit unapprovedMetadataForId(_msgSender(), id, metadata_uri);
     }
 
     // does nothing if uri is already unapproved for all ids (including 0)
     function unapproveMetadataForAll(string memory metadata_uri) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not URI Manager or Admin"
         );
         _unapproveUriForAllIds(metadata_uri, true);
+        emit approvedMetadataForAll(_msgSender(), metadata_uri);
     }
 
     // does nothing if all uris for id are already unapproved
     // does not apply to globally approved uri
     function unapproveAllMetadataForId(uint id) 
-    public {
+    public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "Sender is not URI Manager or Admin"
         );
+        emit unapprovingAllMetadataForId(_msgSender(), id);
         _unapproveAllUrisForId(id);
+        emit unapprovedAllMetadataForId(_msgSender(), id);
     }
 }

@@ -5,7 +5,7 @@ require("@nomiclabs/hardhat-etherscan"); //from Polygon tutorial
 
 require("@nomicfoundation/hardhat-toolbox"); // from hardhat.org setup tutorial
 
-require('hardhat-ethernal'); //potential blockchain explorer
+// require('hardhat-ethernal'); //potential blockchain explorer
 
 require("@nomiclabs/hardhat-waffle"); //from other tutorial
 
@@ -18,36 +18,57 @@ require("@nomiclabs/hardhat-waffle"); //from polygonscan verify tutorial
 require('solidity-coverage'); //from solidity-coverage github 
   // referenced by https://ethereum.org/en/developers/docs/smart-contracts/testing/
 
+require('hardhat-contract-sizer');
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 1
+          }
+        }
+      },
+      {
+        version: "0.8.2"
+      },
+    ],
+  },
   defaultNetwork: 'hardhat',
   networks: {
     // localhost: {
     //   url: "http://127.0.0.1:8545"
     // },
     hardhat: {
-      accounts:{mnemonic: "test test test test test test test test test test test junk"},
+      accounts:{mnemonic: process.env.MNEMONIC},
       chainId: 1337
     },
     matic_testnet: {
-      url: "https://rpc-mumbai.maticvigil.com",
+      url: "https://matic-mumbai.chainstacklabs.com/",
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    matic: {
+      url: "https://polygon-rpc.com",
       accounts: [process.env.PRIVATE_KEY]
     },
   },
-  ethernal: {
-    disableSync: false, // If set to true, plugin will not sync blocks & txs
-    disableTrace: false, // If set to true, plugin won't trace transaction
-    workspace: process.env.CURRENT_HARDHAT_NETWORK, // Set the workspace to use, will default to the default workspace (latest one used in the dashboard). It is also possible to set it through the ETHERNAL_WORKSPACE env variable
-    uploadAst: true, // If set to true, plugin will upload AST, and you'll be able to use the storage feature (longer sync time though)
-    disabled: false, // If set to true, the plugin will be disabled, nohting will be synced, ethernal.push won't do anything either
-    resetOnStart: false, // Pass a workspace name to reset it automatically when restarting the node, note that if the workspace doesn't exist it won't error
-    email: process.env.ETHERNAL_EMAIL,
-    password: process.env.ETHERNAL_PASSWORD,
-  },
+  // ethernal: {
+  //   disableSync: false, // If set to true, plugin will not sync blocks & txs
+  //   disableTrace: false, // If set to true, plugin won't trace transaction
+  //   workspace: process.env.CURRENT_HARDHAT_NETWORK, // Set the workspace to use, will default to the default workspace (latest one used in the dashboard). It is also possible to set it through the ETHERNAL_WORKSPACE env variable
+  //   uploadAst: true, // If set to true, plugin will upload AST, and you'll be able to use the storage feature (longer sync time though)
+  //   disabled: false, // If set to true, the plugin will be disabled, nohting will be synced, ethernal.push won't do anything either
+  //   resetOnStart: false, // Pass a workspace name to reset it automatically when restarting the node, note that if the workspace doesn't exist it won't error
+  //   email: process.env.ETHERNAL_EMAIL,
+  //   password: process.env.ETHERNAL_PASSWORD,
+  // },
   namedAccounts: {
     account0: 0,
   },
@@ -59,7 +80,14 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
+      polygon: process.env.POLYGONSCAN_API_KEY,
       polygonMumbai: process.env.POLYGONSCAN_API_KEY,
     },
   },
+  contractSizer: {
+    alphaSort: true,
+    disambiguatePaths: false,
+    runOnCompile: true,
+    strict: false
+  }
 };
