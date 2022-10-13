@@ -1,11 +1,18 @@
 // SPDX-License-Identifier: MIT
 
-// edit to check verification and test. edit 1
-
 pragma solidity ^0.8.0;
 
-import "./ERC1155MultiUri.sol";
+// ERC1155 & marketplace compatibility
+import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "./ERC2981/ERC2981ContractWideRoyalties.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+
+// security
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./EmergencyPausable.sol";
+
+// type conversions
+import "./utils/TypeConversions.sol";
 
 library Base64 {
     string internal constant TABLE_ENCODE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -132,130 +139,203 @@ library Base64 {
     }
 }
 
-contract OnChainTestNft is ERC1155MultiUri, Ownable {
-    mapping(string => bool) private takenNames;
-    mapping(uint256 => Attr) public attributes;
-		//test
+interface ICustomTypeHandler {
+    function isKnownType(string memory attributeType) external view returns (bool);
+    function typeToString(string memory _type, bytes memory _typeDataInBytes) external view returns (string memory);
+}
 
-    uint public nextTokenID = 1;
+interface IUriProvider {
+    function uri(uint nftId) external view returns (bool);
+}
 
-    string public symbol;
+contract OnChainTestNft is 
+    ERC1155Supply, 
+    ERC2981ContractWideRoyalties, 
+    Ownable,
+    ReentrancyGuard, 
+    EmergencyPausable
+{
+    string public constant name = "Metanoia Test Nft";
+    string public constant symbol = "METANOIA-TEST-NFT";
+
+    // points to an contract which handles custom or non-standard types 
+    ICustomTypeHandler customTypeHandler;
     
-    mapping(uint => string) uriList;
+    address[] authorizedAddresses;
 
-    struct Attr {
-        string name;
-        string symbol;
-        uint nftType;
-        bool infiniteRedemptions;
-        uint redemptions;
-        string description;
-        string imageUri;
+    // AttributeContext provides the name and variable type for a given attribute in `attributes` 
+    // with the same numeric ID
+    struct AttributeContext {
+        string attributeName;
+        string attributeType;
     }
 
-		function getNftType(uint nftId) external view returns (uint) {
-        return attributes[nftId].nftType;
+    struct AttributeContextList {
+        AttributeContext[] context_fromID;
+        mapping(string => uint) ID_fromName;
     }
+    AttributeContextList attributeContexts;
+
+    // maps NFT ID to the attribute list for that NFT
+    mapping(uint => mapping(uint => bytes)) attributes;
 
     constructor() ERC1155("") {
-        //name = "Metanoia Test Nft";
-        symbol = "METANOIA-NFT";
-
-        uriList[1] = "single-use";
-        uriList[2] = "multi-use";
-        uriList[3] = "infinite-use";
+        // initialize();
     }
 
-    function mintNewTicketCollection(address to, uint amount, uint nftType) public /*onlyOwner*/ {
-        nextTokenID++;
-        require(nftType >= 1 && nftType <= 3, "NFT type must be between 1 and 3");
-        _mintWithAttributes(to, nextTokenID-1, amount, "", uriList[nftType], nftType);
+    function initialize() public virtual override initializer {
+        customTypeHandler = ICustomTypeHandler(address(this));
+
+        super.initialize();
     }
 
-    function _mintWithAttributes (
-        address to, 
-        uint256 id, 
-        uint256 amount,
-        bytes memory data, 
-        string memory newuri,
-        uint nftType
-    ) internal virtual {
-        require (!exists(id), "Cannot change metadata of existing token");
-        _mintWithURI(to, id, amount, data, newuri);
-        setAttributes(id, nftType, 3);// Attr(_name, _material, 0);
-    }
+    // DEVNOTE: incomplete formatting - need to massage to fit into OpenSea's expected format
+    // DEVNOTE: can condense?
+	function uri(uint256 nftId) override(ERC1155) public view returns (string memory) {
+		string memory _uriString = '{';
 
-    function setAttributes (uint id, uint nftType, uint redemptions) internal {
-        attributes[id].description = 
-        // solhint-disable-next-line max-line-length
-            "A ticket given to the first ever 100 settlers to set foot on Metanoia. It is rumoured that the original owners had to make extreme sacrifices to obtain them, and that the holders of these tickets might have unknown, but pleasant surprises that await them in the future.";
-        attributes[id].imageUri = 
-            "https://bafybeiaxjatdky2wc75dvimchxpmbf74ba7bnj7ixgntpb6pujofet2zyy.ipfs.infura-ipfs.io/ticket1-01.png";
-        attributes[id].nftType = nftType;
+        // loop over all registered attributes
+        for (uint i = 0; i < attributeContexts.context_fromID.length; i++) {
+            bool matchedType;
+            // for each attribute, if the value of that attribute for that ID is not the default value,
+            // then add the NAME and VALUE (converted from bytes to the attribute's TYPE then to string)
 
-        if (nftType == 1) {
-            attributes[id].symbol = "METANOIA-SURNFT";
-            attributes[id].name = "Metanoia Single-use Redeemable NFT";
-            attributes[id].infiniteRedemptions = false;
-            attributes[id].redemptions = 1;
-        } else if (nftType == 2) {
-            attributes[id].symbol = "METANOIA-MURNFT";
-            attributes[id].name = "Metanoia Multi-use Redeemable NFT";
-            attributes[id].infiniteRedemptions = false;
-            attributes[id].redemptions = redemptions;
-        } else if (nftType == 3) {
-            attributes[id].symbol = "METANOIA-IRNFT";
-            attributes[id].name = "Metanoia Infinitely Redeemable NFT";
-            attributes[id].infiniteRedemptions = true;
-            attributes[id].redemptions = 1;
-        } else {
-            revert("given nftType is not valid to set Attributes for.");
+            // bool
+            if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("bool"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.boolToString(TypeConversions.bytesToBool(attributes[nftId][i]))
+                ));
+                matchedType = true;
+            }
+
+            // uint
+            else if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("uint")) ||
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("uint256"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.uintToString(TypeConversions.bytesToUint(attributes[nftId][i]))
+                ));
+                matchedType = true;
+            }
+
+            // int
+            else if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("int")) ||
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("int256"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.intToString(TypeConversions.bytesToInt(attributes[nftId][i]))
+                ));
+                matchedType = true;
+            }
+
+            // address
+            else if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("address"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.addressToString(TypeConversions.bytesToAddress(attributes[nftId][i]))
+                ));
+                matchedType = true;
+            }
+
+            // bytes32
+            else if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("bytes32"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.bytes32ToString(TypeConversions.bytesToBytes32(attributes[nftId][i]))
+                ));
+                matchedType = true;
+            }
+
+            // string
+            else if (
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("bytes32"))
+            ) {
+                _uriString = string(abi.encodePacked(
+                    _uriString, 
+                    '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                    TypeConversions.bytesToString(attributes[nftId][i])
+                ));
+                matchedType = true;
+            }
+
+            // custom types
+            else if (address(customTypeHandler) != address(this)) { 
+                // this contract does not handle types by implementing the functions defined in the customTypeHandler
+                // interface, so skip this step if this contract is the customTypeHandler 
+                if (customTypeHandler.isKnownType(attributeContexts.context_fromID[i].attributeType)) {
+                    _uriString = string(abi.encodePacked(
+                        _uriString, 
+                        '"', attributeContexts.context_fromID[i].attributeName, '": "',
+                        customTypeHandler.typeToString(
+                            attributeContexts.context_fromID[i].attributeType, 
+                            attributes[nftId][i]
+                        )
+                    ));
+                    matchedType = true;
+                } 
+            }
+
+            require(
+                matchedType,
+                "listed type does not match with any known type"
+            );
         }
-    }
 
-	function uri(uint256 nftId) override(ERC1155MultiUri) public view returns (string memory) {
-		string memory json = Base64.encode(
+        //-----
+        string memory json = Base64.encode(
 			bytes(string(abi.encodePacked('{',
-				'"name": "', attributes[nftId].name, '",',
-				'"image": "', attributes[nftId].imageUri, '",',
-				'"description": "', attributes[nftId].description, '",',
-				'"attributes": [',
-					'{"trait_type": "NFT Type", "value": ', uint2str(attributes[nftId].nftType), '},',
-					'{"trait_type": "Infinite Redemptions", "value": ', bool2str(attributes[nftId].infiniteRedemptions), '},',
-					'{"trait_type": "Redemptions", "value": ', uint2str(attributes[nftId].redemptions), '}',
+				// '"name": "', attributes[nftId].name, '",',
+				// '"image": "', attributes[nftId].imageUri, '",',
+				// '"description": "', attributes[nftId].description, '",',
+				// '"attributes": [',
+				// 	'{"trait_type": "NFT Type", "value": ', uintToString(attributes[nftId].nftType), '},',
+				// 	'{"trait_type": "Infinite Redemptions", "value": ', boolToString(attributes[nftId].infiniteRedemptions), '},',
+				// 	'{"trait_type": "Redemptions", "value": ', uintToString(attributes[nftId].redemptions), '}',
 				']}'
 			)))
 		);
 		return string(abi.encodePacked('data:application/json;base64,', json));
 	}  
 
-	function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
-		if (_i == 0) {
-			return "0";
-		}
-		uint j = _i;
-		uint len;
-		while (j != 0) {
-			len++;
-			j /= 10;
-		}
-		bytes memory bstr = new bytes(len);
-		uint k = len;
-		while (_i != 0) {
-			k = k-1;
-			uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-			bytes1 b1 = bytes1(temp);
-			bstr[k] = b1;
-			_i /= 10;
-		}
-		return string(bstr);
-	}
+    /// @inheritdoc	ERC165
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC1155, ERC2981Base, AccessControl)
+        returns (bool)
+    {
+        return
+            interfaceId == type(IERC2981Royalties).interfaceId ||
+            interfaceId == type(IERC1155).interfaceId ||
+            interfaceId == type(IERC1155MetadataURI).interfaceId ||
+            interfaceId == type(AccessControl).interfaceId ||
+            super.supportsInterface(interfaceId);
+    }
 
-	function bool2str(bool _b) internal pure returns (string memory _boolAsString) {
-		if (_b) {
-			return "true";
-		} else {
-			return "false";
-		}
-	}  
+
 }

@@ -42,11 +42,8 @@ contract EmergencyPausable is AccessControl, Pausable, Initializable {
     }
     bytes32 public constant EMERGENCY_PAUSER_ROLE = keccak256("EMERGENCY_PAUSER_ROLE");
 
-    function initialize() public virtual  {
-        // console.log("EmergencyPausable: initializer");
+    function initialize() public virtual initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
-        // bytesToRoles["DEFAULT_ADMIN_ROLE"] = DEFAULT_ADMIN_ROLE;
-        // bytesToRoles["EMERGENCY_PAUSER_ROLE"] = EMERGENCY_PAUSER_ROLE;
     }
     
     function emergencyPause() public whenNotPaused() {

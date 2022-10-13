@@ -174,14 +174,15 @@ contract _AddressList {
 
     }
 
-    /// @dev    Getters for the underlying list variable. Useful for testing.
-    function addresses_length() public view returns(uint) {
-        return addresses.length;
-    }
-    function addresses_list(uint id) public view returns(address) {
-        return addresses.list[id];
-    }
-    function addresses_listInv(address _address) public view returns(uint) {
-        return addresses.listInv[_address];
-    }
+    // testing functions included in the Address List Testing file
+    // /// @dev    Getters for the underlying list variable. Useful for testing.
+    // function addresses_length() public view returns(uint) {
+    //     return addresses.length;
+    // }
+    // function addresses_list(uint id) public view returns(address) {
+    //     return addresses.list[id];
+    // }
+    // function addresses_listInv(address _address) public view returns(uint) {
+    //     return addresses.listInv[_address];
+    // }
 }

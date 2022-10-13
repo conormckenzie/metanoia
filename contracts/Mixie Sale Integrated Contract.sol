@@ -31,20 +31,25 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
 import "./EmergencyPausable.sol";
 
+// Ownable is only used to get OpenSea to recognize ownership, so that the off-chain details of the collection 
+// can be filled out 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 
 
 pragma solidity 0.8.4;
 
-contract MixieNftSaleIntegratedContractV1_1 is 
-ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable {
+contract MixieNftSaleIntegratedContractTestPostLaunch is 
+ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable, Ownable {
 
     // IN PRODUCTION, ALL TESTING TOGGLES SHOULD BE FALSE
-    bool constant testing1 = false; // starting price is $10000 (false) or $0.10 (true) USD, ending price is 1/10th
+    bool constant testing1 = true; // starting price is $10000 (false) or $0.10 (true) USD, ending price is 1/10th
+    bool constant testing2 = true; // shows real metadata (false) or no metadata (true)
 
     /// ERROR MESSAGES:
     // ERR1 : "Sender is not Minter or Admin"
     // ERR1a: "Sender is not Minter or Admin or recipient"
-    // ERR1b: "Cannot only mint a reserved NFT through this method"
+    // ERR1b: "Can only mint a reserved NFT through this method"
     // ERR1c: "Reserved NFT has already been minted"
     // ERR2 : "timestamp is not up-to-date"
     // ERR3 : "startTime is later than endTime"
@@ -69,6 +74,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
     // ERR20: "Coupon cannot be for zero Mixies"
     // ERR21: "Coupon number of uses cannot be zero"
     // ERR22: "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+    // ERR23: "Matching coupon not found"
 
     ///GENERAL-----------------------------
     
@@ -142,11 +148,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
     // solhint-disable-next-line max-line-length
-    string _contractUri = "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+    string _contractUri = testing2 ? "" : "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
 
      /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
-    string public constant name = "Metanoia Mixie (Egg)";
-    string public symbol = "METANOIA MIXIE";
+    string public constant name = testing2 ? "Test Mixie (Egg)" : "Mixie (Egg)"; 
+    string public symbol = testing2 ? "METANOIA MIXIE TEST" : "METANOIA MIXIE"; 
 
     function initialize() public override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
@@ -173,9 +179,10 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
     uint public constant maxSupply = 10000;
     uint constant reserved = 500;
     uint public nextUnusedToken = reserved + 1;
-
     // solhint-disable-next-line max-line-length
-    constructor() ERC1155("https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY") {
+    string constant constructorUri = testing2 ? "" : "https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY";
+
+    constructor() ERC1155(constructorUri) {
         initialize();
     }
 
@@ -245,7 +252,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
         require(
             id <= reserved && id != 0,
             "ERR1b"
-            // "Cannot only mint a reserved NFT through this method"
+            // "Can only mint a reserved NFT through this method"
         );
         require(
             !exists(id),
@@ -451,26 +458,6 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             "ERR8b" 
             // "No tokens left to mint"
         );
-        _mintNextNftToAddress(treasuryAddress);
-    }
-
-    function mintNextManyToTreasuryAddress(uint numberToMint) external pushesUpdate whenNotPaused nonReentrant {
-        require(
-            hasRole(POST_SALE_MINTER_ROLE, _msgSender()) || 
-            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERR8"
-            // "Sender is not Post-Sale Minter or Admin"
-        );
-        require(
-            block.timestamp > endTime && !lastUpdate.saleIsLive, 
-            "ERR8a"
-            // "Cannot mint to treasury address until sale is finished"
-        );
-        uint leftToMint = maxSupply - (nextUnusedToken-1);
-        leftToMint = Math.min(leftToMint, numberToMint);
-        for (; leftToMint > 0; leftToMint--) {
-            _mintNextNftToAddress(treasuryAddress);
-        }
         _mintNextNftToAddress(treasuryAddress);
     }
 
@@ -870,7 +857,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         bool found = false;
         for (uint i = 1; i <= couponListLength(address_); i++) {
@@ -881,7 +869,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
                 break;
             }
         }
-        require(found, "Matching coupon not found");
+        require(
+            found, 
+            "ERR23"
+            // "Matching coupon not found"
+        );
     }
 
     function _reduceType2CouponUses(
@@ -895,7 +887,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         bool found = false;
         for (uint i = 1; i <= couponListLength(address_); i++) {
@@ -908,7 +901,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
                 break;
             }
         }
-        require(found, "Matching coupon not found");
+        require(
+            found, 
+            "ERR23"
+            // "Matching coupon not found"
+        );
     }
 
     function _useType1Coupon(address address_, uint discountRate) internal whenNotPaused {
@@ -917,7 +914,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         _reduceType1CouponUses(address_, discountRate, 1);
     }
@@ -931,7 +929,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         _reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
     }
@@ -951,7 +950,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             hasRole(COUPON_USER_ROLE, _msgSender()) ||
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()) ||
             _msgSender() == address_,
-            "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
+            "ERR22"
+            // "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
         );
         if (couponType == 1) {
             _reduceType1CouponUses(address_, discountRate, 1);
@@ -961,7 +961,10 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable 
             _reduceType2CouponUses(address_, numberOfMixies, totalPrice, 1);
             return;
         }
-        revert("Mixie NFT Sale Privileged Boyers List: useCoupon: invalid couponType");
+        revert(
+            "ERR18"
+            // "Invalid coupon type"
+        );
     }
 
     function _setupList() internal {
