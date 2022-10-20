@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../Address List.sol";
+import "../legacy/Address List.sol";
 import "hardhat/console.sol";
 
 contract test_AddressList is _AddressList {

@@ -5,7 +5,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
-import "./Address List.sol";
+import "./legacy/Address List.sol";
 import "./Uint256 List.sol";
 
 abstract contract ERC1155OwnerTracking is ERC1155Supply {
