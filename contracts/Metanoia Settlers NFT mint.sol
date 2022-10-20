@@ -25,7 +25,7 @@
 
 pragma solidity 0.8.4;
 
-import "./Address List.sol";
+import "./legacy/Address List.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./ERC2981/ERC2981ContractWideRoyalties.sol";

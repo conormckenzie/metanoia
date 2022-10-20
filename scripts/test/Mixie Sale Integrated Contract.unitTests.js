@@ -102,7 +102,7 @@ describe("Mixie Sale Integrated Contract", function () {
 	async function deployContractFixture() {
     
 		const [owner, addr1, addr2] = await ethers.getSigners();
-		const Contract = await ethers.getContractFactory("MixieNftSaleIntegratedContractFinal");
+		const Contract = await ethers.getContractFactory("MixieNftSaleIntegratedContractV1_1");
 		let hardhatContract = await Contract.deploy();
 		let addresses = [];
 		addresses[0] = "0x0000000000000000000000000000000000000000";

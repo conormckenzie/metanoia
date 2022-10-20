@@ -26,7 +26,8 @@
 
 import "./ERC1155MultiUri.sol";
 import "./IAddressList.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./EmergencyPausable.sol";
+// import "@openzeppelin/contracts/access/AccessControl.sol";
 
 pragma solidity 0.8.4;
 
@@ -42,7 +43,7 @@ pragma solidity 0.8.4;
  *
  *          The Founding Settlers List may exceed 100 addresses after minting, by use of the `addAddress` function. 
  */
-contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
+contract SettlersAirDropRaffle is ERC1155MultiUri, EmergencyPausable {
     address public extrasHolder = 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78;
     IAddressList public MFSList;
 
@@ -154,14 +155,14 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     /*
     *  @dev See file "./ERC1155MultiURI.sol"
     */
-    function sendItems(address to, uint tokenID, uint amount) public onlyOwner {
+    function sendItems(address to, uint tokenID, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _safeTransferFrom(extrasHolder, to, tokenID, amount, "");
     }
 
     /*
     *  @dev See file "./ERC1155MultiURI.sol"
     */
-    function sendItem(address to, uint tokenID) public onlyOwner {
+    function sendItem(address to, uint tokenID) public onlyRole(DEFAULT_ADMIN_ROLE) {
         sendItems(to, tokenID, 1);
     }
 
@@ -183,8 +184,8 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     /*
     *  @dev Mints an existing token to all addresses() in the Founding Settler's List.
     */
-    function mintByAirdrop(uint tokenID, uint amountPerRecipient) 
-    public onlyOwner isExistingMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
+    function mintExistingByAirdrop(uint tokenID, uint amountPerRecipient) 
+    public onlyRole(DEFAULT_ADMIN_ROLE) isExistingMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
         _mintByAirdrop(tokenID, amountPerRecipient, "");
     }
 
@@ -192,7 +193,7 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     *  @dev Mints a new token to all addresses() in the Founding Settler's List.
     */
     function mintNewByAirdrop(uint tokenID, uint amountPerRecipient, string memory newuri) 
-    public onlyOwner isNewMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
+    public onlyRole(DEFAULT_ADMIN_ROLE) isNewMint(tokenID, MFSList.getMFS_length() * amountPerRecipient) {
         _mintByAirdrop(tokenID, amountPerRecipient, newuri);
     }
 
@@ -223,7 +224,7 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
         uint amountPerWinner, 
         uint numberOfWinners, 
         uint randomSeed
-    ) public onlyOwner isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
+    ) public onlyRole(DEFAULT_ADMIN_ROLE) isExistingMint(tokenID, amountPerWinner * numberOfWinners) { 
         _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, "");
     }
 
@@ -232,14 +233,15 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     */
     function mintNewByRaffle(
         uint tokenID, uint amountPerWinner, uint numberOfWinners, uint randomSeed, string memory newuri
-    ) public onlyOwner isNewMint(tokenID, amountPerWinner * numberOfWinners) { 
+    ) public onlyRole(DEFAULT_ADMIN_ROLE) isNewMint(tokenID, amountPerWinner * numberOfWinners) { 
         _mintByRaffle(tokenID, amountPerWinner, numberOfWinners, randomSeed, newuri);
     }
 
     /*
     *  @dev Mints an existing token to the <extrasHolder> holding address.
     */
-    function mintToExtrasHolder(uint tokenID, uint amount) public onlyOwner isExistingMint(tokenID, amount) {
+    function mintToExtrasHolder(uint tokenID, uint amount) 
+    public onlyRole(DEFAULT_ADMIN_ROLE) isExistingMint(tokenID, amount) {
         _mintWithoutURI(extrasHolder, tokenID, amount, "");
     }
 
@@ -248,7 +250,17 @@ contract SettlersAirDropRaffle is ERC1155MultiUri, Ownable {
     */
     function mintNewToExtrasHolder(
         uint tokenID, uint amount, string memory newuri
-    ) public onlyOwner isNewMint(tokenID, amount) {
+    ) public onlyRole(DEFAULT_ADMIN_ROLE) isNewMint(tokenID, amount) {
         _mintWithURI(extrasHolder, tokenID, amount, "", newuri);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC1155, AccessControl)
+        returns (bool) 
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
