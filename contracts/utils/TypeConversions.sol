@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "hardhat/console.sol";
 
 library TypeConversions {
     // (X) to string
@@ -73,12 +74,7 @@ library TypeConversions {
     // source: custom-built (uses `bytesToUint` implementation above)
     // assuming twos-complement representation of negative numbers
     function bytesToInt (bytes memory _B) internal pure returns (int) {
-        uint256 unsigned = bytesToUint(_B);
-        int256 signed;
-        if (unsigned >> 255 == 1) {
-            signed = int256(unsigned % (2**255)) - (2*255);
-        }
-        return signed;
+        return int256(bytesToUint(_B));
     }
 
     // source: https://ethereum.stackexchange.com/questions/15350/how-to-convert-an-bytes-to-address-in-solidity
@@ -110,10 +106,10 @@ library TypeConversions {
     // source: custom-built
     function boolToBytes(bool _b) internal pure returns (bytes memory _B) {
         if (_b) {
-            _B[0] = 0x01;
+            return bytes("true");
         }
         else {
-            _B[0] = 0x00;
+            return bytes("");
         }
     }
 
