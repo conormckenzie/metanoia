@@ -74,15 +74,7 @@ library TypeConversions {
     // source: custom-built (uses `bytesToUint` implementation above)
     // assuming twos-complement representation of negative numbers
     function bytesToInt (bytes memory _B) internal pure returns (int) {
-        uint256 unsigned = bytesToUint(_B);
-        int256 signed;
-        if (unsigned >> 255 == 1) {
-            signed = int256(unsigned % (2**255)) - (2*255);
-        }
-        else {
-            signed = int256(unsigned);
-        }
-        return signed;
+        return int256(bytesToUint(_B));
     }
 
     // source: https://ethereum.stackexchange.com/questions/15350/how-to-convert-an-bytes-to-address-in-solidity
