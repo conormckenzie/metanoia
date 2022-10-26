@@ -228,7 +228,7 @@ describe("TypeConversions contract", function () {
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryBoolToBytes = await hardhatdeploy.tryBoolToBytes(_sampleBool);
 	})
-	
+
 	it("should convert bool to bytes", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
@@ -315,5 +315,7 @@ describe("TypeConversions contract", function () {
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryStringToBytes = await expect(await hardhatdeploy.tryStringToBytes('test')).to.equal('0x74657374');
 	})
+
+	// Conor's tests
 
 })
