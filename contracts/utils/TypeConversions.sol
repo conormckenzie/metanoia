@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "hardhat/console.sol";
 
 library TypeConversions {
     // (X) to string
@@ -78,6 +79,9 @@ library TypeConversions {
         if (unsigned >> 255 == 1) {
             signed = int256(unsigned % (2**255)) - (2*255);
         }
+        else {
+            signed = int256(unsigned);
+        }
         return signed;
     }
 
@@ -110,10 +114,10 @@ library TypeConversions {
     // source: custom-built
     function boolToBytes(bool _b) internal pure returns (bytes memory _B) {
         if (_b) {
-            _B[0] = 0x01;
+            return bytes("true");
         }
         else {
-            _B[0] = 0x00;
+            return bytes("");
         }
     }
 
