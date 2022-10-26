@@ -10,7 +10,7 @@ describe("TypeConversions contract", function () {
 		
 		let _sampleAddress = "0x5b38da6a701c568545dcfcb03fcb875f56beddc4";
 		let _sampleAddressfrombyte = "0x0000000000000000000000000000000000000000"
-		let _sampleUint = 1;
+		let _sampleUint = 0;
 		let _sampleInt = -1;
 		let _sampleBool = true;
 		let _sampleBool2 = false
@@ -53,38 +53,37 @@ describe("TypeConversions contract", function () {
 		const tryToConvertBoolToString = await expect(await hardhatdeploy.tryBoolToString(_sampleBool2)).to.equal("false");
 	})
 	
-	it("should equal to 1 in string from uint", async function () {
+	it("should equal to `0` in string from uint", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleUint,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryUintToString = await expect(await hardhatdeploy.tryUintToString(_sampleUint)).to.equal("1");
+		const tryUintToString = await expect(await hardhatdeploy.tryUintToString(_sampleUint)).to.equal("0");
 	})
 	
-	it("should equal to 10 in string from uint", async function () {
+	it("should equal to `4294967295` in string from uint", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryUintToString = await expect(await hardhatdeploy.tryUintToString(10)).to.equal("10");
+		const tryUintToString = await expect(await hardhatdeploy.tryUintToString(4294967295)).to.equal("4294967295");
 	})
 	
-	it("should equal to -1 in string from int", async function () {
-		const { TypeConversions,
-			hardhatdeploy,
-			_sampleInt,
-		      } = await loadFixture(TypeConversionsFixture);
-		const tryIntToString = await expect(await hardhatdeploy.tryIntToString(_sampleInt)).to.equal("-1");
-	})
-	
-	it("should equal to 99999 in string from int", async function () {
+	it("should equal to `-2147483648` in string from int", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryIntToString = await expect(await hardhatdeploy.tryIntToString(99999)).to.equal("99999");
+		const tryIntToString = await expect(await hardhatdeploy.tryIntToString(-2147483648)).to.equal("-2147483648");
+	})
+	
+	it("should equal to `2147483647` in string from int", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryIntToString = await expect(await hardhatdeploy.tryIntToString(2147483647)).to.equal("2147483647");
 	})
 	
 	
-	it("should equal to 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4 in string from address", async function () {
+	it("should equal to `0x5B38Da6a701c568545dCfcB03FcB875f56beddC4` in string from address", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleAddressfrombyte,
@@ -92,7 +91,7 @@ describe("TypeConversions contract", function () {
 		const tryAddressToString = await expect(await hardhatdeploy.tryAddressToString(_sampleAddressfrombyte)).to.equal(_sampleAddressfrombyte);
 	})	
 	
-	it("should equal to 0x0000000000000000000000000000000000000000 in string from address", async function () {
+	it("should equal to `0x0000000000000000000000000000000000000000` in string from address", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleAddress,
@@ -100,7 +99,7 @@ describe("TypeConversions contract", function () {
 		const tryAddressToString = await expect(await hardhatdeploy.tryAddressToString(_sampleAddress)).to.equal(_sampleAddress);
 	})
 	
-	it("should equal to ace in string from byte32", async function () {
+	it("should equal to `ace` in string from byte32", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleByte32
@@ -108,7 +107,7 @@ describe("TypeConversions contract", function () {
 		const tryBytes32ToString = await expect(await hardhatdeploy.tryBytes32ToString(_sampleByte32)).to.equal("ace");
 	})
 	
-	it("should equal to test in string from byte32", async function () {
+	it("should equal to `test` in string from byte32", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleBytes
@@ -147,13 +146,29 @@ describe("TypeConversions contract", function () {
 		const tryBytesToUint = await expect(await hardhatdeploy.tryBytesToUint("0x0000000000000000000000000000000000000000000000000000000000000001")).to.equal(1);
 	})
 
-/*	it("should equal to 100 in integers from byte", async function () {
+	it("should equal to 100 in integers from byte", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleBytes,
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryBytesToInt = await expect(await hardhatdeploy.tryBytesToInt(_sampleBytes)).to.equal(100);
-	})*/
+	})
+	
+	it("should equal to 1 in integers from byte", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryBytesToInt = await expect(await hardhatdeploy.tryBytesToInt(0x0000000000000000000000000000000000000000000000000000000000000001)).to.equal(1);
+	})
+	
+	it("should equal to -1 in integers from byte", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryBytesToInt = await expect(await hardhatdeploy.tryBytesToInt(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)).to.equal(-1);
+	})
 
 	it("should equal to 0x0000000000000000000000000000000000000000 in address from byte", async function () {
 		const { TypeConversions,
@@ -173,7 +188,7 @@ describe("TypeConversions contract", function () {
 		const tryBytesToAddress = await expect(await hardhatdeploy.tryBytesToAddress(_sampleBytes2)).to.equal("0x6163650000000000000000000000000000000000");
 	})
 
-	it("should equal to 0x0000000000000000000000000000000000000000000000000000000000000064 from 0x0000000000000000000000000000000000000000000000000000000000000064", async function () {
+	it("should equal to 0x0000000000000000000000000000000000000000000000000000000000000064 bytes32 from 0x0000000000000000000000000000000000000000000000000000000000000064 bytes", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleBytes,
@@ -182,7 +197,7 @@ describe("TypeConversions contract", function () {
 		const tryBytesToBytes32 = await expect(await hardhatdeploy.tryBytesToBytes32(_sampleBytes)).to.equal(_sample2Bytes32);
 	})
 
-	it("should equal to 0x6163650000000000000000000000000000000000000000000000000000000000 from 0x616365", async function () {
+	it("should equal to 0x6163650000000000000000000000000000000000000000000000000000000000 bytes32 from 0x616365 bytes", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleBytes2,
@@ -206,20 +221,28 @@ describe("TypeConversions contract", function () {
 		const tryBytesToString = await expect(await hardhatdeploy.tryBytesToString("0x74657374")).to.equal("test");
 	})
 
-/*	it("should convert bool to bytes", async function () {
+	it("should convert bool to bytes", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleBool,
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryBoolToBytes = await hardhatdeploy.tryBoolToBytes(_sampleBool);
-	})*/
+	})
+	
+	it("should convert bool to bytes", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+			_sampleBool2,
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryBoolToBytes = await hardhatdeploy.tryBoolToBytes(_sampleBool2);
+	})
 
-	it("should convert 1 uint to 0x0000000000000000000000000000000000000000000000000000000000000001", async function () {
+	it("should convert 0 uint to 0x0000000000000000000000000000000000000000000000000000000000000000", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 			_sampleUint,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryUintToBytes = await expect(await hardhatdeploy.tryUintToBytes(_sampleUint)).to.equal("0x0000000000000000000000000000000000000000000000000000000000000001");
+		const tryUintToBytes = await expect(await hardhatdeploy.tryUintToBytes(_sampleUint)).to.equal("0x0000000000000000000000000000000000000000000000000000000000000000");
 	})
 	
 	it("should convert 5 uint to 0x0000000000000000000000000000000000000000000000000000000000000005", async function () {
@@ -256,7 +279,7 @@ describe("TypeConversions contract", function () {
 			hardhatdeploy,
 			_sampleAddressfrombyte,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes(_sampleAddressfrombyte)).to.equal(_sampleAddressfrombyte);
+		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes("0x6163650000000000000000000000000000000000")).to.equal("0x6163650000000000000000000000000000000000");
 	})
 
 	it("should convert 0x6163650000000000000000000000000000000000000000000000000000000000 bytes32 to 0x6163650000000000000000000000000000000000000000000000000000000000 bytes", async function () {
