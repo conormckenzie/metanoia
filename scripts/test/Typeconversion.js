@@ -167,7 +167,8 @@ describe("TypeConversions contract", function () {
 			hardhatdeploy,
 
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryBytesToInt = await expect(await hardhatdeploy.tryBytesToInt(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)).to.equal(-1);
+		const tryIntToBytes = await expect(await hardhatdeploy.tryIntToBytes(-1)).to.equal("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+		const tryBytesToInt = await expect(await hardhatdeploy.tryBytesToInt("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")).to.equal(-1);
 	})
 
 	it("should equal to 0x0000000000000000000000000000000000000000 in address from byte", async function () {
