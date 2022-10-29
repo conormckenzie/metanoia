@@ -1,3 +1,9 @@
+const testEnabled = true
+
+if (!testEnabled) {
+	return;
+}
+
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
@@ -126,6 +132,14 @@ describe("TypeConversions contract", function () {
 			_sampleBytes
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryBytes32ToString = await expect(await hardhatdeploy.tryBytes32ToString("0x7465737400000000000000000000000000000000000000000000000000000000")).to.equal("test");
+	})
+	
+	it("[E-3]should equal to `` in string from byte32", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+			_sampleBytes
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryBytes32ToString = await expect(await hardhatdeploy.tryBytes32ToString("0x0000000000000000000000000000000000000000000000000000000000000000")).to.equal("");
 	})
 	
 	it("[F-1]should equal to true in boolean from byte", async function () {
@@ -327,6 +341,20 @@ describe("TypeConversions contract", function () {
 			_sampleString,
 		      } = await loadFixture(TypeConversionsFixture);
 		const tryStringToBytes = await expect(await hardhatdeploy.tryStringToBytes('test')).to.equal('0x74657374');
+	})
+	
+	it("[K-3.1]should equal to '' in string from byte", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryBytesToString = await expect(await hardhatdeploy.tryBytesToString("0x")).to.equal("");
+	})
+	
+	it("[K-3.2]should convert '' to bytes", async function () {
+		const { TypeConversions,
+			hardhatdeploy,
+		      } = await loadFixture(TypeConversionsFixture);
+		const tryStringToBytes = await expect(await hardhatdeploy.tryStringToBytes('')).to.equal("0x");
 	})
 
 	it("[L-1]should convert bool to bytes", async function () {
