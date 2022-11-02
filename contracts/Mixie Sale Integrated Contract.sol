@@ -39,7 +39,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;
 
-contract MixieNftSaleIntegratedContractTestPostLaunch is 
+contract MixieNftSaleIntegratedContractTestPostLaunchV2 is 
 ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable, Ownable {
 
     // IN PRODUCTION, ALL TESTING TOGGLES SHOULD BE FALSE

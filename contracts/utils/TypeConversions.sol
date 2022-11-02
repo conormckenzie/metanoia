@@ -54,11 +54,11 @@ library TypeConversions {
 
     // source: custom-built
     function bytesToBool(bytes memory _B) internal pure returns (bool) {
-        if (keccak256(_B) == keccak256(bytes(""))) {
-            return false;
+        if (keccak256(_B) == keccak256(bytes("true"))) {
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 
@@ -109,7 +109,7 @@ library TypeConversions {
             return bytes("true");
         }
         else {
-            return bytes("");
+            return bytes("false");
         }
     }
 
