@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 
 // ERC1155 & marketplace compatibility
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "./ERC2981/ERC2981ContractWideRoyalties.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -14,133 +15,13 @@ import "./EmergencyPausable.sol";
 // type conversions
 import "./utils/TypeConversions.sol";
 
+// uri encoding
+import "./utils/Base64.sol";
+
 // index tracking
 import "./utils/Uint Lists.sol";
 
-library Base64 {
-    string internal constant TABLE_ENCODE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-    bytes  internal constant TABLE_DECODE = hex"0000000000000000000000000000000000000000000000000000000000000000"
-                                            hex"00000000000000000000003e0000003f3435363738393a3b3c3d000000000000"
-                                            hex"00000102030405060708090a0b0c0d0e0f101112131415161718190000000000"
-                                            hex"001a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132330000000000";
 
-    //would be good to remove the inline assembly
-    function encode(bytes memory data) internal pure returns (string memory) {
-        if (data.length == 0) return '';
-
-        // load the table into memory
-        string memory table = TABLE_ENCODE;
-
-        // multiply by 4/3 rounded up
-        uint256 encodedLen = 4 * ((data.length + 2) / 3);
-
-        // add some extra buffer at the end required for the writing
-        string memory result = new string(encodedLen + 32);
-
-        assembly {
-            // set the actual output length
-            mstore(result, encodedLen)
-
-            // prepare the lookup table
-            let tablePtr := add(table, 1)
-
-            // input ptr
-            let dataPtr := data
-            let endPtr := add(dataPtr, mload(data))
-
-            // result ptr, jump over length
-            let resultPtr := add(result, 32)
-
-            // run over the input, 3 bytes at a time
-            for {} lt(dataPtr, endPtr) {}
-            {
-                // read 3 bytes
-                dataPtr := add(dataPtr, 3)
-                let input := mload(dataPtr)
-
-                // write 4 characters
-                mstore8(resultPtr, mload(add(tablePtr, and(shr(18, input), 0x3F))))
-                resultPtr := add(resultPtr, 1)
-                mstore8(resultPtr, mload(add(tablePtr, and(shr(12, input), 0x3F))))
-                resultPtr := add(resultPtr, 1)
-                mstore8(resultPtr, mload(add(tablePtr, and(shr( 6, input), 0x3F))))
-                resultPtr := add(resultPtr, 1)
-                mstore8(resultPtr, mload(add(tablePtr, and(        input,  0x3F))))
-                resultPtr := add(resultPtr, 1)
-            }
-
-            // padding with '='
-            switch mod(mload(data), 3)
-            case 1 { mstore(sub(resultPtr, 2), shl(240, 0x3d3d)) }
-            case 2 { mstore(sub(resultPtr, 1), shl(248, 0x3d)) }
-        }
-
-        return result;
-    }
-
-    function decode(string memory _data) internal pure returns (bytes memory) {
-        bytes memory data = bytes(_data);
-
-        if (data.length == 0) return new bytes(0);
-        require(data.length % 4 == 0, "invalid base64 decoder input");
-
-        // load the table into memory
-        bytes memory table = TABLE_DECODE;
-
-        // every 4 characters represent 3 bytes
-        uint256 decodedLen = (data.length / 4) * 3;
-
-        // add some extra buffer at the end required for the writing
-        bytes memory result = new bytes(decodedLen + 32);
-
-        assembly {
-            // padding with '='
-            let lastBytes := mload(add(data, mload(data)))
-            if eq(and(lastBytes, 0xFF), 0x3d) {
-                decodedLen := sub(decodedLen, 1)
-                if eq(and(lastBytes, 0xFFFF), 0x3d3d) {
-                    decodedLen := sub(decodedLen, 1)
-                }
-            }
-
-            // set the actual output length
-            mstore(result, decodedLen)
-
-            // prepare the lookup table
-            let tablePtr := add(table, 1)
-
-            // input ptr
-            let dataPtr := data
-            let endPtr := add(dataPtr, mload(data))
-
-            // result ptr, jump over length
-            let resultPtr := add(result, 32)
-
-            // run over the input, 4 characters at a time
-            for {} lt(dataPtr, endPtr) {}
-            {
-               // read 4 characters
-               dataPtr := add(dataPtr, 4)
-               let input := mload(dataPtr)
-
-               // write 3 bytes
-               let output := add(
-                   add(
-                       shl(18, and(mload(add(tablePtr, and(shr(24, input), 0xFF))), 0xFF)),
-                       shl(12, and(mload(add(tablePtr, and(shr(16, input), 0xFF))), 0xFF))),
-                   add(
-                       shl( 6, and(mload(add(tablePtr, and(shr( 8, input), 0xFF))), 0xFF)),
-                               and(mload(add(tablePtr, and(        input , 0xFF))), 0xFF)
-                    )
-                )
-                mstore(resultPtr, shl(232, output))
-                resultPtr := add(resultPtr, 3)
-            }
-        }
-
-        return result;
-    }
-}
 
 interface ICustomTypeHandler {
     function isKnownType(string memory attributeType) external view returns (bool);
@@ -160,8 +41,9 @@ interface IUriProvider {
     function uri(uint nftId) external view returns (bool);
 }
 
-contract OnChainTestNft is 
+contract OnChainTestNftV1_1 is 
     ERC1155Supply, 
+    ERC1155Holder,
     ERC2981ContractWideRoyalties, 
     Ownable,
     ReentrancyGuard, 
@@ -176,16 +58,22 @@ contract OnChainTestNft is
     bytes32 public constant ATTRIBUTE_REGISTRAR_ROLE = keccak256("ATTRIBUTE_REGISTRAR_ROLE");
     // bytes32 public constant WRITE_META_ACCESSOR_ROLE = keccak256("WRITE_META_ACCESSOR_ROLE");
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
+    bytes32 public constant HATCH_MANAGER_ROLE = keccak256("HATCH_MANAGER_ROLE");
 
     uint constant visibleInUriIndex = 1;
 
     // ALL testing flags should be FALSE when deploying
     bool constant testing1 = true; // toggles use of testing (true) or real (false) name, symbol, and contractUri.
     bool constant testing2 = true; // toggles use of testing (true) or real (false) description, image, and animation.
+    bool constant testing3 = true; // toggles use of testing (true) or real (false) Mixie egg contract.
 
     /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
     string public constant name = testing1 ? "Test Mixie" : "Mixie"; 
     string public constant symbol = testing1 ? "METANOIA MIXIE TEST" : "METANOIA MIXIE"; 
+
+    // CHANGE TO ACTUAL MIXIE EGG TESTING AND REAL CONTRACT
+    address public constant mixieEggSenderContract = testing3 ? 0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d
+    : /*NOT REAL!!*/0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d;
 
     /// @notice This address will receive the royalty payments from any sales of the NFTs this contract creates.
     address public royaltyRecipient = 0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d;
@@ -195,7 +83,8 @@ contract OnChainTestNft is
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
     // solhint-disable-next-line max-line-length
-    string _contractUri = testing1 ? "" : "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+    string _contractUri = testing1 ? "https://g4kxt42j3axbuh4zuif4fdlcinjueo2q7ns2arareajwmpuneb3q.arweave.net/NxV580nYLhofmaILwo1iQ1NCO1D7ZaBEESATZj6NIHc" 
+    : "{TBD Arweave URL}";
 
     // points to a contract which handles custom or non-standard types 
     ICustomTypeHandler customTypeHandler;
@@ -206,9 +95,9 @@ contract OnChainTestNft is
     bool public forceChecked = true;
     bool public skipBrokenUriAttributes = true;
 
-    
-
-
+    // if `hatchingAllowed[0]` is true then all eggs are allowed to hatch,
+    // else an egg with id `ID` is only allowed to hatch if `hatchingAllowed[ID]` is true
+    mapping(uint => bool) public hatchingAllowed; 
 
     // AttributeContext provides the name, variable type, and registration status 
     // for a given attribute in `attributes` or `attributeContexts` with the same numeric ID.
@@ -241,6 +130,7 @@ contract OnChainTestNft is
 
     function initialize() public virtual override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
+        hatchingAllowed[0] = true;
         
         // Register attribute 0 as a default "null" attribute
         attributeContexts.context_fromID.push(AttributeContext(
@@ -249,47 +139,78 @@ contract OnChainTestNft is
             true,
             TypeConversions.StringToBytes("")
         ));
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "name",
-            "string",
-            TypeConversions.StringToBytes(testing1 ? "Test Mixie" : "Mixie")
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "description",
-            "string",
+        setUriVisibility(attributeContexts.context_fromID.length - 1, false);
+        // registerAttribute(
+        //     "name",
+        //     "string",
+        //     TypeConversions.StringToBytes(testing1 ? "Test Mixie" : "Mixie")
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "description",
+        //     "string",
             // solhint-disable-next-line max-line-length
-            TypeConversions.StringToBytes(testing2 ? "test description" : "Metanoia is an alternative nation native to web3, where everyone will be able to gain access and own a slice of the power and economic opportunities previously only made available to the political elite, the well connected or the rich. \n\nThe Founding Citizen NFTs, represented in the form of Mixies, allows holders to get special perks and privileges from Metanoia. \nLearn more about Founding Citizen NFT benefits: https://medium.com/metanoia-country/founding-citizen-nft-sale-b7e1524a5e69")
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "image",
-            "string",
+        //     TypeConversions.StringToBytes(testing2 ? "test description" : "Metanoia is an alternative nation native to web3, where everyone will be able to gain access and own a slice of the power and economic opportunities previously only made available to the political elite, the well connected or the rich. \n\nThe Founding Citizen NFTs, represented in the form of Mixies, allows holders to get special perks and privileges from Metanoia. \nLearn more about Founding Citizen NFT benefits: https://medium.com/metanoia-country/founding-citizen-nft-sale-b7e1524a5e69")
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "image",
+        //     "string",
             // solhint-disable-next-line max-line-length
-            TypeConversions.StringToBytes(testing2 ? "" : "{TBD Arweave URL}")
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "external_link",
-            "string",
-            TypeConversions.StringToBytes("https://metanoia.country/")
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "fee_recipient",
-            "address",
-            TypeConversions.addressToBytes(0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d)
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
-        registerAttribute(
-            "animation_url",
-            "string",
+        //     TypeConversions.StringToBytes(testing2 ? "https://www.andina-ingham.co.uk/wp-content/uploads/2019/09/miguel-andrade-nAOZCYcLND8-unsplash_pineapple.jpg" 
+        //     : "{TBD Arweave}")
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "external_url",
+        //     "string",
+        //     TypeConversions.StringToBytes("https://metanoia.country/")
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "animation_url",
+        //     "string",
             // solhint-disable-next-line max-line-length
-            TypeConversions.StringToBytes(testing2 ? "" : "{TBD Arweave URL}")
-        );
-        setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        //     TypeConversions.StringToBytes(testing2 ? "https://565nmzdax6zdlmfb2zqukkzwpmqvdkagtbsqtubrxm6s24fhn6fq.arweave.net/77rWZGC_sjWwodZhRSs2eyFRqAaYZQnQMbs9LXCnb4s" 
+        //     : "{TBD Arweave}")
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "fee_recipient",
+        //     "address",
+        //     TypeConversions.addressToBytes(0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d)
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, false);
+        // registerAttribute(
+        //     "baby_form",
+        //     "bool",
+        //     TypeConversions.boolToBytes(true)
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+        // registerAttribute(
+        //     "baby_form2",
+        //     "bool",
+        //     TypeConversions.boolToBytes(true)
+        // );
+        // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
+
+        // testMint(0x012d1deD4D8433e8e137747aB6C0B64864A4fF78, 1);
+
         super.initialize();
+    }
+
+    function testMint(address to, uint id) public {
+        // require(
+        //     testing1 || testing2, 
+        //     "ERRX"
+        //     // "Cannot call this function in production"
+        // );
+        _mint(to, id, 1, "");
+    }
+
+    string _uriGasTest;
+    function uriGasTest(uint id) public {
+        _uriGasTest = uri(id);
     }
 
     /** @notice Returns the contract URI for the collection of tickets. This is used by OpenSea to 
@@ -388,7 +309,8 @@ contract OnChainTestNft is
 
     // gets an attribute from `attributes`. If `checked` is true, will run checks from the dataSafeguardChecker
     // and require that the attribute is registered. 
-    function getAttributeById(uint nftId_, uint attributeId, bool checked) public view returns(bytes memory) {
+    function getAttributeById(uint nftId_, uint attributeId, bool checked, bool blankIsDefault) 
+    public view returns(bytes memory) {
         if (checked) {
             if (address(dataSafeguardChecker) != address(0)) {
                 require(
@@ -404,11 +326,15 @@ contract OnChainTestNft is
             }
             require(isRegistered(attributeId));
         }
+        if (blankIsDefault && keccak256(attributes[nftId_][attributeId]) == keccak256("")) {
+            return attributeContexts.context_fromID[attributeId].defaultValue;
+        }
         return attributes[nftId_][attributeId];
     }
 
-    function getAttribute(uint nftId_, string memory attributeName, bool checked) public view returns(bytes memory) {
-        return getAttributeById(nftId_, getAttributeIdFromName(attributeName), checked);
+    function getAttribute(uint nftId_, string memory attributeName, bool checked, bool blankIsDefault) 
+    public view returns(bytes memory) {
+        return getAttributeById(nftId_, getAttributeIdFromName(attributeName), checked, blankIsDefault);
     }
 
     function _setAttribute(uint nftId_, uint attributeId, bool checked, bytes memory value) internal {
@@ -445,6 +371,31 @@ contract OnChainTestNft is
         _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, value);
     }
 
+    function setBoolAttribute(uint nftId_, string memory attributeName, bool checked, bool value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.boolToBytes(value));
+    }
+
+    function setUintAttribute(uint nftId_, string memory attributeName, bool checked, uint value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.uintToBytes(value));
+    }
+
+    function setIntAttribute(uint nftId_, string memory attributeName, bool checked, int value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.intToBytes(value));
+    }
+
+    function setAddressAttribute(uint nftId_, string memory attributeName, bool checked, address value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.addressToBytes(value));
+    }
+
+    function setBytes32Attribute(uint nftId_, string memory attributeName, bool checked, bytes32 value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.bytes32ToBytes(value));
+    }
+
     function setUriVisibility(uint attributeId, bool visible) public {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
@@ -468,27 +419,31 @@ contract OnChainTestNft is
     //          This is only for compatibility with ERC1155, intended to be called from off-blockchain applications
 	function uri(uint256 nftId) override(ERC1155) public view returns (string memory) {
 		// add each of the pre-existing required attributes into the uri
-        string memory _uriString = string(abi.encodePacked('{',
-            '"name": "', TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("name")]), '",',
-            '"symbol": "', symbol,
-            '"image": "', TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("image")]), '",',
-            '"description": "', 
-                TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("description")]), 
-            '",'
+        string memory _uriString = string(abi.encodePacked('{\n\t',
+            '"name":"', TypeConversions.bytesToString(getAttribute(nftId, "name", false, true)), '",\n\t',
+            '"symbol":"', symbol, '",\n\t',
+            '"image":"', TypeConversions.bytesToString(getAttribute(nftId, "image", false, true)), '",\n\t',
+            '"description":"', 
+                // TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("description")]), 
+                TypeConversions.bytesToString(getAttribute(nftId, "description", false, true)), 
+            '",\n\t',
+            '"external_url":"', 
+            TypeConversions.bytesToString(getAttribute(nftId, "external_url", false, true)), 
+            '",\n\t'
         ));
 
         // if animation_url is not empty, add it into the uri 
         if (
             keccak256(abi.encodePacked(
-                TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("animation_url")]) 
+                TypeConversions.bytesToString(getAttribute(nftId, "animation_url", false, true)) 
             ))
-            == keccak256(abi.encodePacked(""))
+            != keccak256(abi.encodePacked(""))
         ) {
             _uriString = string(abi.encodePacked(
                 _uriString,
                 '"animation_url": "', 
-                    TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("animation_url")]), 
-                '",'
+                    TypeConversions.bytesToString(getAttribute(nftId, "animation_url", false, true)), 
+                '",\n\t'
             ));
         }
         
@@ -499,7 +454,8 @@ contract OnChainTestNft is
         ));
         
         // loop over all registered attributes in the uintList `visibleInUri`
-        for (uint _i = 0; _i < uintLists[1].length; _i++) {
+        // first 5 present in uri (i=1...5) are listed outside the "attributes" section
+        for (uint _i = 6; _i <= uintLists[1].length; _i++) { // change to 6
             uint i = uintLists[1].list[_i];
             bool matchedType;
             // for each attribute, if the value of that attribute for that ID is not the default value,
@@ -513,11 +469,13 @@ contract OnChainTestNft is
 				
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
+                    '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
                     attributeContexts.context_fromID[i].attributeName,
-                    '", "value": ',
-                    TypeConversions.boolToString(TypeConversions.bytesToBool(attributes[nftId][i])),
-                    '}'
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.boolToString(TypeConversions.bytesToBool(getAttributeById(nftId, i, false, true))),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
@@ -531,11 +489,13 @@ contract OnChainTestNft is
             ) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
-                    attributeContexts.context_fromID[i].attributeName, 
-                    '", "value": ',
-                    TypeConversions.uintToString(TypeConversions.bytesToUint(attributes[nftId][i])),
-                    '}'
+                    '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
+                    attributeContexts.context_fromID[i].attributeName,
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.uintToString(TypeConversions.bytesToUint(getAttributeById(nftId, i, false, true))),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
@@ -549,11 +509,13 @@ contract OnChainTestNft is
             ) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
-                    attributeContexts.context_fromID[i].attributeName, 
-                    '", "value": ',
-                    TypeConversions.intToString(TypeConversions.bytesToInt(attributes[nftId][i])),
-                    '}'
+                    '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
+                    attributeContexts.context_fromID[i].attributeName,
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.intToString(TypeConversions.bytesToInt(getAttributeById(nftId, i, false, true))),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
@@ -565,11 +527,15 @@ contract OnChainTestNft is
             ) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
-                    attributeContexts.context_fromID[i].attributeName, 
-                    '", "value": ',
-                    TypeConversions.addressToString(TypeConversions.bytesToAddress(attributes[nftId][i])),
-                    '}'
+                   '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
+                    attributeContexts.context_fromID[i].attributeName,
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.addressToString(TypeConversions.bytesToAddress(
+                        getAttributeById(nftId, i, false, true)
+                    )),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
@@ -581,28 +547,36 @@ contract OnChainTestNft is
             ) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
-                    attributeContexts.context_fromID[i].attributeName, 
-                    '", "value": ',
-                    TypeConversions.bytes32ToString(TypeConversions.bytesToBytes32(attributes[nftId][i])),
-                    '}'
+                    '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
+                    attributeContexts.context_fromID[i].attributeName,
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.bytes32ToString(TypeConversions.bytesToBytes32(
+                        getAttributeById(nftId, i, false, true)
+                    )),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
 
-            // string
+            // bytes or string
             else if (
                 keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
-                keccak256(abi.encodePacked("bytes"))
+                keccak256(abi.encodePacked("bytes")) || 
+                keccak256(abi.encodePacked(attributeContexts.context_fromID[i].attributeType)) ==
+                keccak256(abi.encodePacked("string"))
             ) {
                 // for strings, the value is encapsulated in an extra set of "" quotation marks  
                 _uriString = string(abi.encodePacked(
                     _uriString, 
-                    '{"trait_type": "',
-                    attributeContexts.context_fromID[i].attributeName, 
-                    '", "value": "',
-                    TypeConversions.bytesToString(attributes[nftId][i]),
-                    '"}'
+                   '\n\t\t{',
+                    '\n\t\t\t"trait_type":"',
+                    attributeContexts.context_fromID[i].attributeName,
+                    '",',
+                    '\n\t\t\t"value":"',
+                    TypeConversions.bytesToString(getAttributeById(nftId, i, false, true)),
+                    '"\n\t\t}'
                 ));
                 matchedType = true;
             }
@@ -614,14 +588,16 @@ contract OnChainTestNft is
                     // for custom types, the value is encapsulated in an extra set of "" quotation marks  
                     _uriString = string(abi.encodePacked(
                         _uriString, 
-                        '{"trait_type": "', 
-                        attributeContexts.context_fromID[i].attributeName, 
-                        '", "value": "',
+                        '\n\t\t{',
+                        '\n\t\t\t"trait_type":"',
+                        attributeContexts.context_fromID[i].attributeName,
+                        '",',
+                        '\n\t\t\t"value":"',
                         customTypeHandler.typeToString(
                             attributeContexts.context_fromID[i].attributeType, 
-                            attributes[nftId][i]
+                            getAttributeById(nftId, i, false, true)
                         ),
-                        '"}'
+                        '"\n\t\t}'
                     ));
                     matchedType = true;
                 } 
@@ -634,8 +610,8 @@ contract OnChainTestNft is
                 );
             }
 
-            // if not the last attribute in uri, add a comma
-            if(_i < uintLists[1].length - 1) {
+            // if not the last attribute in uri and the attribute is not skipped, add a comma
+            if(_i < uintLists[1].length && matchedType) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
                     ','
@@ -646,7 +622,8 @@ contract OnChainTestNft is
         // close the "attributes" section and close the uri
         _uriString = string(abi.encodePacked(
             _uriString, 
-            ']}'
+            '\n\t]\n}' // for use with attributes
+            // '}' //for use without attributes (testing)
         ));
         
 		return string(abi.encodePacked(
@@ -655,12 +632,57 @@ contract OnChainTestNft is
         ));
 	}  
 
+    function setHatchingAllowed(uint id, bool value) public {
+        require(
+            hasRole(HATCH_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "ERRX"
+            //"Sender is not authorized to grant write access to data"
+        );
+        hatchingAllowed[id] = value;
+    }
+
+    function onERC1155Received(
+        address /*operator*/,
+        address from,
+        uint256 id,
+        uint256 value,
+        bytes memory data
+    ) public virtual override returns (bytes4) {
+        require(
+            msg.sender == mixieEggSenderContract,
+            "ERRX"
+            // "this contract only accepts function calls from the mixie egg contract"    
+        );
+        require(
+            hatchingAllowed[0] || hatchingAllowed[id],
+            "ERRX"
+            // "this Mixie egg cannot be hatched at this time"
+        );
+        _mint(from, id, value, data);
+        return this.onERC1155Received.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address operator,
+        address from,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes memory data
+    ) public virtual override returns (bytes4) {
+        // converts batch to serial processing
+        for (uint i = 0; i < ids.length; i++ ) {
+            onERC1155Received(operator, from, ids[i], values[i], data);
+        }
+        return this.onERC1155BatchReceived.selector;
+    }
+
     /// @inheritdoc	ERC165
     function supportsInterface(bytes4 interfaceId)
         public
         view
         virtual
-        override(ERC1155, ERC2981Base, AccessControl)
+        override(ERC1155, ERC1155Receiver, ERC2981Base, AccessControl)
         returns (bool)
     {
         return
