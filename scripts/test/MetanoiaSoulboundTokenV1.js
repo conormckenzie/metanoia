@@ -1,4 +1,4 @@
-const testEnabled = false
+const testEnabled = true
 
 if (!testEnabled) {
 	return;
@@ -43,7 +43,7 @@ describe("SoulBoundTokenV1 contract", function () {
 		const trysetContractUri = await expect(await hardhatdeploy.setContractUri(trycontractURI)).to.be.not.reverted
 	})
 	
-	it("lockUri should not be reverted", async function () {
+	it("try to lockUri", async function () {
 		const { SoulBoundTokenV1,
 			hardhatdeploy,
 			owner,
@@ -53,7 +53,17 @@ describe("SoulBoundTokenV1 contract", function () {
 		const trylockUri = await expect(await hardhatdeploy.lockUri(1)).to.be.not.reverted
 	})
 	
-	it("setUri should not be reverted", async function () {
+	it("try to lock 0 and fail", async function () {
+		const { SoulBoundTokenV1,
+			hardhatdeploy,
+			owner,
+			addr1,
+			addr2
+		      } = await loadFixture(SoulBoundTokenV1Fixture);
+		const trylockUri = await expect(hardhatdeploy.lockUri(0)).to.be.reverted
+	})
+	
+	it("try to setUri", async function () {
 		const { SoulBoundTokenV1,
 			hardhatdeploy,
 			owner,
@@ -63,7 +73,18 @@ describe("SoulBoundTokenV1 contract", function () {
 		const trysetUri = await expect(await hardhatdeploy.setUri(1, "sampleuri")).to.be.not.reverted
 	})
 	
-	it("mintNewSBT should not be reverted", async function () {
+	it("try to setUri with locked ID and fail", async function () {
+		const { SoulBoundTokenV1,
+			hardhatdeploy,
+			owner,
+			addr1,
+			addr2
+		      } = await loadFixture(SoulBoundTokenV1Fixture);
+		const trylockUri = await hardhatdeploy.lockUri(1)
+		const trysetUri = await expect(hardhatdeploy.setUri(1, "sampleuri")).to.be.reverted
+	})
+	
+	it("try to mint new SBT", async function () {
 		const { SoulBoundTokenV1,
 			hardhatdeploy,
 			owner,
@@ -73,16 +94,27 @@ describe("SoulBoundTokenV1 contract", function () {
 		const trymintNewSBT = await expect(await hardhatdeploy.mintNewSBT(owner.address, 1, 1, "sampleuri")).to.be.not.reverted
 	})
 	
-	it("mintExistingSBT should not be reverted", async function () {
+	it("try to mint a copy of an existing SBT", async function () {
 		const { SoulBoundTokenV1,
 			hardhatdeploy,
 			owner,
 			addr1,
 			addr2
 		      } = await loadFixture(SoulBoundTokenV1Fixture);
-		const trymintNewSBT = await hardhatdeploy.mintNewSBT(await owner.address, 5, 5, "sampleuri")
-		const trymintExistingSBT = await expect(await hardhatdeploy.mintExistingSBT(owner.address, 5, 5)).to.be.not.reverted
+		const trymintNewSBT = await hardhatdeploy.mintNewSBT(await owner.address, 1, 1, "sampleuri")
+		const trymintExistingSBT = await expect(hardhatdeploy.mintExistingSBT(addr1.address, 1, 1)).to.be.not.reverted
 	})	
+	
+	it("try to mint a copy of non-existing SBT", async function () {
+		const { SoulBoundTokenV1,
+			hardhatdeploy,
+			owner,
+			addr1,
+			addr2
+		      } = await loadFixture(SoulBoundTokenV1Fixture);
+		const trymintNewSBT = await hardhatdeploy.mintNewSBT(await owner.address, 1, 1, "sampleuri")
+		const trymintExistingSBT = await expect( hardhatdeploy.mintExistingSBT(addr1.address, 1, 1)).to.be.reverted
+	})
 
 	it("supportsInterface should not be reverted", async function () {
 		const { SoulBoundTokenV1,
