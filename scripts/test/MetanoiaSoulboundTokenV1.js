@@ -101,7 +101,7 @@ describe("SoulBoundTokenV1 contract", function () {
 			addr1,
 			addr2
 		      } = await loadFixture(SoulBoundTokenV1Fixture);
-		const trymintNewSBT = await hardhatdeploy.mintNewSBT(await owner.address, 1, 1, "sampleuri")
+		const trymintNewSBT = await hardhatdeploy.mintNewSBT(owner.address, 1, 1, "sampleuri");
 		const trymintExistingSBT = await expect(hardhatdeploy.mintExistingSBT(addr1.address, 1, 1)).to.be.not.reverted
 	})	
 	
@@ -113,7 +113,7 @@ describe("SoulBoundTokenV1 contract", function () {
 			addr2
 		      } = await loadFixture(SoulBoundTokenV1Fixture);
 		const trymintNewSBT = await hardhatdeploy.mintNewSBT(await owner.address, 1, 1, "sampleuri")
-		const trymintExistingSBT = await expect( hardhatdeploy.mintExistingSBT(addr1.address, 1, 1)).to.be.reverted
+		const trymintExistingSBT = await expect( hardhatdeploy.mintExistingSBT(addr1.address, 2, 1)).to.be.reverted
 	})
 
 	it("supportsInterface should not be reverted", async function () {
