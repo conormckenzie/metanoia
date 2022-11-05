@@ -52,6 +52,9 @@ library TypeConversions {
 
     // bytes to (X)
 
+    // rework each of these to ensure that the empty value (bytes(0)) is represented as something else
+    // so that it is not interpretted as the default value 
+
     // source: custom-built
     function bytesToBool(bytes memory _B) internal pure returns (bool) {
         if (keccak256(_B) == keccak256(bytes("true"))) {
@@ -102,6 +105,9 @@ library TypeConversions {
     }
 
     // (X) to bytes
+    
+    // rework each of these to ensure that the empty value (bytes(0)) is represented as something else
+    // so that it is not interpretted as the default value 
 
     // source: custom-built
     function boolToBytes(bool _b) internal pure returns (bytes memory _B) {

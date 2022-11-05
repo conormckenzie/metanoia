@@ -1,4 +1,4 @@
-const testEnabled = true
+const testEnabled = false
 
 if (!testEnabled) {
 	return;

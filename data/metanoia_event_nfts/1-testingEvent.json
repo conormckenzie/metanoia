@@ -1,0 +1,13 @@
+{
+	"name": "Metanoia Testing NFT",
+	"symbol": "METANOIA-TEST-NFT",
+	"description": "A NFT that is given to devs of Metanoia. It is for testing only and has no intrinsic or extrinsic value other than for testing.",
+	"image": "https://dmhk6vpqmetud2ff5l6xadn6eoqqa4fgqlgt3muwra7akke2ppvq.arweave.net/Gw6vVfBhJ0Hoper9cA2-I6EAcKaCzT2ylog-BSiae-s",
+	"attributes": {
+		"rarity": "n/a",
+		"series": "#000",
+        "type": "testing",
+        "issuer": "Metanoia-dev"
+	}
+}
+
