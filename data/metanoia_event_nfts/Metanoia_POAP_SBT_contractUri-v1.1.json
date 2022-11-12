@@ -1,0 +1,8 @@
+{
+	"name": "Metanoia Soulbound Collectible NFTs",
+	"description": "This contract governs the collection of Metanoia's collectible NFTs, and can be used for either native events, or events relating to a partnership between Metanoia and an external company.",
+    "image": "https://2b2ni766ax3quf4mtnzn7uxpwbvlluygfjj46obrnywy6xsbp5tq.arweave.net/0HTUf94F9woXjJty39LvsGq10wYqU884MW4tj15Bf2c",
+    "external_link": "https://metanoia.country/",
+    "seller_fee_basis_points": 10000, 
+    "fee_recipient": "0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d"
+}
