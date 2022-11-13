@@ -120,6 +120,9 @@ contract OnChainTestNftV1_1 is
     // maps NFT ID to the attribute list for that NFT
     mapping(uint => mapping(uint => bytes)) attributes;
 
+    // for each NFT ID, for each attribute, tracks whether to treat blank as default value (false) or literal (true)
+    mapping(uint => mapping(uint => bool)) treatBlankLiterally;
+
     // offloaded - another contract will need to take care of this
     // // maps attribute ID to the metaAttribute list for that attribute
     // mapping(uint => mapping(uint => bytes)) metaAttributes;
@@ -249,7 +252,7 @@ contract OnChainTestNftV1_1 is
         emit royaltyInfoChanged(_msgSender(), recipient, feeInBasisPoints);
     }
 
-    function changeForcedCheck(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    function changeForceChecked(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
         forceChecked = _bool;
     }
 
