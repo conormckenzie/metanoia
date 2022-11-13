@@ -260,7 +260,7 @@ describe("TypeConversions contract", function () {
 		const { TypeConversions,
 			hardhatdeploy,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes("0x0ab4BbB18a038035E5eB8B0a2232Ec7c80e704aa")).to.equal("0x0ab4BbB18a038035E5eB8B0a2232Ec7c80e704aa");
+		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes("0x0ab4BbB18a038035E5eB8B0a2232Ec7c80e704aa")).to.equal("0x0ab4bbb18a038035e5eb8b0a2232ec7c80e704aa");
 	})
 	
 	it("[I-2.1]should equal to 0x3B7E3561bc20bACF5926270f3E0858c67E67DD70 in address from byte", async function () {
@@ -274,7 +274,7 @@ describe("TypeConversions contract", function () {
 		const { TypeConversions,
 			hardhatdeploy,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes("0x3B7E3561bc20bACF5926270f3E0858c67E67DD70")).to.equal("0x3B7E3561bc20bACF5926270f3E0858c67E67DD70");
+		const tryAddressToBytes = await expect(await hardhatdeploy.tryAddressToBytes("0x3B7E3561bc20bACF5926270f3E0858c67E67DD70")).to.equal("0x3b7e3561bc20bacf5926270f3e0858c67e67dd70");
 	})
 
 	it("[J-1.1]should equal to 0xA000000000000000000000000000000000000000000000000000000000000064 bytes32 from 0xA000000000000000000000000000000000000000000000000000000000000064 bytes", async function () {
@@ -283,14 +283,14 @@ describe("TypeConversions contract", function () {
 			_sampleBytes,
 			_sample2Bytes32,
 		      } = await loadFixture(TypeConversionsFixture);
-		const tryBytesToBytes32 = await expect(await hardhatdeploy.tryBytesToBytes32("0xA000000000000000000000000000000000000000000000000000000000000064")).to.equal("0xA000000000000000000000000000000000000000000000000000000000000064");
+		const tryBytesToBytes32 = await expect(await hardhatdeploy.tryBytesToBytes32("0xA000000000000000000000000000000000000000000000000000000000000064")).to.equal("0xa000000000000000000000000000000000000000000000000000000000000064");
 	})
 	
 	it("[J-1.2]should convert 0xA000000000000000000000000000000000000000000000000000000000000064 bytes32 to 0xA000000000000000000000000000000000000000000000000000000000000064 bytes", async function () {
 		const { TypeConversions,
 			hardhatdeploy,
 		      } = await loadFixture(TypeConversionsFixture);
-		const trybytes32ToBytes = await expect(await hardhatdeploy.trybytes32ToBytes("0xA000000000000000000000000000000000000000000000000000000000000064")).to.equal("0xA000000000000000000000000000000000000000000000000000000000000064");
+		const trybytes32ToBytes = await expect(await hardhatdeploy.trybytes32ToBytes("0xA000000000000000000000000000000000000000000000000000000000000064")).to.equal("0xa000000000000000000000000000000000000000000000000000000000000064");
 	})
 
 	it("[J-2.1]should equal to 0x6163650000000000000000000000000000000000000000000000000000000000 bytes32 from 0x616365 bytes", async function () {
@@ -307,7 +307,7 @@ describe("TypeConversions contract", function () {
 			hardhatdeploy,
 			_sampleByte32,
 		      } = await loadFixture(TypeConversionsFixture);
-		const trybytes32ToBytes = await expect(await hardhatdeploy.trybytes32ToBytes(_sampleByte32)).to.equal(_sampleByte32);
+		const trybytes32ToBytes = await expect(await hardhatdeploy.trybytes32ToBytes(_sampleByte32)).to.equal("0x6163650000000000000000000000000000000000000000000000000000000000");
 	})
 
 	it("[K-1.1]should equal to 'ace' in string from byte", async function () {
