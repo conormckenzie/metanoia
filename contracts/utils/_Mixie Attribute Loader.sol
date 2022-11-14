@@ -15,7 +15,7 @@ interface MixieBase {
     function setUriVisibility(uint attributeId, bool visible) external;
 }
 
-contract _MixieAttributeLoaderV1 is Ownable {
+contract _MixieAttributeLoaderV1_1 is Ownable {
 
     
 
@@ -27,13 +27,13 @@ contract _MixieAttributeLoaderV1 is Ownable {
     // this particular address is for testing only
     MixieBase public mixieContract = MixieBase(0x692112C8c7446887D9ffaE282bc5ADF874006179);
 
-    bool _loaded = false;
+    mapping(address => bool) _loaded;
 
     function load(address mixieContract_) public onlyOwner {
         mixieContract = MixieBase(mixieContract_);
         // only can load once
-        require(!_loaded);
-        _loaded = true;
+        require(!_loaded[mixieContract_]);
+        _loaded[mixieContract_] = true;
         mixieContract.registerAttribute(
             "name",
             "string",
