@@ -1,0 +1,12 @@
+{
+	"name": "Metanoia Gallery Event NFT",
+	"symbol": "METANOIA-GENFT",
+	"description": "A NFT that is given to all event attendees of the Metanoia NFT gallery event. It is rumoured to be a useful NFT for Metanoia's events & quests.",
+	"image": "https://2b2ni766ax3quf4mtnzn7uxpwbvlluygfjj46obrnywy6xsbp5tq.arweave.net/0HTUf94F9woXjJty39LvsGq10wYqU884MW4tj15Bf2c",
+	"attributes": {
+		"rarity": "genesis",
+		"series": "#001",
+        "type": "collectible",
+        "issuer": "Metanoia"
+	}
+}

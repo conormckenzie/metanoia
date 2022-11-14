@@ -31,7 +31,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./EmergencyPausable.sol";
 
-contract SoulBoundTokensV1 is ERC1155MultiUri, AccessControl, Ownable, EmergencyPausable {
+contract SoulBoundTokensV1_1 is ERC1155MultiUri, AccessControl, Ownable, EmergencyPausable {
 
     event uriLocked(address indexed msgSender, uint indexed id, string indexed lockedUri);
 
@@ -47,8 +47,11 @@ contract SoulBoundTokensV1 is ERC1155MultiUri, AccessControl, Ownable, Emergency
     string public name;
     string public symbol;
 
-    mapping(address => mapping(uint => uint)) couponBalances;
-    mapping (uint => string) eventNames;
+    mapping(address => mapping(uint => uint)) _couponBalances;
+    function couponBalances(address _address, uint id) public view returns(uint) {
+        return _couponBalances[_address][id];
+    }
+    mapping (uint => string) public eventNames;
     uint public maximumIdCoupon;
 
     constructor() ERC1155("") {
@@ -105,17 +108,17 @@ contract SoulBoundTokensV1 is ERC1155MultiUri, AccessControl, Ownable, Emergency
     function grantCoupons(address account, uint256 id, uint256 amount) 
         public onlyRole(COUPON_MANAGER_ROLE) 
     {
-        require(id > 0 && id < maximumIdCoupon, "coupon is not yet registered");
-        couponBalances[account][id] += amount;
+        require(id > 0 && id <= maximumIdCoupon, "coupon is not yet registered");
+        _couponBalances[account][id] += amount;
     }
 
     function redeemCoupon(uint256 id) public {
         require (
-            couponBalances[msg.sender][id] >= 1,
+            _couponBalances[msg.sender][id] >= 1,
             "ERRX"
             // cannot redeem coupon: user does not own coupon 
         );
-        couponBalances[msg.sender][id]--;
+        _couponBalances[msg.sender][id]--;
         _mint(msg.sender, id, 1, "");
     }
 
