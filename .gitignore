@@ -15,3 +15,5 @@ Access*Control*Extension.sol
 
 deploy_testNfts.js
 verify_testNfts.js
+
+private/

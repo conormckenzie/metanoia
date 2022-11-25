@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Consumer Goods Potential Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Consumer Goods"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Teddy Bear"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Potential"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Gingerbread"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Swept"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Bunny"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

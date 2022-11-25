@@ -1,0 +1,121 @@
+{
+  "hash": "05112138045556479829510149116112513514601517165171181",
+  "edition": 489,
+  "date": 1668734964359,
+  "attributes": [
+    {
+      "id": 5,
+      "layer": "00_Background",
+      "name": "05",
+      "rarity": "original"
+    },
+    {
+      "id": 1,
+      "layer": "01_Background_Cloud",
+      "name": "cloudbase",
+      "rarity": "original"
+    },
+    {
+      "id": 1,
+      "layer": "02_Background_Effect",
+      "name": "bubbles",
+      "rarity": "original"
+    },
+    {
+      "id": 80,
+      "layer": "03_Tail",
+      "name": "05_03_split-01",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "04_Torso",
+      "name": "05",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "05_Head",
+      "name": "05",
+      "rarity": "original"
+    },
+    {
+      "id": 4,
+      "layer": "06_Cheeks",
+      "name": "spiral",
+      "rarity": "original"
+    },
+    {
+      "id": 9,
+      "layer": "07_Mouth",
+      "name": "serious",
+      "rarity": "original"
+    },
+    {
+      "id": 2,
+      "layer": "08_Nose",
+      "name": "none",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "09_Eyes",
+      "name": "cautious",
+      "rarity": "original"
+    },
+    {
+      "id": 149,
+      "layer": "10_Ears",
+      "name": "05_00_cinnamonroll",
+      "rarity": "original"
+    },
+    {
+      "id": 61,
+      "layer": "11_Fluff",
+      "name": "05_00_puff",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "12_Face_Accessories",
+      "name": "00_specs",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "13_Left Arm",
+      "name": "05",
+      "rarity": "original"
+    },
+    {
+      "id": 60,
+      "layer": "14_Paw_Pad",
+      "name": "05_04_03_diamonds",
+      "rarity": "original"
+    },
+    {
+      "id": 17,
+      "layer": "15_Categories",
+      "name": "03_triangle",
+      "rarity": "original"
+    },
+    {
+      "id": 5,
+      "layer": "16_Right Arm",
+      "name": "05",
+      "rarity": "original"
+    },
+    {
+      "id": 1,
+      "layer": "17_Wings",
+      "name": "cherub",
+      "rarity": "original"
+    },
+    {
+      "id": 1,
+      "layer": "18_Foreground_Cloud",
+      "name": "clouds",
+      "rarity": "original"
+    }
+  ]
+}

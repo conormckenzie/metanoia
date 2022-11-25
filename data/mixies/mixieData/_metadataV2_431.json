@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Soft"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Teddy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Tuft"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Astrology Book"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Integrity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Shortcake"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Entertainment"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Entertainment Integrity Mixie"
+    }
+  ]
+}

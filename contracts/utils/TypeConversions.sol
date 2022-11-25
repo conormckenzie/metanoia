@@ -140,7 +140,7 @@ library TypeConversions {
     }
     
     // source: custom-built
-    function StringToBytes(string memory _s) internal pure returns (bytes memory _B) {
+    function stringToBytes(string memory _s) internal pure returns (bytes memory _B) {
         return bytes(_s);
     }
 

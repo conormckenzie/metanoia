@@ -140,41 +140,41 @@ contract OnChainTestNftV1_1 is
             "",
             "string",
             true,
-            TypeConversions.StringToBytes("")
+            TypeConversions.stringToBytes("")
         ));
         setUriVisibility(attributeContexts.context_fromID.length - 1, false);
         // registerAttribute(
         //     "name",
         //     "string",
-        //     TypeConversions.StringToBytes(testing1 ? "Test Mixie" : "Mixie")
+        //     TypeConversions.stringToBytes(testing1 ? "Test Mixie" : "Mixie")
         // );
         // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
         // registerAttribute(
         //     "description",
         //     "string",
             // solhint-disable-next-line max-line-length
-        //     TypeConversions.StringToBytes(testing2 ? "test description" : "Metanoia is an alternative nation native to web3, where everyone will be able to gain access and own a slice of the power and economic opportunities previously only made available to the political elite, the well connected or the rich. \n\nThe Founding Citizen NFTs, represented in the form of Mixies, allows holders to get special perks and privileges from Metanoia. \nLearn more about Founding Citizen NFT benefits: https://medium.com/metanoia-country/founding-citizen-nft-sale-b7e1524a5e69")
+        //     TypeConversions.stringToBytes(testing2 ? "test description" : "Metanoia is an alternative nation native to web3, where everyone will be able to gain access and own a slice of the power and economic opportunities previously only made available to the political elite, the well connected or the rich. \n\nThe Founding Citizen NFTs, represented in the form of Mixies, allows holders to get special perks and privileges from Metanoia. \nLearn more about Founding Citizen NFT benefits: https://medium.com/metanoia-country/founding-citizen-nft-sale-b7e1524a5e69")
         // );
         // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
         // registerAttribute(
         //     "image",
         //     "string",
             // solhint-disable-next-line max-line-length
-        //     TypeConversions.StringToBytes(testing2 ? "https://www.andina-ingham.co.uk/wp-content/uploads/2019/09/miguel-andrade-nAOZCYcLND8-unsplash_pineapple.jpg" 
+        //     TypeConversions.stringToBytes(testing2 ? "https://www.andina-ingham.co.uk/wp-content/uploads/2019/09/miguel-andrade-nAOZCYcLND8-unsplash_pineapple.jpg" 
         //     : "{TBD Arweave}")
         // );
         // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
         // registerAttribute(
         //     "external_url",
         //     "string",
-        //     TypeConversions.StringToBytes("https://metanoia.country/")
+        //     TypeConversions.stringToBytes("https://metanoia.country/")
         // );
         // setUriVisibility(attributeContexts.context_fromID.length - 1, true);
         // registerAttribute(
         //     "animation_url",
         //     "string",
             // solhint-disable-next-line max-line-length
-        //     TypeConversions.StringToBytes(testing2 ? "https://565nmzdax6zdlmfb2zqukkzwpmqvdkagtbsqtubrxm6s24fhn6fq.arweave.net/77rWZGC_sjWwodZhRSs2eyFRqAaYZQnQMbs9LXCnb4s" 
+        //     TypeConversions.stringToBytes(testing2 ? "https://565nmzdax6zdlmfb2zqukkzwpmqvdkagtbsqtubrxm6s24fhn6fq.arweave.net/77rWZGC_sjWwodZhRSs2eyFRqAaYZQnQMbs9LXCnb4s" 
         //     : "{TBD Arweave}")
         // );
         // setUriVisibility(attributeContexts.context_fromID.length - 1, true);

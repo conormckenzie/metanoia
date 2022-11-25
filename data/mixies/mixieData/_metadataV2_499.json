@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Cinnamonroll"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Digital Camera"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Humility"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Spectre"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Travel & Experience"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Travel & Experience Humility Mixie"
+    }
+  ]
+}

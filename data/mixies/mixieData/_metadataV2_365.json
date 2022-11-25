@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Surprised"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sleepy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Bunny"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Leaf"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Baseball"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Inspiration"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Cotton Candy"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Sports"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Sports Inspiration Mixie"
+    }
+  ]
+}

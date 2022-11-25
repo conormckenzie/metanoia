@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Clumsy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Hollow"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Impy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Coffee"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Humility"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Illumination"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Food & Beverage"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Food & Beverage Humility Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Bushy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sweet"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Green Controller"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Inspiration"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Ghostie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Entertainment"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Entertainment Inspiration Mixie"
+    }
+  ]
+}

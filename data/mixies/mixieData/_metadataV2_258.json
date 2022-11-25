@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Wispy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Wibbly"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Impy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Tablet"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Courage"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Mint Chocolate"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Tech"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Tech Courage Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Serious"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Beans"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Headwings"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Paper Plane"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Positivity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Retro Pop"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Travel & Experience"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Travel & Experience Positivity Mixie"
+    }
+  ]
+}

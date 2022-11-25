@@ -32,7 +32,7 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 75
+            runs: 45
             // runs: 1 //for testing
           }
         }
@@ -57,7 +57,8 @@ module.exports = {
     },
     matic: {
       url: "https://polygon-rpc.com",
-      accounts: [process.env.PRIVATE_KEY]
+      accounts: [process.env.PRIVATE_KEY],
+      gasMultiplier: 1
     },
   },
   // ethernal: {

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Serious"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Hollow"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Impy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Leaf"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Present"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Passion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Hot Shot"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Mystery"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Mystery Passion Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Split"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cutie"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Squeal"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Teddy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brows"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Purple Gacha"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Courage"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Glacier"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Mystery"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Mystery Courage Mixie"
+    }
+  ]
+}

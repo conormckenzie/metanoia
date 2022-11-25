@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Clumsy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Alert"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pointed"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Crescent"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Casette"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Positivity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Retro Pop"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Music"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Music Positivity Mixie"
+    }
+  ]
+}

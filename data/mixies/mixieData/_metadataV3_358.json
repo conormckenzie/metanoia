@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Sports Positivity Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Sports"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Soccer Ball"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Positivity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Retro Pop"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Beans"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cutie"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Sprout-01"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

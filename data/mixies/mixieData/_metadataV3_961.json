@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Food & Beverage Kindness Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Food & Beverage"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Milk"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Kindness"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Harmony"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Twirl"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pupper"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sweet"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cutie"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Long"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

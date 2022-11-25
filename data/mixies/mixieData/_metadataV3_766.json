@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Consumer Goods Compassion Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Consumer Goods"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Teddy Bear"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Compassion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Potpouri"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Slicked"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Impy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sweet"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Yummy"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Bushy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}
