@@ -151,6 +151,16 @@ contract $SettlersAirDropRaffle is SettlersAirDropRaffle {
     function $_msgData() external view returns (bytes memory) {
         return super._msgData();
     }
+    
+    function checkIfItExists(_tokenID) external view returns (bool) {
+        if(exists(_tokenID){
+        return true;
+        } 
+        else {
+        return false
+        }
+
+    }
 
     receive() external payable {}
 }
