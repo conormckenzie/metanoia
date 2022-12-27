@@ -135,66 +135,66 @@ async function main() {
         // ----- Phase 1: basic metadata & image
 
         // uint nftId_, string memory attributeName, bool checked, <type> value
-        // _setUintAttribute[i] = [];
-        // _setStringAttribute[i] = [];
-        // for (let j = 0; j < obj.attributes.length; j++) {
-        //     if (onlyPublicVariables && obj.attributes[j].public !== true) { continue; }
-        //     if (onlyPrivateVariables && obj.attributes[j].public !== false) { continue; }
-        //     do {
-        //         _err = false;
-        //         try {
-        //             if (uintNames.includes(obj.attributes[j].name)) {
-        //                 // _setUintAttribute[i][j] = 
-        //                 //     contract.setUintAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
-        //                 await contract.setUintAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
-        //             }
-        //             else if (stringNames.includes(obj.attributes[j].name)) {
-        //                 // _setStringAttribute[i][j] = 
-        //                 //     contract.setStringAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
-        //                 await contract.setStringAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
-        //             }
-        //             else {
-        //                 throw "name is not in the list of stringNames or uintNames!";
-        //             }
-        //         } catch (err) {
-        //             console.error(err);
-        //             _err = err;
-        //         }
-        //     } while (_err)
+        _setUintAttribute[i] = [];
+        _setStringAttribute[i] = [];
+        for (let j = 0; j < obj.attributes.length; j++) {
+            if (onlyPublicVariables && obj.attributes[j].public !== true) { continue; }
+            if (onlyPrivateVariables && obj.attributes[j].public !== false) { continue; }
+            do {
+                _err = false;
+                try {
+                    if (uintNames.includes(obj.attributes[j].name)) {
+                        // _setUintAttribute[i][j] = 
+                        //     contract.setUintAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
+                        await contract.setUintAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
+                    }
+                    else if (stringNames.includes(obj.attributes[j].name)) {
+                        // _setStringAttribute[i][j] = 
+                        //     contract.setStringAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
+                        await contract.setStringAttribute(i, obj.attributes[j].name, true, obj.attributes[j].value);
+                    }
+                    else {
+                        throw "name is not in the list of stringNames or uintNames!";
+                    }
+                } catch (err) {
+                    console.error(err);
+                    _err = err;
+                }
+            } while (_err)
             
 
-        //     console.logWhereInline(`id:${i}, attributeId:${j}`);
-        //     console.logWhereInline(`waiting 2.1 seconds...`)
-        //     await timer(2100);
-        //     console.logWhereInline(`Done waiting!`)
-        // }
+            console.logWhereInline(`id:${i}, attributeId:${j}`);
+            console.logWhereInline(`waiting 2.1 seconds...`)
+            await timer(2100);
+            console.logWhereInline(`Done waiting!`)
+        }
 
-        // // image is not private
-        // if (!onlyPrivateVariables) {
-        //     // // get arweave link to the ADULT image for this Mixie
-        //     // let txid = manifest_obj.paths[`images/${i}.png`].id;
-        //     // let imageUri = `https://arweave.net/${txid}`
-        //     // // _setStringAttribute[i][obj.attributes.length] = contract.setStringAttribute(i, "image", true, imageUri);
-        //     // await contract.setStringAttribute(i, "image", true, imageUri);
+        // image is not private
+        if (!onlyPrivateVariables) {
+            // // get arweave link to the ADULT image for this Mixie
+            // let txid = manifest_obj.paths[`images/${i}.png`].id;
+            // let imageUri = `https://arweave.net/${txid}`
+            // // _setStringAttribute[i][obj.attributes.length] = contract.setStringAttribute(i, "image", true, imageUri);
+            // await contract.setStringAttribute(i, "image", true, imageUri);
 
-        //     // NOTE: This is for the Baby Mixie picture, not the adult Mixie pictures
-        //     do {
-        //         _err = false;
-        //         try {
-        //             await contract.setStringAttribute(
-        //                 i, "image", true, 
-        //                 "https://arweave.net/NX2Tv1luYiUkUo_zVTxmJGK8CnUd1XIqW97S92xvoB8"
-        //             );
-        //         } catch (err) {
-        //             console.error(err);
-        //             _err = err;
-        //         }
-        //     } while (_err)
+            // NOTE: This is for the Baby Mixie picture, not the adult Mixie pictures
+            do {
+                _err = false;
+                try {
+                    await contract.setStringAttribute(
+                        i, "image", true, 
+                        "https://arweave.net/NX2Tv1luYiUkUo_zVTxmJGK8CnUd1XIqW97S92xvoB8"
+                    );
+                } catch (err) {
+                    console.error(err);
+                    _err = err;
+                }
+            } while (_err)
             
-        //     console.logWhereInline(`waiting 2.1 seconds...`)
-        //     await timer(2100);
-        //     console.logWhereInline(`Done waiting!`)
-        // }
+            console.logWhereInline(`waiting 2.1 seconds...`)
+            await timer(2100);
+            console.logWhereInline(`Done waiting!`)
+        }
 
         // ----- Phase 2 - fixed description and evolution
 

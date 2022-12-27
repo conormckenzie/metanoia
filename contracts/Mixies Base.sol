@@ -37,8 +37,10 @@ interface IDataSafeguardChecker {
     ) external view returns (bool);
 }
 
+// ERROR - using an external uri provider was not properly implemented in this contract
 interface IUriProvider {
-    function uri(uint nftId) external view returns (bool);
+    // function uri(uint nftId) external view returns (bool); // ERRONEOUS FUNCTION
+    function uri(uint nftId) external view returns (bool); // NOT in live contract - added after deployment
 }
 
 contract MixiesBaseV1_0 is 

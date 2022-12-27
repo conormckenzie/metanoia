@@ -147,15 +147,25 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint royaltyFee = 500;
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
-    // solhint-disable-next-line max-line-length
-    string _contractUri = testing2 ? "" : "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+    string _contractUri;
 
      /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
-    string public constant name = testing2 ? "Test Mixie (Egg)" : "Mixie (Egg)"; 
-    string public symbol = testing2 ? "METANOIA MIXIE TEST" : "METANOIA MIXIE"; 
+    string public name; 
+    string public symbol; 
 
     function initialize() public override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
+
+        if (testing2) {
+            _contractUri = "";
+            name = "Test Mixie (Egg)";
+            symbol = "METANOIA MIXIE TEST";
+        } else {
+            // solhint-disable-next-line max-line-length
+            _contractUri = "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+            name = "Mixie (Egg)";
+            symbol = "METANOIA MIXIE";
+        }
 
         startTime   = block.timestamp;
         topTime	    = startTime;
