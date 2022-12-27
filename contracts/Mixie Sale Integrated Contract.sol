@@ -153,6 +153,9 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     string public name; 
     string public symbol; 
 
+    // solhint-disable-next-line max-line-length
+    string constructorUri;
+
     function initialize() public override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
 
@@ -160,11 +163,14 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
             _contractUri = "";
             name = "Test Mixie (Egg)";
             symbol = "METANOIA MIXIE TEST";
+            constructorUri = "";
         } else {
             // solhint-disable-next-line max-line-length
             _contractUri = "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
             name = "Mixie (Egg)";
             symbol = "METANOIA MIXIE";
+            // solhint-disable-next-line max-line-length
+            constructorUri = "https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY";
         }
 
         startTime   = block.timestamp;
@@ -189,9 +195,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint public constant maxSupply = 10000;
     uint constant reserved = 500;
     uint public nextUnusedToken = reserved + 1;
-    // solhint-disable-next-line max-line-length
-    string constant constructorUri = testing2 ? "" : "https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY";
-
+    
     constructor() ERC1155(constructorUri) {
         initialize();
     }
