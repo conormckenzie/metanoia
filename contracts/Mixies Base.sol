@@ -116,12 +116,14 @@ contract MixiesBaseV1_0 is
     bool constant testing3 = false; // toggles use of testing (true) or real (false) Mixie egg contract.
 
     /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
-    string public constant name = testing1 ? "Tst Mixie" : "Mixie"; 
-    string public constant symbol = testing1 ? "METANOIA MIXIE Tst" : "METANOIA MIXIE"; 
+    // string public constant name = "Tst Mixie";
+    string public constant name = "Mixie"; 
+    // string public constant symbol = "METANOIA MIXIE Tst"
+    string public constant symbol = "METANOIA MIXIE"; 
 
-    address public constant mixieEggSenderContract = testing3 ? 
+    address public constant mixieEggSenderContract = // testing3 ? 
     // 0xCb016e537e5FaA8F03A81461a2Ee1916e0d0c738: // testing egg contract on testnet
-    0x15c53BA992849aB5291752F5dd373d964635FF03: // testing egg contract on mainnet
+    // 0x15c53BA992849aB5291752F5dd373d964635FF03: // testing egg contract on mainnet
     0x6285333d3224D8fA5AD2146aF919225042F40d3b; // REAL egg contract on mainnet
 
     /// @notice This address will receive the royalty payments from any sales of the NFTs this contract creates.
@@ -131,9 +133,7 @@ contract MixiesBaseV1_0 is
     uint royaltyFee = 500;
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
-    // solhint-disable-next-line max-line-length
-    string _contractUri = testing1 ? "https://g4kxt42j3axbuh4zuif4fdlcinjueo2q7ns2arareajwmpuneb3q.arweave.net/NxV580nYLhofmaILwo1iQ1NCO1D7ZaBEESATZj6NIHc" 
-    : ""; // can be added post-launch
+    string _contractUri;
 
     // points to a contract which handles custom or non-standard types 
     ICustomTypeHandler customTypeHandler;
@@ -183,6 +183,25 @@ contract MixiesBaseV1_0 is
     function initialize() public virtual override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
         hatchingAllowed[0] = true;
+
+        if (testing1) {
+            // solhint-disable-next-line max-line-length
+            _contractUri = "https://g4kxt42j3axbuh4zuif4fdlcinjueo2q7ns2arareajwmpuneb3q.arweave.net/NxV580nYLhofmaILwo1iQ1NCO1D7ZaBEESATZj6NIHc";
+            assert(keccak256(bytes(name)) == keccak256(bytes("Tst Mixie")));
+            assert(keccak256(bytes(symbol)) == keccak256(bytes("METANOIA MIXIE Tst")));
+        }
+        else {
+            _contractUri = ""; // can be added post-launch
+            assert(keccak256(bytes(name)) == keccak256(bytes("Mixie")));
+            assert(keccak256(bytes(symbol)) == keccak256(bytes("METANOIA MIXIE")));
+        }
+
+        if (testing3) {
+            assert(mixieEggSenderContract == 0x15c53BA992849aB5291752F5dd373d964635FF03);
+        }
+        else {
+            assert(mixieEggSenderContract == 0x6285333d3224D8fA5AD2146aF919225042F40d3b);
+        }
         
         // Register attribute 0 as a default "null" attribute
         attributeContexts.context_fromID.push(AttributeContext(
@@ -432,9 +451,15 @@ contract MixiesBaseV1_0 is
 	function uri(uint256 nftId) override(ERC1155) public view returns (string memory) {
 		// add each of the pre-existing required attributes into the uri
         string memory _uriString = string(abi.encodePacked('{\n\t',
-            '"name":"', TypeConversions.bytesToString(getAttribute(nftId, "name", false, true)), '",\n\t',
-            '"symbol":"', symbol, '",\n\t',
-            '"image":"', TypeConversions.bytesToString(getAttribute(nftId, "image", false, true)), '",\n\t',
+            '"name":"', 
+                TypeConversions.bytesToString(getAttribute(nftId, "name", false, true)), 
+            '",\n\t',
+            '"symbol":"', 
+                symbol, 
+            '",\n\t',
+            '"image":"', 
+                TypeConversions.bytesToString(getAttribute(nftId, "image", false, true)), 
+            '",\n\t',
             '"description":"', 
                 // TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("description")]), 
                 TypeConversions.bytesToString(getAttribute(nftId, "description", false, true)), 
@@ -690,10 +715,6 @@ contract MixiesBaseV1_0 is
         returns (bool)
     {
         return
-            interfaceId == type(IERC2981Royalties).interfaceId ||
-            interfaceId == type(IERC1155).interfaceId ||
-            interfaceId == type(IERC1155MetadataURI).interfaceId ||
-            interfaceId == type(AccessControl).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 

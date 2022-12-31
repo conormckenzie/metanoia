@@ -121,7 +121,7 @@ contract Framework_MixieSaleV1 is AccessControl {
 
     function updateState() internal requiresConsistentState {
         //update price
-        lastUpdate.price = topPrice - ((block.timestamp - topTime) / 60 * priceDecreasePerMinute);
+        lastUpdate.price = topPrice - ((block.timestamp - topTime) * priceDecreasePerMinute / 60);
 
         //update time
         lastUpdate.time = block.timestamp;
@@ -174,7 +174,7 @@ contract Framework_MixieSaleV1 is AccessControl {
         //     "Address ", prospectiveBuyer, " does not have a coupon with a discount rate of ", discountRate, "%")));
         // }else
         if(true){prospectiveBuyer=prospectiveBuyer;}
-        uint price = lastUpdate.price / 100 * (100 - discountRate);
+        uint price = lastUpdate.price * (100 - discountRate) / 100 ;
         return price;
     }
 

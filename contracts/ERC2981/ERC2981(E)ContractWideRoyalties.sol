@@ -7,7 +7,7 @@ import './ERC2981Base.sol';
 
 /// @dev This is a contract used to add ERC2981 support to ERC721 and 1155
 /// @dev This implementation has the same royalties for each and every tokens
-abstract contract ERC2981ContractWideRoyalties is ERC2981Base {
+abstract contract ERC2981ContractWideRoyalties_Evented is ERC2981Base {
     RoyaltyInfo private _royalties;
 
     event RoyaltyInfoChanged(

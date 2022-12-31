@@ -49,7 +49,7 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 45
+            runs: 30
           }
         }
       },
@@ -69,7 +69,7 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 7
+            runs: 200
           }
         }
       },

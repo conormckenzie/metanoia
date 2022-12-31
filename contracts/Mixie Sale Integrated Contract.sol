@@ -159,6 +159,9 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     function initialize() public override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
 
+        // replaces ternary assignment of units which is incompatible with slither-analyzer
+        assert((testing1 && units == 10**0) || (!testing1 && units == 10**6));
+
         if (testing2) {
             _contractUri = "";
             name = "Test Mixie (Egg)";
@@ -282,8 +285,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint endTime;
     // uint constant blockTime = 2150; // an estimate of the average time between blocks on polygon mainnet in ms
 
-    //uint constant units = 10**6;
-    uint constant units = testing1 ? 10**0 : 10**6; 
+    //uint constant units = 10**0;
+    uint constant units = 10**6; 
     function getUnits() external pure returns(uint) { return units; }
     uint constant topPrice = 10000 * units;
     uint constant bottomPrice = 1000 * units;
