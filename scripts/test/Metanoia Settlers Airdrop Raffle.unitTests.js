@@ -129,83 +129,83 @@ describe("Founding Settlers Airdrop Raffle", function () {
 			
 	});
 	
-	it("[A-2] Check if any function reverts with default values", async function () {
+	it("[A-2] Run _rand without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 			
 		const tryTo_rand = await expect(await hardhatdeploy.$_rand(2000000, 1)).to.not.be.reverted;
 			
 	});
 	
-	it("[A-3] Check if any function reverts with default values", async function () {
+	it("[A-3] Run _resetRandomNumbers without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTo_resetRandomNumbers = await expect(await hardhatdeploy.$_resetRandomNumbers(1)).to.not.be.reverted;
 			
 	});
 	
-	it("[A-4] Check if any function reverts with default values", async function () {
+	it("[A-4] run senditems and be reverted with reason insufficient balance", async function () {
 		const { SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTo_sendItems = await expect(hardhatdeploy2.sendItems(addr1.address,1,1)).to.be.revertedWith("ERC1155: insufficient balance for transfer");
 			
 	});
 	
-	it("[A-5] Check if any function reverts with default values", async function () {
+	it("[A-5] run senditem and be reverted with insufficient balance", async function () {
 		const { SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTo_sendItem = await expect(hardhatdeploy2.sendItem(addr1.address,1)).to.be.revertedWith("ERC1155: insufficient balance for transfer");
 			
 	});
 	
-	it("[A-6] Check if any function reverts with default values", async function () {
+	it("[A-6] try to run _mintByAirdrop without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTo_mintByAirdrop = await expect(await hardhatdeploy.$_mintByAirdrop(100,1,"")).to.not.be.reverted;
 			
 	});
 		
-	it("[A-7] Check if any function reverts with default values", async function () {
+	it("[A-7] try to run mintExistingByAirdrop without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
-			
+		
 		const tryTomintWithUri = await hardhatdeploy.$_mintWithURI(addr1.address,1,1,"0x0012","a");
 		
-		const tryTomintExistingByAirdrop = await expect(hardhatdeploy2.mintExistingByAirdrop(100,1)).to.not.be.reverted;
+		const tryTomintExistingByAirdrop = await expect(await hardhatdeploy2.mintExistingByAirdrop(100,1)).to.not.be.reverted;
 			
 	});
 	
-	it("[A-8] Check if any function reverts with default values", async function () {
+	it("[A-8] try to run mintnewbyAirdrop without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
-		const tryTomintNewByAirdrop = await expect(hardhatdeploy2.mintNewByAirdrop(1100,1, "aa")).to.not.be.reverted;
+		const tryTomintNewByAirdrop = await expect(await hardhatdeploy2.mintNewByAirdrop(1100,1, "aa")).to.not.be.reverted;
 			
 	});
 
-	it("[A-9] Check if any function reverts with default values", async function () {
+	it("[A-9] try to _mintByraffle without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTomintWithUri = await hardhatdeploy.$_mintWithURI(addr1.address,110,1,"0x0012","a");
 		
-		const tryTo_mintByRaffle = await expect(hardhatdeploy.$_mintByRaffle(110,1,1,1,"a")).to.not.be.reverted;
+		const tryTo_mintByRaffle = await expect(await hardhatdeploy.$_mintByRaffle(110,1,1,1,"a")).to.not.be.reverted;
 			
 	});
 	
-	it("[A-10] Check if any function reverts with default values", async function () {
+	it("[A-10] try to mintByraffle without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);	
 		
-		const tryTomintByRaffle = await expect(hardhatdeploy2.mintByRaffle(150,1,1,1000000,"")).to.not.be.reverted;
+		const tryTomintByRaffle = await expect(await hardhatdeploy2.mintByRaffle(150,1,1,1000000)).to.not.be.reverted;
 			
 	});
 	
-	it("[A-11] Check if any function reverts with default values", async function () {
+	it("[A-11] try to mintNewByRaffle without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTomintWithUri = await hardhatdeploy.$_mintWithURI(addr1.address,1500,1,"0x0012","a");	
 
-		const tryTomintNewByRaffle = await expect(hardhatdeploy2.mintNewByRaffle(1500,1,1,1,"a")).to.not.be.reverted;
+		const tryTomintNewByRaffle = await expect(await hardhatdeploy2.mintNewByRaffle(1500,1,1,1,"a")).to.not.be.reverted;
 			
 	});
 	
-	it("[A-12] Check if any function reverts with default values", async function () {
+	it("[A-12] try to  mint to extra holders without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTomintNewToExtrasHolder = await hardhatdeploy2.mintNewToExtrasHolder(1,1,"a")
@@ -214,7 +214,7 @@ describe("Founding Settlers Airdrop Raffle", function () {
 			
 	});
 	
-	it("[A-13] Check if any function reverts with default values", async function () {
+	it("[A-13] try to mint new to extra holders without being reverted", async function () {
 		const { SettlersAirDropRaffle, hardhatdeploy, SettlersAirDropRaffle2, hardhatdeploy2, owner, addr1, addr2 } = await loadFixture(SettlersAirDropRaffleFixture);
 		
 		const tryTomintNewToExtrasHolder = await expect(hardhatdeploy2.mintNewToExtrasHolder(1,1,"a")).to.not.be.reverted;
