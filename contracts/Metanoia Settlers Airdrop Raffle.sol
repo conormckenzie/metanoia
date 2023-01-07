@@ -25,7 +25,7 @@
 */
 
 import "./ERC1155MultiUri.sol";
-import "./IAddressList.sol";
+import "./utils/Interfaces.sol";
 import "./EmergencyPausable.sol";
 // import "@openzeppelin/contracts/access/AccessControl.sol";
 

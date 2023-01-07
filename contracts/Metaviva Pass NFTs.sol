@@ -36,7 +36,7 @@ interface IUriProvider {
 *			grant the same privileges to those with the DEFAULT_ADMIN_ROLE role from AccessControl
 */
 
-contract MetavivaPassNFTs is ERC1155Supply, Ownable, ERC2981ContractWideRoyalties, EmergencyPausable {
+contract MetavivaPassNFTs is ERC1155Supply, Ownable, ERC2981ContractWideRoyalties_Evented, EmergencyPausable {
 
     event nameChanged(string oldName, string newName, address msgSender);
     event symbolChanged(string oldSymbol, string newSymbol, address msgSender);

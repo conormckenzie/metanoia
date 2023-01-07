@@ -8,7 +8,7 @@ import "./ERC1155MultiUri.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract POCTestNfts is ERC1155MultiUri {
+contract POCTestNfts is ERC1155MultiUri_legacy {
     address public extrasHolder = address(this);
     
     uint public constant initialSupply = 0;

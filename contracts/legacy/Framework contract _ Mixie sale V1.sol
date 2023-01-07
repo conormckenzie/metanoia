@@ -87,7 +87,9 @@ contract Framework_MixieSaleV1 is AccessControl {
     Update public lastUpdate;
 
     modifier requiresUpdate() {
-        require(lastUpdate.time == block.timestamp, "timestamp is not up-to-date");
+        // strict equality with block.timestamp is disliked by slither-analyzer. Using ">=" silences this issue.
+        // However, it should not make a difference in this contract. 
+        require(lastUpdate.time >= block.timestamp, "timestamp is not up-to-date");
         _;
     }
 

@@ -19,12 +19,33 @@
     https://discord.gg/YgUus2kddQ
 
 
-    This is the interface for the Metanoia's Founding Settlers
-    List, for use in other contracts.
-    
+    This file contains interfaces for use in other Metanoia contracts.
 */
 
 pragma solidity ^0.8.0;
+
+/// ----- MIXIE SALE ----- ///
+
+interface IMintStorage {
+    function preLoadURIs(uint[] memory ids, string[] memory uris) external;
+    function mintNextNftToAddress(address to) external;
+    function getNextUnusedToken() external view returns(uint);
+    function getMaxSupply() external pure returns(uint);
+}
+
+interface IPrivilegedListStorage {
+    function removeAddress(address address_) external;
+    function addCoupon(address address_, uint discountRate, uint numberOfUses) external;
+    function useCoupon(address address_, uint discountRate) external;
+    function addressHasCoupon(address address_, uint discountRate) external view returns(bool);
+}
+
+interface IUsdcStorage {
+    function getUsdcBalance(address address_) external view returns(uint);
+    function transferUsdcBalance(address from, address to, uint amount) external;
+    function increaseUsdcBalance(address address_, uint amount) external;
+    function decreaseUsdcBalance(address address_, uint amount) external;
+}
 
 /// @title  Founding Settlers List Interface
 /// @author Conor McKenzie

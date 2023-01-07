@@ -75,6 +75,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     // ERR21: "Coupon number of uses cannot be zero"
     // ERR22: "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
     // ERR23: "Matching coupon not found"
+    // ERR24: "USDC token transfer failed"
 
     ///GENERAL-----------------------------
     
@@ -491,7 +492,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
             // "Amount of USDC transferred must be a positive non-zero value"
         );
         //requires javascript code to get buyer to first approve the allowance
-        usdcToken.transferFrom(msg.sender, address(this), amount);
+        require(
+            usdcToken.transferFrom(msg.sender, address(this), amount),
+            "ERR24"
+            // "USDC token transfer failed"
+        );
         usdcBalances[msg.sender] += amount;
         emit usdcReceived(_msgSender(), amount);
     }

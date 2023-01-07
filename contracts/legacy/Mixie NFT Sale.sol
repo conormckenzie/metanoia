@@ -25,32 +25,13 @@
 
 pragma solidity 0.8.4;
 
-import "./EmergencyPausable.sol";
+import "../EmergencyPausable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol"; 
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-
-interface IMintStorage {
-    function preLoadURIs(uint[] memory ids, string[] memory uris) external;
-    function mintNextNftToAddress(address to) external;
-    function getNextUnusedToken() external view returns(uint);
-    function getMaxSupply() external pure returns(uint);
-}
-
-interface IPrivilegedListStorage {
-    function removeAddress(address address_) external;
-    function addCoupon(address address_, uint discountRate, uint numberOfUses) external;
-    function useCoupon(address address_, uint discountRate) external;
-    function addressHasCoupon(address address_, uint discountRate) external view returns(bool);
-}
-
-interface IUsdcStorage {
-    function getUsdcBalance(address address_) external view returns(uint);
-    function transferUsdcBalance(address from, address to, uint amount) external;
-    function increaseUsdcBalance(address address_, uint amount) external;
-    function decreaseUsdcBalance(address address_, uint amount) external;
-}
+import "../utils/Interfaces.sol";
+import "../utils/Constants.sol";
 
 contract FoundingNFTSale is Initializable, ReentrancyGuard, EmergencyPausable {
 
@@ -83,7 +64,7 @@ contract FoundingNFTSale is Initializable, ReentrancyGuard, EmergencyPausable {
     IMintStorage public ERC1155storageContract;
     IPrivilegedListStorage public privilgedBuyersListContract;
     IUsdcStorage public usdcEscrowStorageContract;
-    address public treasuryAddress;
+    address public treasuryAddress = const_metanoia_treasuryAddress;
 
     bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
     bytes32 public constant SALE_MANAGER_ROLE = keccak256("SALE_MANAGER_ROLE");
