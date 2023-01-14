@@ -17,3 +17,5 @@ deploy_testNfts.js
 verify_testNfts.js
 
 private/
+slither-venv/
+testenv/
