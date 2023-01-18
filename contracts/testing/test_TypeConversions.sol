@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/TypeConversions.sol";
+import "../utils/libraries/TypeConversions.sol";
 
 contract testTypeConversions {
 

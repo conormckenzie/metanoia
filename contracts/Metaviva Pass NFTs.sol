@@ -9,10 +9,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./EmergencyPausable.sol";
 
 // type conversions
-import "./utils/TypeConversions.sol";
+import "./utils/libraries/TypeConversions.sol";
 
 // uri encoding
-import "./utils/Base64.sol";
+import "./utils/libraries/Base64.sol";
 
 interface IUriProvider {
     function uri(uint nftId) external view returns (string memory);

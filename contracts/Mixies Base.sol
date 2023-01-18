@@ -13,10 +13,10 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./EmergencyPausable.sol";
 
 // type conversions
-import "./utils/TypeConversions.sol";
+import "./utils/libraries/TypeConversions.sol";
 
 // uri encoding
-import "./utils/Base64.sol";
+import "./utils/libraries/Base64.sol";
 
 // index tracking
 import "./utils/Uint Lists.sol";
