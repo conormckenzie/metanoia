@@ -51,7 +51,7 @@ async function main() {
         {address: "0x27154f3441F191bd3e87D65D8eE2166eef259008", name: "MixiesBaseV1_0"},
     ]
 
-    const n = parseInt(prompt('Use defaults? Input (#) or \'n\': '));
+    const n = parseInt(prompt('Use defaults? Input (#) or \'n\' (LIVE=2): '));
     const validPreset = n >= 0 && n < presets.length;
 
     const contractAddress = validPreset ? presets[n].address : prompt('Address of deployed Mixie contract: ');
