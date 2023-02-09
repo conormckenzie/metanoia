@@ -163,7 +163,7 @@ async function main() {
             } while (_err)
             
 
-            console.logWhereInline(`id:${i}, attributeId:${j}`);
+            console.logWhereInline(`id:${i}, attributeId:${j}, attributeName:"${obj.attributes[j].name}"`);
             console.logWhereInline(`waiting 2.1 seconds...`)
             await timer(2100);
             console.logWhereInline(`Done waiting!`)
