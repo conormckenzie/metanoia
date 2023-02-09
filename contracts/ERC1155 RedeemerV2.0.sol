@@ -49,10 +49,11 @@ contract ERC1155RedeemerV2_0 is ERC1155Holder, Ownable {
             "Redeemer contract's balance of this nft is not the expected value"
         );
         try ITypedNftSender(msg.sender).getNftType(nftId) returns (uint) {
-            require(
-                ITypedNftSender(msg.sender).getNftType(nftId) >= 0, 
-                "Nft Minter contract provides invalid nftType"
-            );
+            // this require statement is a tautology
+            // require(
+            //     ITypedNftSender(msg.sender).getNftType(nftId) >= 0, 
+            //     "Nft Minter contract provides invalid nftType"
+            // );
             require(
                 ITypedNftSender(msg.sender).getNftType(nftId) != 3, 
                 "Cannot redeem NFT type 3 (infinite-use) via this contract."

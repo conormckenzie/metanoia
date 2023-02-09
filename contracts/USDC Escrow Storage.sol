@@ -60,7 +60,11 @@ contract UsdcEscrowStorage is Initializable, ReentrancyGuard, EmergencyPausable 
     function receiveUSDC(uint amount) external whenNotPaused nonReentrant {
         require(amount > 0, "amount transferred must be a positive value");
         //requires javascript code to get buyer to first approve the allowance
-        usdcToken.transferFrom(msg.sender, address(this), amount);
+        require(
+            usdcToken.transferFrom(msg.sender, address(this), amount),
+            "ERR24"
+            // "USDC token transfer failed"
+        );
         usdcBalances[msg.sender] += amount;
         emit usdcReceived(_msgSender(), amount);
     }

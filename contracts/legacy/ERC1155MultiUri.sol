@@ -37,7 +37,7 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
  * These functions both call _mint(address, uint256, uint256, bytes memory)
  * to mint tokens.
  */
-abstract contract ERC1155MultiUri is ERC1155Supply {
+abstract contract ERC1155MultiUri_legacy is ERC1155Supply {
 
     /**
      * @dev Replaces <_uri> as the variable which holds metadata information.
