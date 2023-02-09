@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Yummy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Soft"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Teddy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Waxed"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Cookie"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Inspiration"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Cotton Candy"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Food & Beverage"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Food & Beverage Inspiration Mixie"
+    }
+  ]
+}

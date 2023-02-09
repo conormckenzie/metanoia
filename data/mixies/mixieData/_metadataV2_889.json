@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Split"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Clumsy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Flutter"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brows"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Sea Book"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Reliability"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Autumn Leaf"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Entertainment"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Entertainment Reliability Mixie"
+    }
+  ]
+}

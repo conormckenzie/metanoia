@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brows"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Designer Bag"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "08"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Inspiration"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Dreamer"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Luxury"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Luxury Inspiration Mixie"
+    }
+  ]
+}

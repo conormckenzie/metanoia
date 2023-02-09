@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Long"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Clumsy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Bunny"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Teddy Bear"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Kindness"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Harmony"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Consumer Goods"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Consumer Goods Kindness Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Smile"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Coffee"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Growth"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Forest"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Food & Beverage"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Food & Beverage Growth Mixie"
+    }
+  ]
+}

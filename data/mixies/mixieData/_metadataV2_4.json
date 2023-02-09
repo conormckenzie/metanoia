@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Pout"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Flutter"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brows"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Golf"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Courage"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Seafoam"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Sports"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Sports Courage Mixie"
+    }
+  ]
+}

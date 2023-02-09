@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Fluffy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Drool"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Alert"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Impy"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Waxed"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Stylish Bandana"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "12"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Integrity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Powder Snow"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Fashion"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Fashion Integrity Mixie"
+    }
+  ]
+}

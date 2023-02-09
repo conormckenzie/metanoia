@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Mystery Passion Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Mystery"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Mystery Gift"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Passion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Hot Shot"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Twirl"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Fiery"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Cautious"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Leaf"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

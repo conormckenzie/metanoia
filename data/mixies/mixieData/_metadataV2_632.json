@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Pout"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Fennec"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Crescent"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Luxurious Ribbon"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "10"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Potential"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Milk Tea"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Fashion"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Fashion Potential Mixie"
+    }
+  ]
+}

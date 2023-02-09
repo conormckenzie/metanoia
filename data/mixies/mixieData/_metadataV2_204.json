@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Clever"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Cinnamonroll"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Waxed"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Flask"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Passion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Valentine"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Tech"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Tech Passion Mixie"
+    }
+  ]
+}

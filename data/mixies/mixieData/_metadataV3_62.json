@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Food & Beverage Passion Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Food & Beverage"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Donut"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Passion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Hot Shot"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Slicked"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Cautious"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Yummy"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Fluffy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

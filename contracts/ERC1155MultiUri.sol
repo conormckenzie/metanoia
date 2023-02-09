@@ -86,7 +86,7 @@ abstract contract ERC1155MultiUri is ERC1155Supply {
         uint256 amount,
         bytes memory data
     ) internal virtual {
-        require (exists(id), "Please provide metadata for new token");
+        require (exists(id), "Token does not exist. Please provide metadata for new token");
         require (id != 0, "Cannot mint ID 0");
 
         _mint(to, id, amount, data);

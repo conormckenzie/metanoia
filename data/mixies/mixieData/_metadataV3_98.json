@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Tech Growth Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Tech"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Smartphone"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Growth"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Clover"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Droopy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Beans"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Fang"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Curled"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Long"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cutie"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sweet"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pupper"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Slicked"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Kitty Doll"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Growth"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Clover"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Consumer Goods"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Consumer Goods Growth Mixie"
+    }
+  ]
+}

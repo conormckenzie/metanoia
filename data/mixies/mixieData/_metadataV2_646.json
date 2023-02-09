@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Bushy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cutie"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Cinnamonroll"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Waxed"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Honey Bear"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Courage"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Seafoam"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Consumer Goods"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Consumer Goods Courage Mixie"
+    }
+  ]
+}

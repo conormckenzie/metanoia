@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Long"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Whiskers"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Smile"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Alert"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Fennec"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Crescent"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Telescope"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "01"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Passion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Valentine"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Tech"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Tech Passion Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cheerful"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Soft"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Fennec"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Glasses"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Purple Gacha"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Wisdom"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Leviathan"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Mystery"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Mystery Wisdom Mixie"
+    }
+  ]
+}

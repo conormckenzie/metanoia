@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Sports Wisdom Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Sports"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Baseball"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Wisdom"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Ocean"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brows"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Bunny"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Yummy"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "02"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

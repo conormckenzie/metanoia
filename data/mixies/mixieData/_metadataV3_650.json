@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Travel & Experience Humility Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Travel & Experience"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Digital Camera"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Humility"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Spectre"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Bangs"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pointed"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sleepy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Drool"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Bushy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Cherub"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Sparkles"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "06"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Cotton"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Surprised"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Swept"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Digital Camera"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "11"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Reliability"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Cocoa"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Travel & Experience"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Travel & Experience Reliability Mixie"
+    }
+  ]
+}

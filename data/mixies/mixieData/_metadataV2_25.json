@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Sprout"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Smile"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Drowsy"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pupper"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Leaf"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Purple Gacha"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Positivity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Sunset"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Mystery"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Mystery Positivity Mixie"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Wispy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Surprised"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Batty"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brow"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Bandaid"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Hearts"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Digital Camera"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Growth"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Honeydew"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Travel & Experience"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Travel & Experience Growth Mixie"
+    }
+  ]
+}

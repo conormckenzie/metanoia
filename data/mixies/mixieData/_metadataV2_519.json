@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Glow"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Tapered"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cheerful"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Wibbly"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pupper"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Crescent"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Casette"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "05"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Kindness"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Harmony"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Music"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Music Kindness Mixie"
+    }
+  ]
+}

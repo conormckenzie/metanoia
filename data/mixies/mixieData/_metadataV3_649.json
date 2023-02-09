@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Music Positivity Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Music"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Casette"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Positivity"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Beach Ball"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Spades"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Crescent"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Bunny"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Sweet"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Clumsy"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Bushy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Bubbles"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "04"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

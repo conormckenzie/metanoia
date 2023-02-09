@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Entertainment Growth Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Entertainment"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Purple Controller"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Growth"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Honeydew"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Brow"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Kitty"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Alert"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Round"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Cheerful"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Spiral"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Wispy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Gauze"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "03"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

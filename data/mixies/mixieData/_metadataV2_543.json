@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "Background",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Starry"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Fluffy"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Yummy"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Snuffy"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Mischievous"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pointed"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Tuft"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Leaf"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Diamonds"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Designer Bag"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "07"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "Lil Devil"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Compassion"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Sweetheart"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Luxury"
+    },
+    {
+      "name": "name",
+      "public": true,
+      "value": "Luxury Compassion Mixie"
+    }
+  ]
+}
