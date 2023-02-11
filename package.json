@@ -23,7 +23,7 @@
     "typechain": "^8.1.0"
   },
   "dependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
