@@ -949,10 +949,10 @@
   resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-toolbox/-/hardhat-toolbox-1.0.2.tgz#342b79e19c456a56d8e76bc2e9cc8474cbcfc774"
   integrity sha512-8CEgWSKUK2aMit+76Sez8n7UB0Ze1lwT+LcWxj4EFP30lQWOwOws048t6MTPfThH0BlSWjC6hJRr0LncIkc1Sw==
 
-"@nomiclabs/hardhat-ethers@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@nomiclabs/hardhat-ethers/-/hardhat-ethers-2.2.1.tgz#8057b43566a0e41abeb8142064a3c0d3f23dca86"
-  integrity sha512-RHWYwnxryWR8hzRmU4Jm/q4gzvXpetUOJ4OPlwH2YARcDB+j79+yAYCwO0lN1SUOb4++oOTJEe6AWLEc42LIvg==
+"@nomiclabs/hardhat-ethers@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@nomiclabs/hardhat-ethers/-/hardhat-ethers-2.2.2.tgz#812d48929c3bf8fe840ec29eab4b613693467679"
+  integrity sha512-NLDlDFL2us07C0jB/9wzvR0kuLivChJWCXTKcj3yqjZqMoYp7g7wwS157F70VHx/+9gHIBGzak5pKDwG8gEefA==
 
 "@nomiclabs/hardhat-etherscan@^3.1.0":
   version "3.1.0"
