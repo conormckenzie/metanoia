@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.1",
-    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.4",
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
     "logger-line-number": "^1.0.5",
