@@ -14,8 +14,19 @@ async function main() {
     const contractName = prompt('Name of contract to deploy: ');
     const Contract = await hre.ethers.getContractFactory(contractName);
     const time = 40
-    const c = await Contract.deploy();
-    await c.deployed();
+    let c_temp;
+    let _err;
+    do {
+        _err = false;
+        try {
+            c_temp = await Contract.deploy();
+            await c_temp.deployed();
+        } catch (err) {
+            console.error(err);
+            _err = err;
+        }
+    } while (_err)
+    const c = c_temp
     console.log("Deployed contract to:", c.address);
     console.log(`waiting for ${time} seconds`);
     await sleep(1000*time);

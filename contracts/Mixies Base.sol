@@ -13,10 +13,10 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./EmergencyPausable.sol";
 
 // type conversions
-import "./utils/TypeConversions.sol";
+import "./utils/libraries/TypeConversions.sol";
 
 // uri encoding
-import "./utils/Base64.sol";
+import "./utils/libraries/Base64.sol";
 
 // index tracking
 import "./utils/Uint Lists.sol";
@@ -37,11 +37,13 @@ interface IDataSafeguardChecker {
     ) external view returns (bool);
 }
 
+// ERROR - using an external uri provider was not properly implemented in this contract
 interface IUriProvider {
-    function uri(uint nftId) external view returns (bool);
+    // function uri(uint nftId) external view returns (bool); // ERRONEOUS FUNCTION
+    function uri(uint nftId) external view returns (bool); // NOT in live contract - added after deployment
 }
 
-contract OnChainTestNftV1_1 is 
+contract MixiesBaseV1_0 is 
     ERC1155Supply, 
     ERC1155Holder,
     ERC2981ContractWideRoyalties, 
@@ -50,30 +52,79 @@ contract OnChainTestNftV1_1 is
     EmergencyPausable,
     UintLists
 {
+    // ERROR CODES:
+    // ERR1:    "Sender is not authorized to grant write access to data"
+    // ERR2:    "Sender is not Attribute Registrar or Admin"
+    // ERR3:    "An attribute with this name has already been registered" 
+    // ERR4:    "Data in `attributes[{nftId_}][{attributeId}] failed data checks`"
+    // ERR4A:   "Given value failed data checks"
+    // ERR5:    "Sender is not authorised to write and is not Admin"
+    // ERR6:    "Sender is not Uri Manager or Admin"
+    // ERR7:    "Listed type does not match with any known type"
+    // ERR8:    "Sender is not Hatch Manager or Admin"
+    // ERR9:    "This contract only accepts NFTs produced from the mixie egg contract"
+    // ERR9A:   "This Mixie egg cannot be hatched at this time"
+
+
     event contractUriChanged(address indexed msgSender, string indexed olduri, string indexed newuri);
     event royaltyInfoChanged(address indexed msgSender, address indexed recipient, uint indexed value);
+    event forceCheckedChanged(address indexed msgSender, bool indexed oldValue, bool indexed newValue);
+    event addressAuthorizedForWritingAttributes(
+        address indexed msgSender, 
+        address indexed authorizedAddress, 
+        bool indexed canRegisterNewAttributes
+    );
+    event attributeRegistered(
+        address indexed msgSender, 
+        string indexed attributeName, 
+        string indexed attributeType, 
+        bytes defaultValue
+    );
+    event attributeSet(
+        address indexed msgSender,
+        uint indexed nftId_, 
+        uint attributeId, 
+        bool checked, 
+        bytes indexed value
+    );
+    event uriVisibilitySet(address indexed msgSender, uint indexed attributeId, bool indexed visible);
+    event hatchingAllowedSet(address indexed msgSender, uint indexed id, bool indexed value);
+    event mixieEggReceived(address indexed operator, address indexed from, uint indexed id, uint value, bytes data);
+    event dataSafeguardCheckerChanged(
+        address indexed msgSender, 
+        address indexed oldChecker, 
+        address indexed newChecker
+    );
+    event customTypeHandlerChanged(
+        address indexed msgSender, 
+        address indexed oldHandler, 
+        address indexed newHandler
+    );
 
-    bytes32 public constant WRITE_ACCESS_AUTHORIZER_ROLE = keccak256("WRITE_ACCESS_AUTHORIZER_ROLE");
-    bytes32 public constant WRITE_ACCESSOR_ROLE = keccak256("WRITE_ACCESSOR_ROLE");
-    bytes32 public constant ATTRIBUTE_REGISTRAR_ROLE = keccak256("ATTRIBUTE_REGISTRAR_ROLE");
-    // bytes32 public constant WRITE_META_ACCESSOR_ROLE = keccak256("WRITE_META_ACCESSOR_ROLE");
-    bytes32 public constant URI_MANAGER_ROLE = keccak256("URI_MANAGER_ROLE");
-    bytes32 public constant HATCH_MANAGER_ROLE = keccak256("HATCH_MANAGER_ROLE");
+
+    bytes32 public constant WRITE_ACCESS_AUTHORIZER_ROLE = keccak256("1");
+    bytes32 public constant WRITE_ACCESSOR_ROLE = keccak256("2");
+    bytes32 public constant ATTRIBUTE_REGISTRAR_ROLE = keccak256("3");
+    bytes32 public constant URI_MANAGER_ROLE = keccak256("4");
+    bytes32 public constant HATCH_MANAGER_ROLE = keccak256("5");
 
     uint constant visibleInUriIndex = 1;
 
     // ALL testing flags should be FALSE when deploying
-    bool constant testing1 = true; // toggles use of testing (true) or real (false) name, symbol, and contractUri.
-    bool constant testing2 = true; // toggles use of testing (true) or real (false) description, image, and animation.
-    bool constant testing3 = true; // toggles use of testing (true) or real (false) Mixie egg contract.
+    bool constant testing1 = false; // toggles use of testing (true) or real (false) name, symbol, and contractUri.
+    bool constant testing2 = false; // toggles use of testing (true) or real (false) description, image, and animation.
+    bool constant testing3 = false; // toggles use of testing (true) or real (false) Mixie egg contract.
 
     /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
-    string public constant name = testing1 ? "Test Mixie" : "Mixie"; 
-    string public constant symbol = testing1 ? "METANOIA MIXIE TEST" : "METANOIA MIXIE"; 
+    // string public constant name = "Tst Mixie";
+    string public constant name = "Mixie"; 
+    // string public constant symbol = "METANOIA MIXIE Tst"
+    string public constant symbol = "METANOIA MIXIE"; 
 
-    // CHANGE TO ACTUAL MIXIE EGG TESTING AND REAL CONTRACT
-    address public constant mixieEggSenderContract = testing3 ? 0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d
-    : /*NOT REAL!!*/0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d;
+    address public constant mixieEggSenderContract = // testing3 ? 
+    // 0xCb016e537e5FaA8F03A81461a2Ee1916e0d0c738: // testing egg contract on testnet
+    // 0x15c53BA992849aB5291752F5dd373d964635FF03: // testing egg contract on mainnet
+    0x6285333d3224D8fA5AD2146aF919225042F40d3b; // REAL egg contract on mainnet
 
     /// @notice This address will receive the royalty payments from any sales of the NFTs this contract creates.
     address public royaltyRecipient = 0x3d2835cAB8b2Aa7FE825d27D0b6d6E9B6777cC3d;
@@ -82,9 +133,7 @@ contract OnChainTestNftV1_1 is
     uint royaltyFee = 500;
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
-    // solhint-disable-next-line max-line-length
-    string _contractUri = testing1 ? "https://g4kxt42j3axbuh4zuif4fdlcinjueo2q7ns2arareajwmpuneb3q.arweave.net/NxV580nYLhofmaILwo1iQ1NCO1D7ZaBEESATZj6NIHc" 
-    : "{TBD Arweave URL}";
+    string _contractUri;
 
     // points to a contract which handles custom or non-standard types 
     ICustomTypeHandler customTypeHandler;
@@ -93,7 +142,7 @@ contract OnChainTestNftV1_1 is
     IDataSafeguardChecker dataSafeguardChecker; 
 
     bool public forceChecked = true;
-    bool public skipBrokenUriAttributes = true;
+    // bool public skipBrokenUriAttributes = true;
 
     // if `hatchingAllowed[0]` is true then all eggs are allowed to hatch,
     // else an egg with id `ID` is only allowed to hatch if `hatchingAllowed[ID]` is true
@@ -134,33 +183,38 @@ contract OnChainTestNftV1_1 is
     function initialize() public virtual override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
         hatchingAllowed[0] = true;
+
+        if (testing1) {
+            // solhint-disable-next-line max-line-length
+            _contractUri = "https://g4kxt42j3axbuh4zuif4fdlcinjueo2q7ns2arareajwmpuneb3q.arweave.net/NxV580nYLhofmaILwo1iQ1NCO1D7ZaBEESATZj6NIHc";
+            assert(keccak256(bytes(name)) == keccak256(bytes("Tst Mixie")));
+            assert(keccak256(bytes(symbol)) == keccak256(bytes("METANOIA MIXIE Tst")));
+        }
+        else {
+            _contractUri = ""; // can be added post-launch
+            assert(keccak256(bytes(name)) == keccak256(bytes("Mixie")));
+            assert(keccak256(bytes(symbol)) == keccak256(bytes("METANOIA MIXIE")));
+        }
+
+        if (testing3) {
+            assert(mixieEggSenderContract == 0x15c53BA992849aB5291752F5dd373d964635FF03);
+        }
+        else {
+            assert(mixieEggSenderContract == 0x6285333d3224D8fA5AD2146aF919225042F40d3b);
+        }
         
         // Register attribute 0 as a default "null" attribute
         attributeContexts.context_fromID.push(AttributeContext(
             "",
             "string",
             true,
-            TypeConversions.StringToBytes("")
+            TypeConversions.stringToBytes("")
         ));
         setUriVisibility(attributeContexts.context_fromID.length - 1, false);
 
-        // should have a setup script that allows setting all the initial conditions
+        // utilizes a setup script that allows setting all the initial conditions
 
         super.initialize();
-    }
-
-    function testMint(address to, uint id) public {
-        // require(
-        //     testing1 || testing2, 
-        //     "ERRX"
-        //     // "Cannot call this function in production"
-        // );
-        _mint(to, id, 1, "");
-    }
-
-    string _uriGasTest;
-    function uriGasTest(uint id) public {
-        _uriGasTest = uri(id);
     }
 
     /** @notice Returns the contract URI for the collection of tickets. This is used by OpenSea to 
@@ -199,34 +253,57 @@ contract OnChainTestNftV1_1 is
         emit royaltyInfoChanged(_msgSender(), recipient, feeInBasisPoints);
     }
 
-    function changeForceChecked(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    function setDataSafeguardChecker(address _dataSafeguardChecker) 
+    external onlyRole(DEFAULT_ADMIN_ROLE) whenNotPaused {
+        emit dataSafeguardCheckerChanged(msg.sender, address(dataSafeguardChecker), _dataSafeguardChecker);
+        dataSafeguardChecker = IDataSafeguardChecker(_dataSafeguardChecker);
+    }
+
+    function setCustomTypeHandler(address _customTypeHandler) external onlyRole(DEFAULT_ADMIN_ROLE) whenNotPaused {
+        emit customTypeHandlerChanged(msg.sender, address(customTypeHandler), _customTypeHandler);
+        customTypeHandler = ICustomTypeHandler(_customTypeHandler);
+    }
+
+    function setHatchingAllowed(uint id, bool value) public whenNotPaused {
+        require(
+            hasRole(HATCH_MANAGER_ROLE, _msgSender()) || 
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "ERR8"
+            // "Sender is not Hatch Manager or Admin"
+        );
+        hatchingAllowed[id] = value;
+        emit hatchingAllowedSet(msg.sender, id, value);
+    }
+
+    function changeForceChecked(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) whenNotPaused {
+        emit forceCheckedChanged(msg.sender, forceChecked, _bool);
         forceChecked = _bool;
     }
 
     function authorizeAddressForWritingAttributes(address _address, bool canRegisterNewAttributes) 
-    external nonReentrant {
+    external nonReentrant whenNotPaused {
         require(
             hasRole(WRITE_ACCESS_AUTHORIZER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERRX"
+            "ERR1"
             //"Sender is not authorized to grant write access to data"
         );
-        // _addAddress(_address, authorizedAddressesIndex);
         _grantRole(WRITE_ACCESSOR_ROLE, _address);
         if (canRegisterNewAttributes) {
             _grantRole(ATTRIBUTE_REGISTRAR_ROLE, _address);
         }
+        emit addressAuthorizedForWritingAttributes(msg.sender, _address, canRegisterNewAttributes);
     }
 
     function registerAttribute(
         string memory attributeName,
         string memory attributeType,
         bytes memory defaultValue
-    ) public {
+    ) public whenNotPaused {
         require(
             hasRole(ATTRIBUTE_REGISTRAR_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERRX"
+            "ERR2"
             // "Sender is not Attribute Registrar or Admin"
         );
         // 0. check that name has not already been registed
@@ -235,8 +312,8 @@ contract OnChainTestNftV1_1 is
 
         require(
             attributeContexts.ID_fromName[attributeName] == 0,
-            "ERRX"
-            // an attribute with this name has already been registered 
+            "ERR3"
+            // "An attribute with this name has already been registered" 
         );
         attributeContexts.context_fromID.push(AttributeContext(
             attributeName,
@@ -246,6 +323,7 @@ contract OnChainTestNftV1_1 is
         ));
         // attributeContexts.context_fromID is 1-indexed
         attributeContexts.ID_fromName[attributeName] = attributeContexts.context_fromID.length - 1;
+        emit attributeRegistered(msg.sender, attributeName, attributeType, defaultValue);
     }
 
     // returns the registration status for an attribute of a given id
@@ -270,8 +348,8 @@ contract OnChainTestNftV1_1 is
                         attributes[nftId_][attributeId],
                         nftId_
                     ),
-                    "ERRX"
-                    // "data in `attributes[{nftId_}][{attributeId}] failed data checks`"
+                    "ERR4"
+                    // "Data in `attributes[{nftId_}][{attributeId}] failed data checks`"
                 );
             }
             require(isRegistered(attributeId));
@@ -287,11 +365,11 @@ contract OnChainTestNftV1_1 is
         return getAttributeById(nftId_, getAttributeIdFromName(attributeName), checked, blankIsDefault);
     }
 
-    function _setAttribute(uint nftId_, uint attributeId, bool checked, bytes memory value) internal {
+    function _setAttribute(uint nftId_, uint attributeId, bool checked, bytes memory value) internal whenNotPaused {
         require(
             hasRole(WRITE_ACCESSOR_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERRX"
+            "ERR5"
             // "Sender is not authorised to write and is not Admin"
         );
         if (checked || forceChecked) {
@@ -303,13 +381,14 @@ contract OnChainTestNftV1_1 is
                         value,
                         nftId_
                     ),
-                    "ERRX"
-                    // "given value failed data checks`"
+                    "ERR4A"
+                    // "Given value failed data checks"
                 );
             }
             require(isRegistered(attributeId));
         }
         attributes[nftId_][attributeId] = value;
+        emit attributeSet(msg.sender, nftId_, attributeId, checked, value);
     }
     function setAttributeById(uint nftId_, uint attributeId, bool checked, bytes memory value)
     external nonReentrant {
@@ -346,11 +425,16 @@ contract OnChainTestNftV1_1 is
         _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.bytes32ToBytes(value));
     }
 
-    function setUriVisibility(uint attributeId, bool visible) public {
+    function setStringAttribute(uint nftId_, string memory attributeName, bool checked, string memory value) 
+    external nonReentrant {
+        _setAttribute(nftId_, getAttributeIdFromName(attributeName), checked, TypeConversions.stringToBytes(value));
+    }
+
+    function setUriVisibility(uint attributeId, bool visible) public whenNotPaused {
         require(
             hasRole(URI_MANAGER_ROLE, _msgSender()) || 
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERRX"
+            "ERR6"
             // "Sender is not Uri Manager or Admin"
         );
         if (visible) {
@@ -359,20 +443,23 @@ contract OnChainTestNftV1_1 is
         else {
             _tryToRemoveUint(attributeId, visibleInUriIndex);
         }
+        emit uriVisibilitySet(msg.sender, attributeId, visible);
     }
 
-    
-
-    // DEVNOTE: incomplete formatting - need to massage to fit into OpenSea's expected format
-    // DEVNOTE: can condense?
-    // Note:    This uri call is VERY expensive, and should NOT be used within a contract transaction.
+    // Note:    This uri call can be VERY expensive, and should generally NOT be used within a contract transaction.
     //          This is only for compatibility with ERC1155, intended to be called from off-blockchain applications
 	function uri(uint256 nftId) override(ERC1155) public view returns (string memory) {
 		// add each of the pre-existing required attributes into the uri
         string memory _uriString = string(abi.encodePacked('{\n\t',
-            '"name":"', TypeConversions.bytesToString(getAttribute(nftId, "name", false, true)), '",\n\t',
-            '"symbol":"', symbol, '",\n\t',
-            '"image":"', TypeConversions.bytesToString(getAttribute(nftId, "image", false, true)), '",\n\t',
+            '"name":"', 
+                TypeConversions.bytesToString(getAttribute(nftId, "name", false, true)), 
+            '",\n\t',
+            '"symbol":"', 
+                symbol, 
+            '",\n\t',
+            '"image":"', 
+                TypeConversions.bytesToString(getAttribute(nftId, "image", false, true)), 
+            '",\n\t',
             '"description":"', 
                 // TypeConversions.bytesToString(attributes[nftId][getAttributeIdFromName("description")]), 
                 TypeConversions.bytesToString(getAttribute(nftId, "description", false, true)), 
@@ -407,7 +494,7 @@ contract OnChainTestNftV1_1 is
         // first 5 present in uri (i=1...5) are listed outside the "attributes" section
         for (uint _i = 6; _i <= uintLists[1].length; _i++) { // change to 6
             uint i = uintLists[1].list[_i];
-            bool matchedType;
+            // bool matchedType;
             // for each attribute, if the value of that attribute for that ID is not the default value,
             // then add the NAME and VALUE (converted from bytes to the attribute's TYPE then to string)
 
@@ -427,7 +514,7 @@ contract OnChainTestNftV1_1 is
                     TypeConversions.boolToString(TypeConversions.bytesToBool(getAttributeById(nftId, i, false, true))),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // uint
@@ -447,7 +534,7 @@ contract OnChainTestNftV1_1 is
                     TypeConversions.uintToString(TypeConversions.bytesToUint(getAttributeById(nftId, i, false, true))),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // int
@@ -467,7 +554,7 @@ contract OnChainTestNftV1_1 is
                     TypeConversions.intToString(TypeConversions.bytesToInt(getAttributeById(nftId, i, false, true))),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // address
@@ -487,7 +574,7 @@ contract OnChainTestNftV1_1 is
                     )),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // bytes32
@@ -507,7 +594,7 @@ contract OnChainTestNftV1_1 is
                     )),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // bytes or string
@@ -528,7 +615,7 @@ contract OnChainTestNftV1_1 is
                     TypeConversions.bytesToString(getAttributeById(nftId, i, false, true)),
                     '"\n\t\t}'
                 ));
-                matchedType = true;
+                // matchedType = true;
             }
 
             // custom types
@@ -549,19 +636,20 @@ contract OnChainTestNftV1_1 is
                         ),
                         '"\n\t\t}'
                     ));
-                    matchedType = true;
+                    // matchedType = true;
                 } 
             }
 
-            if (!skipBrokenUriAttributes) {
-                require(
-                    matchedType,
-                    "listed type does not match with any known type"
-                );
-            }
+            // if (!skipBrokenUriAttributes) {
+            //     require(
+            //         matchedType,
+            //         "ERR7"
+            //         // "Listed type does not match with any known type"
+            //     );
+            // }
 
             // if not the last attribute in uri and the attribute is not skipped, add a comma
-            if(_i < uintLists[1].length && matchedType) {
+            if(_i < uintLists[1].length /*&& matchedType*/) {
                 _uriString = string(abi.encodePacked(
                     _uriString, 
                     ','
@@ -582,18 +670,8 @@ contract OnChainTestNftV1_1 is
         ));
 	}  
 
-    function setHatchingAllowed(uint id, bool value) public {
-        require(
-            hasRole(HATCH_MANAGER_ROLE, _msgSender()) || 
-            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
-            "ERRX"
-            //"Sender is not authorized to grant write access to data"
-        );
-        hatchingAllowed[id] = value;
-    }
-
     function onERC1155Received(
-        address /*operator*/,
+        address operator,
         address from,
         uint256 id,
         uint256 value,
@@ -601,15 +679,16 @@ contract OnChainTestNftV1_1 is
     ) public virtual override returns (bytes4) {
         require(
             msg.sender == mixieEggSenderContract,
-            "ERRX"
-            // "this contract only accepts function calls from the mixie egg contract"    
+            "ERR9"
+            // "This contract only accepts NFTs produced from the mixie egg contract"    
         );
         require(
             hatchingAllowed[0] || hatchingAllowed[id],
-            "ERRX"
-            // "this Mixie egg cannot be hatched at this time"
+            "ERR9A"
+            // "This Mixie egg cannot be hatched at this time"
         );
         _mint(from, id, value, data);
+        emit mixieEggReceived(operator, from, id, value, data);
         return this.onERC1155Received.selector;
     }
 
@@ -636,10 +715,6 @@ contract OnChainTestNftV1_1 is
         returns (bool)
     {
         return
-            interfaceId == type(IERC2981Royalties).interfaceId ||
-            interfaceId == type(IERC1155).interfaceId ||
-            interfaceId == type(IERC1155MetadataURI).interfaceId ||
-            interfaceId == type(AccessControl).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 

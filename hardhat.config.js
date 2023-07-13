@@ -32,15 +32,65 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 100
-            // runs: 1 //for testing
+            runs: 1000000
+            // max runs <= 2000000000
+            // max runs respected by Hardhat plugin on matic_tesnet = 1000000
           }
         }
       },
       {
         version: "0.8.2"
-      },
+      }
     ],
+    overrides: {
+      // MixiesBaseV#_#
+      "contracts/Mixies Base.sol": {
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 30
+          }
+        }
+      },
+      // OnChainTestNftV#_#
+      "contracts/OnChainNftPrototype.sol": { 
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 325
+          }
+        }
+      },
+      // MixieNftSaleIntegratedContract ... V#_# 
+      "contracts/Mixie Sale Integrated Contract.sol": { 
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200
+          }
+        }
+      },
+      // MetavivaPassNFTs
+      "contracts/Metaviva Pass NFTs.sol": {
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 1000000,
+            details: {
+              yul: true,
+              yulDetails: {
+                stackAllocation: true,
+                optimizerSteps: "dhfoDgvulfnTUtnIf"
+              }
+            }
+          }
+        }
+      }
+    }
   },
   defaultNetwork: 'hardhat',
   networks: {
@@ -57,7 +107,7 @@ module.exports = {
     },
     matic: {
       url: "https://polygon-rpc.com",
-      accounts: [process.env.PRIVATE_KEY]
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
   // ethernal: {

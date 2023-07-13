@@ -1,1 +1,3 @@
 Credit for this ERC2981 implementation for NFT royalties goes to Simon Fremaux and the other contributors of this github repo: https://github.com/dievardump/EIP2981-implementation
+
+Credit for the implementation of events on change of ERC2981 royalties goes to Conor McKenzie

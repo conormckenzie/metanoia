@@ -39,7 +39,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.4;
 
-contract MixieNftSaleIntegratedContractTestPostLaunchV2 is 
+contract MixieNftSaleIntegratedContractTestPostLaunchV2_1 is 
 ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable, Ownable {
 
     // IN PRODUCTION, ALL TESTING TOGGLES SHOULD BE FALSE
@@ -75,6 +75,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     // ERR21: "Coupon number of uses cannot be zero"
     // ERR22: "Sender is not Coupon Manager, Coupon User, Admin, or Coupon Owner"
     // ERR23: "Matching coupon not found"
+    // ERR24: "USDC token transfer failed"
 
     ///GENERAL-----------------------------
     
@@ -147,15 +148,34 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint royaltyFee = 500;
 
     /// @dev    This URI is used to store the royalty and collection information on OpenSea.
-    // solhint-disable-next-line max-line-length
-    string _contractUri = testing2 ? "" : "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+    string _contractUri;
 
      /// @dev    Some external applications use these variables to show info about the contract or NFT collection.
-    string public constant name = testing2 ? "Test Mixie (Egg)" : "Mixie (Egg)"; 
-    string public symbol = testing2 ? "METANOIA MIXIE TEST" : "METANOIA MIXIE"; 
+    string public name; 
+    string public symbol; 
+
+    // solhint-disable-next-line max-line-length
+    string constructorUri;
 
     function initialize() public override initializer {
         _grantRole(DEFAULT_ADMIN_ROLE, 0x012d1deD4D8433e8e137747aB6C0B64864A4fF78);
+
+        // replaces ternary assignment of units which is incompatible with slither-analyzer
+        assert((testing1 && units == 10**0) || (!testing1 && units == 10**6));
+
+        if (testing2) {
+            _contractUri = "";
+            name = "Test Mixie (Egg)";
+            symbol = "METANOIA MIXIE TEST";
+            constructorUri = "";
+        } else {
+            // solhint-disable-next-line max-line-length
+            _contractUri = "https://ojpdoobn6gon7czwnz4cxf3hyfknkr6sd6j5ubs3ibwhtbpxwd6a.arweave.net/cl43OC3xnN-LNm54K5dnwVTVR9Ifk9oGW0BseYX3sPw";
+            name = "Mixie (Egg)";
+            symbol = "METANOIA MIXIE";
+            // solhint-disable-next-line max-line-length
+            constructorUri = "https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY";
+        }
 
         startTime   = block.timestamp;
         topTime	    = startTime;
@@ -179,9 +199,7 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint public constant maxSupply = 10000;
     uint constant reserved = 500;
     uint public nextUnusedToken = reserved + 1;
-    // solhint-disable-next-line max-line-length
-    string constant constructorUri = testing2 ? "" : "https://yxd2s52zusufp7tdaok43a7cxpmjtthi7sgghyfgvi57nepuil3a.arweave.net/xcepd1mkqFf-YwOVzYPiu9iZzOj8jGPgpqo79pH0QvY";
-
+    
     constructor() ERC1155(constructorUri) {
         initialize();
     }
@@ -268,8 +286,8 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
     uint endTime;
     // uint constant blockTime = 2150; // an estimate of the average time between blocks on polygon mainnet in ms
 
-    //uint constant units = 10**6;
-    uint constant units = testing1 ? 10**0 : 10**6; 
+    //uint constant units = 10**0;
+    uint constant units = 10**6; 
     function getUnits() external pure returns(uint) { return units; }
     uint constant topPrice = 10000 * units;
     uint constant bottomPrice = 1000 * units;
@@ -474,7 +492,11 @@ ERC1155Supply, ERC2981ContractWideRoyalties, ReentrancyGuard, EmergencyPausable,
             // "Amount of USDC transferred must be a positive non-zero value"
         );
         //requires javascript code to get buyer to first approve the allowance
-        usdcToken.transferFrom(msg.sender, address(this), amount);
+        require(
+            usdcToken.transferFrom(msg.sender, address(this), amount),
+            "ERR24"
+            // "USDC token transfer failed"
+        );
         usdcBalances[msg.sender] += amount;
         emit usdcReceived(_msgSender(), amount);
     }

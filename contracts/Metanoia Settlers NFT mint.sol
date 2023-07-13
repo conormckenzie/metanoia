@@ -193,6 +193,10 @@ contract SettlersTickets is ERC1155Supply, _AddressList, Ownable, ERC2981Contrac
     /// @param  recipient The address which will receive royalty payments
     /// @param  feeInBasisPoints The royalty fee in basis points (units of 0.01%)
     function setRoyaltyInfo(address recipient, uint feeInBasisPoints) public onlyOwner {
+        require(
+            recipient != address(0),
+            "Cannot set the zero address as royalty recipient"
+        );
         royaltyRecipient = recipient;
         royaltyFee = feeInBasisPoints;
         _setRoyalties(royaltyRecipient, royaltyFee);

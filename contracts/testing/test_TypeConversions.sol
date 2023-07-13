@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/TypeConversions.sol";
+import "../utils/libraries/TypeConversions.sol";
 
 contract testTypeConversions {
 
@@ -71,6 +71,6 @@ contract testTypeConversions {
         }
 
         function tryStringToBytes(string memory _s) public pure returns (bytes memory _B) {
-            return TypeConversions.StringToBytes(_s);
+            return TypeConversions.stringToBytes(_s);
         }
 }

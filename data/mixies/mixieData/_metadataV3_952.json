@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    {
+      "name": "name",
+      "public": true,
+      "value": "Fashion Courage Mixie"
+    },
+    {
+      "name": "Category",
+      "public": true,
+      "value": "Fashion"
+    },
+    {
+      "name": "Category Item",
+      "public": true,
+      "value": "Oversized Scarf"
+    },
+    {
+      "name": "Type",
+      "public": true,
+      "value": "Courage"
+    },
+    {
+      "name": "Palette",
+      "public": true,
+      "value": "Seafoam"
+    },
+    {
+      "name": "Suit",
+      "public": true,
+      "value": "Clubs"
+    },
+    {
+      "name": "Fluff",
+      "public": true,
+      "value": "Swept"
+    },
+    {
+      "name": "Ears",
+      "public": true,
+      "value": "Pointed"
+    },
+    {
+      "name": "Eyes",
+      "public": true,
+      "value": "Baby"
+    },
+    {
+      "name": "Nose",
+      "public": true,
+      "value": "Blush"
+    },
+    {
+      "name": "Mouth",
+      "public": true,
+      "value": "Demure"
+    },
+    {
+      "name": "Cheeks",
+      "public": true,
+      "value": "Dusty"
+    },
+    {
+      "name": "Tail",
+      "public": true,
+      "value": "Long"
+    },
+    {
+      "name": "Torso",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Head",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Left Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Right Arm",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Accessory",
+      "public": true,
+      "value": "Specs"
+    },
+    {
+      "name": "Wings",
+      "public": true,
+      "value": "None"
+    },
+    {
+      "name": "Background Effect",
+      "public": true,
+      "value": "Cloudy"
+    },
+    {
+      "name": "Foreground Cloud",
+      "public": false,
+      "value": "Clouds"
+    },
+    {
+      "name": "Background",
+      "public": false,
+      "value": "09"
+    },
+    {
+      "name": "Background Cloud",
+      "public": false,
+      "value": "Cloudbase"
+    }
+  ]
+}

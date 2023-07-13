@@ -88,10 +88,10 @@ contract SoulBoundTokensV1_1 is ERC1155MultiUri, AccessControl, Ownable, Emergen
         _setURI(id, newuri);
     }
 
-    function mintNewSBT(address account, uint256 id, uint256 amount, string memory uri)
+    function mintNewSBT(address account, uint256 id, uint256 amount, string memory newuri)
         public onlyRole(MINTER_ROLE) whenNotPaused
     {
-        _mintWithURI(account, id, amount, "", uri);
+        _mintWithURI(account, id, amount, "", newuri);
     }
 
     function mintExistingSBT(address account, uint256 id, uint256 amount) 
